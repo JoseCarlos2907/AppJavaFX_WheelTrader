@@ -1,0 +1,18 @@
+.inputs, .inputs:focus{
+    -fx-background-radius: 25;
+}
+
+.botonInicioSesion{
+    -fx-background-radius: 25;
+    background-color: #0057B7;
+    -fx-background-color: #0057B7;
+    -fx-text-fill: white;
+}
+
+.botonRegistro{
+    -fx-background-radius: 25;
+    -fx-text-fill: #1c1c1c;
+    background-color: #ff8c00;
+    -fx-background-color: #ff8c00;
+
+}

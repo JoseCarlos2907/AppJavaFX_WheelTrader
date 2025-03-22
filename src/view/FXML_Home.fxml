@@ -2,10 +2,13 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
 
-
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller_Home">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller_Home">
    <children>
-      <Label fx:id="Lbl_Bienvenido" layoutX="250.0" layoutY="192.0" text="Un label simple" />
+      <Label fx:id="Lbl_Bienvenido" layoutX="541.0" layoutY="379.0" text="Un label simple">
+         <font>
+            <Font size="43.0" />
+         </font></Label>
    </children>
 </Pane>
