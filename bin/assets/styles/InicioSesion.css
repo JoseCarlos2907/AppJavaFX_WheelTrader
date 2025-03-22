@@ -1,3 +1,15 @@
+@font-face {
+    font-family: "InstrumentSans";
+    src: url("../fonts/Instrument_Sans/static/InstrumentSans-Regular.ttf");
+}
+
+*{
+    font-family: InstrumentSans;
+    -fx-font-family: "InstrumentSans";
+    font-size: 20px;
+    -fx-font-size: 20px;
+}
+
 .inputs, .inputs:focus{
     -fx-background-radius: 25;
 }

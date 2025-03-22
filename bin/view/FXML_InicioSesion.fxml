@@ -12,7 +12,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" stylesheets="@../styles/InicioSesion.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller_InicioSesion">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" stylesheets="@../assets/styles/InicioSesion.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.Controller_InicioSesion">
    <children>
       <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#6699d2" height="677.0" layoutX="460.0" layoutY="64.0" stroke="#ffffff00" strokeType="INSIDE" width="500.0">
          <effect>
@@ -74,7 +74,7 @@
          </font></TextField>
       <ImageView fitHeight="145.0" fitWidth="256.0" layoutX="587.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../assets/LogoBlanco.png" />
+            <Image url="@../assets/img/LogoBlanco.png" />
          </image>
       </ImageView>
    </children>
