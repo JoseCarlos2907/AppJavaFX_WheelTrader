@@ -21,12 +21,10 @@ import javafx.stage.Stage;
 import model.Mensaje;
 import util.SecureUtils;
 import util.Serializador;
-import util.Session;
 
 public class Controller_InicioSesion implements Initializable {
     private DataOutputStream dos;
     private Socket socket;
-    // private Session session;
     
     @FXML
     private Button Btn_InicioSesion;
@@ -102,7 +100,6 @@ public class Controller_InicioSesion implements Initializable {
         Parent nuevaVista = loader.load();
 
         Controller_Home controller = loader.getController();
-        // controller.setSession(session);
         controller.setSocket(socket);
     
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
@@ -116,5 +113,12 @@ public class Controller_InicioSesion implements Initializable {
 
     public String getContrasenia(){
         return this.TxtF_Contrasenia.getText();
+    }
+
+    public void pedirUsuarioJSON() throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_USUARIO");
+        msg.addParam(this.getNombreUsuarioCorreo());
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
     }
 }

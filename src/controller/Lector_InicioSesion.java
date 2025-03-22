@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.Base64;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import javafx.application.Platform;
 import model.Mensaje;
 import model.Usuario;
@@ -16,9 +18,12 @@ public class Lector_InicioSesion extends Thread{
     private InputStream flujoInicioSesion;
     private Controller_InicioSesion controllerInicioSesion;
 
+    private static String usuarioJSON;
+
     public Lector_InicioSesion(InputStream flujoInicioSesion, Controller_InicioSesion controllerInicioSesion) {
         this.flujoInicioSesion = flujoInicioSesion;
         this.controllerInicioSesion = controllerInicioSesion;
+        usuarioJSON = "";
     }
 
     @Override
@@ -32,13 +37,18 @@ public class Lector_InicioSesion extends Thread{
                 Mensaje msgServidor = Serializador.decodificarMensaje(linea);
                 
                 if("ENVIA_SALT".equals(msgServidor.getTipo())){
+                    // System.out.println("ENVIA_SALT");
                     this.controllerInicioSesion.respuestaSalt(Base64.getDecoder().decode(msgServidor.getParams().get(0)));
 
                 }else if("INICIA_SESION".equals(msgServidor.getTipo())){
+                    // System.out.println("INICIA_SESION");
                     if("si".equals(msgServidor.getParams().get(0))){
                         iniciaSesion = true;
+                        System.out.println("Inicia sesion");
+                        usuarioJSON = msgServidor.getParams().get(1);
                     }else if("no".equals(msgServidor.getParams().get(0))){
                         this.controllerInicioSesion.inicioDeSesionIncorrecto();
+                        System.out.println("Incorrecto");
                     }
                 }
             } catch (EOFException e) {
@@ -52,7 +62,9 @@ public class Lector_InicioSesion extends Thread{
         if(iniciaSesion){
             Platform.runLater(() -> {
                 try {
-                    Session.iniciarSession(new Usuario(this.controllerInicioSesion.getNombreUsuarioCorreo(), this.controllerInicioSesion.getContrasenia(), ""));
+                    ObjectMapper mapper = new ObjectMapper();
+                    Usuario usuario = mapper.readValue(usuarioJSON, Usuario.class);
+                    Session.iniciarSession(usuario);
                     this.controllerInicioSesion.abrirAplicacion();
                 } catch (IOException e) {
                     System.err.println(e.getMessage());
