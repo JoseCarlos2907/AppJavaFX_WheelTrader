@@ -44,11 +44,9 @@ public class Lector_InicioSesion extends Thread{
                     // System.out.println("INICIA_SESION");
                     if("si".equals(msgServidor.getParams().get(0))){
                         iniciaSesion = true;
-                        System.out.println("Inicia sesion");
                         usuarioJSON = msgServidor.getParams().get(1);
                     }else if("no".equals(msgServidor.getParams().get(0))){
                         this.controllerInicioSesion.inicioDeSesionIncorrecto();
-                        System.out.println("Incorrecto");
                     }
                 }
             } catch (EOFException e) {
