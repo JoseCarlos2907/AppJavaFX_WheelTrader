@@ -1,5 +1,7 @@
 package com.iesfernandoaguilar.perezgonzalez.app;
 
+import org.kordamp.bootstrapfx.BootstrapFX;
+
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -11,7 +13,10 @@ public class LanzarVentanaCliente extends Application {
     public void start(Stage primStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/FXML_InicioSesion.fxml"));
         primStage.setTitle("Wheel Trader");
-        primStage.setScene(new Scene(root));
+
+        Scene scene = new Scene(root);
+        scene.getStylesheets().add(BootstrapFX.bootstrapFXStylesheet());
+        primStage.setScene(scene);
         primStage.show();
     }
 

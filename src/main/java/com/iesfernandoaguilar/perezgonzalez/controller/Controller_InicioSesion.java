@@ -13,9 +13,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
@@ -75,6 +77,7 @@ public class Controller_InicioSesion implements Initializable {
     void handleBtnIniciarSesionAction(MouseEvent event) throws IOException {
         String nombreUsuario = new String(TxtF_Correo_NomUsu.getText());
         
+
         Mensaje msg = new Mensaje();
         msg.setTipo("OBTENER_SALT");
         msg.addParam(nombreUsuario);
@@ -92,7 +95,13 @@ public class Controller_InicioSesion implements Initializable {
     }
 
     public void inicioDeSesionIncorrecto(){
-        System.out.println("Credenciales incorrectas.");
+        // System.out.println("Credenciales incorrectas.");
+
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Credenciales incorrectas");
+        alert.setHeaderText("El nombre de usuario, el correo o la contraseña no son correctos");
+        alert.getDialogPane().getStyleClass().addAll("alert");
+        alert.showAndWait();
     }
 
     public void abrirAplicacion() throws IOException{
