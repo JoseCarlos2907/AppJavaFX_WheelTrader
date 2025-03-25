@@ -8,6 +8,8 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
+import org.kordamp.bootstrapfx.BootstrapFX;
+
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -99,8 +101,11 @@ public class Controller_InicioSesion implements Initializable {
 
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Credenciales incorrectas");
-        alert.setHeaderText("El nombre de usuario, el correo o la contraseña no son correctos");
-        alert.getDialogPane().getStyleClass().addAll("alert");
+        alert.setHeaderText(null);
+        alert.setContentText("El nombre de usuario, el correo o la contraseña no son correctos");
+        // alert.getDialogPane().getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("alert-error");
         alert.showAndWait();
     }
 
@@ -112,7 +117,11 @@ public class Controller_InicioSesion implements Initializable {
         controller.setSocket(socket);
     
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
-        stage.setScene(new Scene(nuevaVista));
+
+        Scene scene = new Scene(nuevaVista);
+        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
+
+        stage.setScene(scene);
         stage.show();
         stage.centerOnScreen();
     }

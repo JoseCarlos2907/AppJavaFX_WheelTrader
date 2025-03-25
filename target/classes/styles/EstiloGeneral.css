@@ -1,0 +1,58 @@
+@font-face {
+    font-family: "InstrumentSans";
+    src: url("../fonts/Instrument_Sans/static/InstrumentSans-Regular.ttf");
+}
+
+*{
+    font-family: InstrumentSans;
+    -fx-font-family: "InstrumentSans";
+    font-size: 20px;
+    -fx-font-size: 20px;
+}
+
+.botonAzul{
+    -fx-background-radius: 25;
+    background-color: #0057B7;
+    -fx-background-color: #0057B7;
+    -fx-text-fill: white;
+}
+
+.botonNaranja{
+    -fx-background-radius: 25;
+    -fx-text-fill: #1c1c1c;
+    background-color: #ff8c00;
+    -fx-background-color: #ff8c00;
+}
+
+
+.alert-error{
+    background-color: #d26666;
+    -fx-background-color: #d26666;
+    -fx-pref-width: 600px;
+    -fx-pref-height: 150px;
+}
+
+.alert-error *{
+    font-size: 16px;
+    -fx-font-size: 16px;
+}
+
+.alert-error Button{
+    background-color: transparent;
+    -fx-background-color: transparent;
+    border-color: #530101;
+    -fx-border-color: #530101;
+    border-width: 2.5px;
+    -fx-border-width: 2.5px;
+    border-radius: 3px;
+    -fx-border-radius: 3px;
+    -fx-text-fill: #530101;
+}
+
+.alert-error Button:hover{
+    -fx-text-fill: #d26666;
+    cursor: hand;
+    -fx-cursor: hand;
+    background-color: #530101;
+    -fx-background-color: #530101;
+}
