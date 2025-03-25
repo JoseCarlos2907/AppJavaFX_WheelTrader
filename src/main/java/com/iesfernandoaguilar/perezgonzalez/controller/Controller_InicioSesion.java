@@ -114,6 +114,7 @@ public class Controller_InicioSesion implements Initializable {
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
         stage.setScene(new Scene(nuevaVista));
         stage.show();
+        stage.centerOnScreen();
     }
 
     public String getNombreUsuarioCorreo(){

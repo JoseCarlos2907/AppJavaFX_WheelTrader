@@ -9,12 +9,17 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.paint.Color?>
-<?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" stylesheets="@../styles/InicioSesion.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_InicioSesion">
+<Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="699.0" prefWidth="525.0" stylesheets="@../styles/InicioSesion.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_InicioSesion">
    <children>
-      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#6699d2" height="677.0" layoutX="460.0" layoutY="64.0" stroke="#ffffff00" strokeType="INSIDE" width="500.0">
+      <Button fx:id="Btn_InicioSesion" layoutX="157.0" layoutY="433.0" mnemonicParsing="false" onMouseClicked="#handleBtnIniciarSesionAction" prefHeight="39.0" prefWidth="208.0" styleClass="botonInicioSesion" text="Iniciar Sesión" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="20.0" />
+         </font>
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>
@@ -22,8 +27,8 @@
                </color>
             </DropShadow>
          </effect>
-      </Rectangle>
-      <Button fx:id="Btn_InicioSesion" layoutX="604.0" layoutY="489.0" mnemonicParsing="false" onMouseClicked="#handleBtnIniciarSesionAction" prefHeight="39.0" prefWidth="208.0" styleClass="botonInicioSesion" text="Iniciar Sesión" textFill="WHITE">
+      </Button>
+      <Button fx:id="Btn_Registrarse" layoutX="157.0" layoutY="515.0" mnemonicParsing="false" onMouseClicked="#handleBtnRegistrarseAction" prefHeight="39.0" prefWidth="208.0" styleClass="botonRegistro" text="Registrarse" textFill="#1c1c1c">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -36,43 +41,33 @@
                   <Color opacity="0.4000000059604645" />
                </color>
             </DropShadow>
-         </effect></Button>
-      <Button fx:id="Btn_Registrarse" layoutX="604.0" layoutY="571.0" mnemonicParsing="false" onMouseClicked="#handleBtnRegistrarseAction" prefHeight="39.0" prefWidth="208.0" styleClass="botonRegistro" text="Registrarse" textFill="#1c1c1c">
-         <cursor>
-            <Cursor fx:constant="HAND" />
-         </cursor>
-         <font>
-            <Font size="20.0" />
-         </font>
-         <effect>
-            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
-               <color>
-                  <Color opacity="0.4000000059604645" />
-               </color>
-            </DropShadow>
-         </effect></Button>
-      <Label fx:id="Lbl_RecuperarContrasenia" layoutX="599.0" layoutY="678.0" onMouseClicked="#handleLblRecuperarContraseniaAction" text="Recuperar contraseña" textAlignment="CENTER" textFill="#1c1c1c" underline="true">
+         </effect>
+      </Button>
+      <Label fx:id="Lbl_RecuperarContrasenia" layoutX="152.0" layoutY="622.0" onMouseClicked="#handleLblRecuperarContraseniaAction" text="Recuperar contraseña" textAlignment="CENTER" textFill="#1c1c1c" underline="true">
          <font>
             <Font name="System Bold" size="20.0" />
          </font>
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor></Label>
-      <TextField fx:id="TxtF_Correo_NomUsu" layoutX="503.0" layoutY="287.0" prefHeight="50.0" prefWidth="410.0" promptText="Correo o nombre de usuario" styleClass="inputs">
+         </cursor>
+      </Label>
+      <TextField fx:id="TxtF_Correo_NomUsu" layoutX="56.0" layoutY="231.0" prefHeight="50.0" prefWidth="410.0" promptText="Correo o nombre de usuario" styleClass="inputs">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
          <font>
             <Font size="20.0" />
-         </font></TextField>
-      <TextField fx:id="TxtF_Contrasenia" accessibleRole="PASSWORD_FIELD" layoutX="503.0" layoutY="379.0" prefHeight="50.0" prefWidth="410.0" promptText="Contraseña" styleClass="inputs">
+         </font>
+      </TextField>
+      <TextField fx:id="TxtF_Contrasenia" accessibleRole="PASSWORD_FIELD" layoutX="56.0" layoutY="323.0" prefHeight="50.0" prefWidth="410.0" promptText="Contraseña" styleClass="inputs">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
          <font>
             <Font size="20.0" />
-         </font></TextField>
-      <ImageView fitHeight="145.0" fitWidth="256.0" layoutX="587.0" layoutY="87.0" pickOnBounds="true" preserveRatio="true">
+         </font>
+      </TextField>
+      <ImageView fitHeight="145.0" fitWidth="256.0" layoutX="140.0" layoutY="31.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/LogoBlanco.png" />
          </image>
