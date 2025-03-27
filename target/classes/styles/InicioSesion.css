@@ -1,8 +1,3 @@
-#backgroundPane{
-    background-color: #6699d2;
-    -fx-background-color: #6699d2;
-}
-
 .inputs, .inputs:focus{
     -fx-background-radius: 25;
 }

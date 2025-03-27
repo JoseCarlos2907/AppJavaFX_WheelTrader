@@ -14,27 +14,27 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Circle fill="#8b8b8b" layoutX="551.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8b8b8b" height="25.0" layoutX="295.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="220.0" />
-      <Circle fill="DARKORANGE" layoutX="258.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Circle fill="#8b8b8b" layoutX="846.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8b8b8b" height="25.0" layoutX="589.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="220.0" />
-      <Circle fill="#8b8b8b" layoutX="1139.0" layoutY="154.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="#8b8b8b" height="25.0" layoutX="883.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="220.0" />
-      <Label layoutX="169.0" layoutY="210.0" text="Datos Personales">
+      <Circle fill="WHITE" layoutX="551.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" layoutX="295.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="220.0" />
+      <Circle id="activo" fill="RED" layoutX="258.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="activo" />
+      <Circle fill="WHITE" layoutX="846.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" layoutX="589.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="220.0" />
+      <Circle fill="WHITE" layoutX="1139.0" layoutY="154.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" layoutX="883.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="220.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="527.0" layoutY="215.0" styleClass="titulo" text="Datos Personales" textFill="WHITE">
          <font>
             <Font size="50.0" />
          </font>
       </Label>
       <ImageView fitHeight="89.0" fitWidth="165.0" layoutX="625.0" layoutY="16.0" pickOnBounds="true" preserveRatio="true">
          <image>
-            <Image url="@../img/LogoNegro.png" />
+            <Image url="@../img/LogoAzul.png" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#6699d2" height="343.0" layoutX="263.0" layoutY="283.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="893.0" />
-      <Button fx:id="Btn_Siguiente" layoutX="841.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnIniciarSesionAction" prefHeight="57.0" prefWidth="208.0" styleClass="botonAzul" text="Siguiente" textFill="WHITE">
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#404040" height="343.0" layoutX="263.0" layoutY="283.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="893.0" />
+      <Button fx:id="Btn_Siguiente" layoutX="841.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnIniciarSesionAction" prefHeight="70.0" prefWidth="208.0" styleClass="botonAzul" text="Siguiente" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -49,7 +49,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button fx:id="Btn_Volver" layoutX="363.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnRegistrarseAction" prefHeight="57.0" prefWidth="208.0" styleClass="botonNaranja" text="Volver" textFill="#1c1c1c">
+      <Button fx:id="Btn_Volver" layoutX="363.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnRegistrarseAction" prefHeight="70.0" prefWidth="208.0" styleClass="botonNegro" text="Volver" textFill="#1c1c1c">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

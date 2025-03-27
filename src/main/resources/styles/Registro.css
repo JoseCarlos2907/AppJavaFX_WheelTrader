@@ -1,3 +1,20 @@
 .inputs, .inputs:focus{
     -fx-background-radius: 25;
 }
+
+.activo{
+    -fx-fill: linear-gradient(to bottom right, #bdbdbd, #575757);
+}
+
+.titulo{
+    font-size: 40px !important;
+    -fx-font-size: 40px !important;
+}
+
+.inputs, .inputs:focus{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+}
