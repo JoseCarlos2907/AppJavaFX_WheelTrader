@@ -14,7 +14,9 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1"
+>
    <children>
       <Circle fill="WHITE" layoutX="551.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" layoutX="295.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="220.0" />
@@ -34,7 +36,7 @@
          </image>
       </ImageView>
       <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#404040" height="343.0" layoutX="263.0" layoutY="283.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="893.0" />
-      <Button fx:id="Btn_Siguiente" layoutX="841.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnIniciarSesionAction" prefHeight="70.0" prefWidth="208.0" styleClass="botonAzul" text="Siguiente" textFill="WHITE">
+      <Button fx:id="Btn_Siguiente" layoutX="841.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnSiguienteAction" prefHeight="70.0" prefWidth="208.0" styleClass="botonAzul" text="Siguiente" textFill="WHITE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -49,7 +51,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button fx:id="Btn_Volver" layoutX="363.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnRegistrarseAction" prefHeight="70.0" prefWidth="208.0" styleClass="botonNegro" text="Volver" textFill="#1c1c1c">
+      <Button fx:id="Btn_Volver" layoutX="363.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnVolverAction" prefHeight="70.0" prefWidth="208.0" styleClass="botonNegro" text="Volver" textFill="#1c1c1c">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>

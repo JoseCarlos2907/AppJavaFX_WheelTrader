@@ -5,6 +5,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
+// import java.util.Base64;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -22,13 +23,18 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+
+// import com.fasterxml.jackson.databind.ObjectMapper;
+// import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
+import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1;
 import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.SecureUtils;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
+import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 public class Controller_InicioSesion implements Initializable {
     private DataOutputStream dos;
-    private Socket socket;
+    private Lector_InicioSesion hiloLector;
     
     @FXML
     private Button Btn_InicioSesion;
@@ -48,18 +54,21 @@ public class Controller_InicioSesion implements Initializable {
     
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        Properties prop = new Properties();
-        try {
-            prop.load(new FileInputStream("src/main/resources/conf.properties"));
-            
-            int serverPort = Integer.parseInt(prop.getProperty("PORT"));
-            String serverAddr = prop.getProperty("ADDRESS");
-            
-            this.socket = new Socket(serverAddr, serverPort);
-            this.dos = new DataOutputStream(this.socket.getOutputStream());
-            new Lector_InicioSesion(this.socket.getInputStream(), this).start();
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
+        if(Session.getSocket() == null){
+            Properties prop = new Properties();
+            try {
+                prop.load(new FileInputStream("src/main/resources/conf.properties"));
+                
+                int serverPort = Integer.parseInt(prop.getProperty("PORT"));
+                String serverAddr = prop.getProperty("ADDRESS");
+                
+                Session.setSocket(new Socket(serverAddr, serverPort));
+                this.dos = new DataOutputStream(Session.getOutputStream());
+                this.hiloLector = new Lector_InicioSesion(Session.getInputStream(), this);
+                this.hiloLector.start();
+            } catch (IOException e) {
+                System.err.println(e.getMessage());
+            }
         }
     }
     
@@ -79,7 +88,6 @@ public class Controller_InicioSesion implements Initializable {
     void handleBtnIniciarSesionAction(MouseEvent event) throws IOException {
         String nombreUsuario = new String(TxtF_Correo_NomUsu.getText());
         
-
         Mensaje msg = new Mensaje();
         msg.setTipo("OBTENER_SALT");
         msg.addParam(nombreUsuario);
@@ -87,8 +95,44 @@ public class Controller_InicioSesion implements Initializable {
     }
 
     @FXML
-    void handleBtnRegistrarseAction(MouseEvent event) {
-        System.out.println("Todavia no");
+    void handleBtnRegistrarseAction(MouseEvent event) throws IOException {
+        FXMLLoader loader  = new FXMLLoader(getClass().getResource("/view/FXML_Registro1.fxml"));
+        Parent nuevaVista = loader.load();
+
+        Controller_Registro1 controller = loader.getController();
+        controller.setHiloLector(this.hiloLector);
+        this.hiloLector.setRegistroController1(controller);
+    
+        Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
+
+        Scene scene = new Scene(nuevaVista);
+        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
+
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+
+        // Usuario us = new Usuario();
+        // us.setNombre("Prueba");
+        // us.setApellidos("Registro 1");
+        // us.setDni("22345678A");
+        // us.setDireccion("c/Mi Casa, n 9");
+        // us.setNombreUsuario("pruebareg1");
+        // us.setCorreo("pruebareg1@gmail.com");
+        // us.setCorreoPP("pruebareg1.pp@gmail.com");
+
+        // byte[] salt = SecureUtils.getSalt();
+        // String contraHash = SecureUtils.generate512("prueba1", salt);
+        // us.setContrasenia(contraHash);
+        // us.setSalt(Base64.getEncoder().encodeToString(salt));
+
+        // ObjectMapper mapper = new ObjectMapper();
+        // String usuarioJSON = mapper.writeValueAsString(us);
+
+        // Mensaje msg = new Mensaje();
+        // msg.setTipo("REGISTRAR_USUARIO");
+        // msg.addParam(usuarioJSON);
+        // this.dos.writeUTF(Serializador.codificarMensaje(msg));
     }
 
     @FXML
@@ -97,8 +141,6 @@ public class Controller_InicioSesion implements Initializable {
     }
 
     public void inicioDeSesionIncorrecto(){
-        // System.out.println("Credenciales incorrectas.");
-
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Credenciales incorrectas");
         alert.setHeaderText(null);
@@ -113,8 +155,7 @@ public class Controller_InicioSesion implements Initializable {
         FXMLLoader loader  = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent nuevaVista = loader.load();
 
-        Controller_Home controller = loader.getController();
-        controller.setSocket(socket);
+        // Controller_Home controller = loader.getController();
     
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
 

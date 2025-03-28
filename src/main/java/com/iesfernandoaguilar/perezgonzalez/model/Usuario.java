@@ -9,6 +9,8 @@ public class Usuario {
 
     private String dni;
 
+    private String direccion;
+
     private String nombreUsuario;
 
     private String contrasenia;
@@ -23,22 +25,26 @@ public class Usuario {
 
     private String salt;
 
-    public Usuario() {}
-    
+    public Usuario() {
+        this.id = -1L;
+        this.rol = "USUARIO";
+        this.estado = "ACTIVO";
+    }
     
 
-    public Usuario(Long id, String nombre, String apellidos, String dni, String nombreUsuario, String contrasenia,
-            String correo, String correoPP, String estado, String salt, boolean moderador) {
-        this.id = id;
+    public Usuario(Long id, String nombre, String apellidos, String dni, String direccion, String nombreUsuario, String contrasenia,
+            String correo, String correoPP, String salt, boolean moderador) {
+        this.id = -1L;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
+        this.direccion = direccion;
         this.nombreUsuario = nombreUsuario;
         this.contrasenia = contrasenia;
         this.correo = correo;
         this.correoPP = correoPP;
         this.rol = moderador ? "MODERADOR" : "USUARIO";
-        this.estado = estado;
+        this.estado = "ACTIVO";
         this.salt = salt;
     }
 
@@ -157,5 +163,13 @@ public class Usuario {
         this.estado = estado;
     }
 
-    
+
+    public String getDireccion() {
+        return direccion;
+    }
+
+
+    public void setDireccion(String direccion) {
+        this.direccion = direccion;
+    }
 }

@@ -15,17 +15,17 @@
 <?import javafx.scene.text.Font?>
 
 <Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1"
+   fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro3"
 >
    <children>
-      <Circle fill="WHITE" layoutX="551.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" layoutX="295.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="220.0" />
-      <Circle id="activo" fill="RED" layoutX="258.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="activo" />
-      <Circle fill="WHITE" layoutX="846.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" layoutX="589.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="220.0" />
-      <Circle fill="WHITE" layoutX="1139.0" layoutY="154.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" layoutX="883.0" layoutY="140.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="220.0" />
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="527.0" layoutY="215.0" styleClass="titulo" text="Datos Personales" textFill="WHITE">
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" layoutX="589.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="activo" width="220.0" />
+      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" layoutX="295.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="activo" width="220.0" />
+      <Circle fill="WHITE" layoutX="551.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="activo" />
+      <Circle id="activo" fill="RED" layoutX="258.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="activo" />
+      <Circle fill="WHITE" layoutX="846.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" styleClass="activo" />
+      <Circle fill="WHITE" layoutX="1139.0" layoutY="154.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="584.0" layoutY="214.0" styleClass="titulo" text="Contraseña" textFill="WHITE">
          <font>
             <Font size="50.0" />
          </font>
@@ -51,7 +51,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button fx:id="Btn_Volver" layoutX="363.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnVolverAction" prefHeight="70.0" prefWidth="208.0" styleClass="botonNegro" text="Volver" textFill="#1c1c1c">
+      <Button fx:id="Btn_Anterior" layoutX="363.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnAnteriorAction" prefHeight="70.0" prefWidth="208.0" styleClass="botonNegro" text="Anterior" textFill="#1c1c1c">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
@@ -66,7 +66,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <TextField fx:id="TxtF_Nombre" accessibleRole="PASSWORD_FIELD" layoutX="318.0" layoutY="364.0" prefHeight="50.0" prefWidth="350.0" promptText="Nombre" styleClass="inputs">
+      <TextField fx:id="TxtF_Contra" accessibleRole="PASSWORD_FIELD" layoutX="318.0" layoutY="364.0" prefHeight="50.0" prefWidth="350.0" promptText="Contraseña" styleClass="inputs">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
@@ -74,7 +74,7 @@
             <Font size="20.0" />
          </font>
       </TextField>
-      <TextField fx:id="TxtF_DNI" accessibleRole="PASSWORD_FIELD" layoutX="320.0" layoutY="505.0" prefHeight="50.0" prefWidth="350.0" promptText="DNI" styleClass="inputs">
+      <TextField fx:id="TxtF_ConfContra" accessibleRole="PASSWORD_FIELD" layoutX="320.0" layoutY="505.0" prefHeight="50.0" prefWidth="350.0" promptText="Confirmar Contraseña" styleClass="inputs">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
@@ -82,22 +82,26 @@
             <Font size="20.0" />
          </font>
       </TextField>
-      <TextField fx:id="TxtF_Apellidos" accessibleRole="PASSWORD_FIELD" layoutX="755.0" layoutY="362.0" prefHeight="50.0" prefWidth="350.0" promptText="Apellidos" styleClass="inputs">
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="731.0" layoutY="359.0" text="Requisitos de la contraseña" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font size="26.0" />
          </font>
-      </TextField>
-      <TextField fx:id="TxtF_Direccion" accessibleRole="PASSWORD_FIELD" layoutX="756.0" layoutY="506.0" prefHeight="50.0" prefWidth="350.0" promptText="Dirección" styleClass="inputs">
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
+      </Label>
+      <Label layoutX="742.0" layoutY="400.0" prefHeight="41.0" prefWidth="350.0" text="· Mínimo 6 caracteres" textFill="WHITE">
          <font>
-            <Font size="20.0" />
+            <Font size="18.0" />
          </font>
-      </TextField>
+      </Label>
+      <Label layoutX="742.0" layoutY="441.0" prefHeight="41.0" prefWidth="350.0" text="· Mínimo 1 mayúscula y 1 minúscula" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="742.0" layoutY="482.0" prefHeight="41.0" prefWidth="350.0" text="· Mínimo 1 número" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
    </children>
    <stylesheets>
       <URL value="@../styles/EstiloGeneral.css" />
