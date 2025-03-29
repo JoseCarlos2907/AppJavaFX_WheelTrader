@@ -181,4 +181,8 @@ public class Controller_InicioSesion implements Initializable {
         msg.addParam(this.getNombreUsuarioCorreo());
         this.dos.writeUTF(Serializador.codificarMensaje(msg));
     }
+
+    public void setHiloLector(Lector_InicioSesion hiloLector){
+        this.hiloLector = hiloLector;
+    }
 }

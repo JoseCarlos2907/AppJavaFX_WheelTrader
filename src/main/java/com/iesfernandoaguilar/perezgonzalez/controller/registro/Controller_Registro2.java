@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.kordamp.bootstrapfx.BootstrapFX;
-
 import com.iesfernandoaguilar.perezgonzalez.controller.Lector_InicioSesion;
 import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
@@ -29,7 +27,7 @@ public class Controller_Registro2 implements Initializable{
     private Lector_InicioSesion hiloLector;
     private DataOutputStream dos;
 
-    private Usuario usuario;
+    public static Usuario usuario;
 
     @FXML
     private Button Btn_Anterior;
@@ -48,9 +46,12 @@ public class Controller_Registro2 implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.TxtF_NombreUsuario.setText(this.usuario.getNombreUsuario().length() < 1 ? "" : new String(this.usuario.getNombreUsuario()));
-        this.TxtF_Correo.setText(this.usuario.getCorreo().length() < 1 ? "" : new String(this.usuario.getCorreo()));
-        this.TxtF_CorreoPP.setText(this.usuario.getCorreoPP().length() < 1 ? "" : new String(this.usuario.getCorreoPP()));
+        usuario = Controller_Registro1.usuario;
+        // if(usuario != null){
+            this.TxtF_NombreUsuario.setText(usuario.getNombreUsuario().length() < 1 ? "" : new String(usuario.getNombreUsuario()));
+            this.TxtF_Correo.setText(usuario.getCorreo().length() < 1 ? "" : new String(usuario.getCorreo()));
+            this.TxtF_CorreoPP.setText(usuario.getCorreoPP().length() < 1 ? "" : new String(usuario.getCorreoPP()));
+        // }
 
         System.out.println("Hola");
 
@@ -63,21 +64,18 @@ public class Controller_Registro2 implements Initializable{
 
     @FXML
     void handleBtnAnteriorAction(MouseEvent event) throws IOException {
-        FXMLLoader loader  = new FXMLLoader(getClass().getResource("/view/FXML_Registro1.fxml"));
-        Parent nuevaVista = loader.load();
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro1.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
 
         Controller_Registro1 controller = loader.getController();
-        controller.setUsuario(usuario);
         controller.setHiloLector(hiloLector);
+        this.hiloLector.setRegistroController1(controller);
 
-        Stage stage = (Stage) Btn_Siguiente.getScene().getWindow();
-
-        Scene scene = new Scene(nuevaVista);
-        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
-
-        stage.setScene(scene);
-        stage.show();
-        stage.centerOnScreen();
+        Stage stage2 = (Stage) Btn_Anterior.getScene().getWindow();
+        stage2.close();
     }
     
     @FXML
@@ -112,10 +110,6 @@ public class Controller_Registro2 implements Initializable{
         }
     }
 
-    public void setUsuario(Usuario usuario){
-        this.usuario = usuario;
-    }
-
     public void setHiloLector(Lector_InicioSesion hiloLector){
         this.hiloLector = hiloLector;
     }
@@ -131,24 +125,21 @@ public class Controller_Registro2 implements Initializable{
     }
 
     public void siguientePaso() throws IOException{
-        this.usuario.setNombreUsuario(null);
-        this.usuario.setCorreo(null);
-        this.usuario.setCorreoPP(null);
+        usuario.setNombreUsuario(new String(this.TxtF_NombreUsuario.getText()));
+        usuario.setCorreo(new String(this.TxtF_Correo.getText()));
+        usuario.setCorreoPP(new String(this.TxtF_CorreoPP.getText()));
 
-        FXMLLoader loader  = new FXMLLoader(getClass().getResource("/view/FXML_Registro3.fxml"));
-        Parent nuevaVista = loader.load();
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro3.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
 
         Controller_Registro3 controller = loader.getController();
-        controller.setUsuario(usuario);
         controller.setHiloLector(hiloLector);
+        this.hiloLector.setRegistroController3(controller);
 
-        Stage stage = (Stage) Btn_Siguiente.getScene().getWindow();
-
-        Scene scene = new Scene(nuevaVista);
-        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
-
-        stage.setScene(scene);
-        stage.show();
-        stage.centerOnScreen();
+        Stage stage2 = (Stage) Btn_Anterior.getScene().getWindow();
+        stage2.close();
     }
 }

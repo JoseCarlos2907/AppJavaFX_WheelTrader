@@ -27,6 +27,9 @@ public class Usuario {
 
     public Usuario() {
         this.id = -1L;
+        this.nombreUsuario = "";
+        this.correo = "";
+        this.correoPP = "";
         this.rol = "USUARIO";
         this.estado = "ACTIVO";
     }

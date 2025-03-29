@@ -7,6 +7,7 @@ import java.util.ResourceBundle;
 
 import org.kordamp.bootstrapfx.BootstrapFX;
 
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_InicioSesion;
 import com.iesfernandoaguilar.perezgonzalez.controller.Lector_InicioSesion;
 import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
@@ -29,7 +30,7 @@ public class Controller_Registro1 implements Initializable{
     private Lector_InicioSesion hiloLector;
     private DataOutputStream dos;
 
-    private Usuario usuario;
+    public static Usuario usuario;
 
     @FXML
     private Button Btn_Siguiente;
@@ -51,13 +52,13 @@ public class Controller_Registro1 implements Initializable{
     
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        if(this.usuario == null){
-            this.usuario = new Usuario();
+        if(usuario == null){
+            usuario = new Usuario();
         }else{
-            this.TxtF_Nombre.setText(new String(this.usuario.getNombre()));
-            this.TxtF_Apellidos.setText(new String(this.usuario.getApellidos()));
-            this.TxtF_DNI.setText(new String(this.usuario.getDni()));
-            this.TxtF_Direccion.setText(new String(this.usuario.getDireccion()));
+            this.TxtF_Nombre.setText(new String(usuario.getNombre()));
+            this.TxtF_Apellidos.setText(new String(usuario.getApellidos()));
+            this.TxtF_DNI.setText(new String(usuario.getDni()));
+            this.TxtF_Direccion.setText(new String(usuario.getDireccion()));
         }
 
         try {
@@ -103,6 +104,8 @@ public class Controller_Registro1 implements Initializable{
         FXMLLoader loader  = new FXMLLoader(getClass().getResource("/view/FXML_InicioSesion.fxml"));
         Parent nuevaVista = loader.load();
 
+        Controller_InicioSesion controller = loader.getController();
+        controller.setHiloLector(this.hiloLector);
         Stage stage = (Stage) Btn_Siguiente.getScene().getWindow();
 
         Scene scene = new Scene(nuevaVista);
@@ -128,31 +131,23 @@ public class Controller_Registro1 implements Initializable{
     }
 
     public void siguientePaso() throws IOException{
-        this.usuario.setNombre(this.TxtF_Nombre.getText());
-        this.usuario.setApellidos(this.TxtF_Apellidos.getText());
-        this.usuario.setDni(this.TxtF_DNI.getText());
-        this.usuario.setDireccion(this.TxtF_Direccion.getText());
+        usuario.setNombre(this.TxtF_Nombre.getText());
+        usuario.setApellidos(this.TxtF_Apellidos.getText());
+        usuario.setDni(this.TxtF_DNI.getText());
+        usuario.setDireccion(this.TxtF_Direccion.getText());
 
-        // Pasa a la siguiente ventana
-        FXMLLoader loader  = new FXMLLoader(getClass().getResource("/view/FXML_Registro2.fxml"));
-        Parent nuevaVista = loader.load();
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro2.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+        // stage.centerOnScreen();
 
         Controller_Registro2 controller = loader.getController();
-        controller.setUsuario(usuario);
         controller.setHiloLector(hiloLector);
         this.hiloLector.setRegistroController2(controller);
 
-        Stage stage = (Stage) Btn_Siguiente.getScene().getWindow();
-
-        Scene scene = new Scene(nuevaVista);
-        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
-
-        stage.setScene(scene);
-        stage.show();
-        stage.centerOnScreen();
-    }
-
-    public void setUsuario(Usuario usuario){
-        this.usuario = usuario;
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
     }
 }

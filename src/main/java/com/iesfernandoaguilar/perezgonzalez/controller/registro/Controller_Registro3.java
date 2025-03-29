@@ -6,8 +6,6 @@ import java.net.URL;
 import java.util.Base64;
 import java.util.ResourceBundle;
 
-import org.kordamp.bootstrapfx.BootstrapFX;
-
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.controller.Lector_InicioSesion;
 import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
@@ -32,7 +30,7 @@ public class Controller_Registro3 implements Initializable{
     private Lector_InicioSesion hiloLector;
     private DataOutputStream dos;
 
-    private Usuario usuario;
+    public static Usuario usuario;
 
     @FXML
     private Button Btn_Anterior;
@@ -48,7 +46,7 @@ public class Controller_Registro3 implements Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.hiloLector.setRegistroController3(this);
+        usuario = Controller_Registro2.usuario;
         try {
             this.dos = new DataOutputStream(Session.getOutputStream());
         } catch (IOException e) {
@@ -58,24 +56,20 @@ public class Controller_Registro3 implements Initializable{
 
     @FXML
     void handleBtnAnteriorAction(MouseEvent event) throws IOException {
-        FXMLLoader loader  = new FXMLLoader(getClass().getResource("/view/FXML_Registro2.fxml"));
-        Parent nuevaVista = loader.load();
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro2.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
 
         Controller_Registro2 controller = loader.getController();
-        controller.setUsuario(usuario);
         controller.setHiloLector(hiloLector);
+        this.hiloLector.setRegistroController2(controller);
 
-        Stage stage = (Stage) Btn_Siguiente.getScene().getWindow();
-
-        Scene scene = new Scene(nuevaVista);
-        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
-
-        stage.setScene(scene);
-        stage.show();
-        stage.centerOnScreen();
+        Stage stage2 = (Stage) Btn_Anterior.getScene().getWindow();
+        stage2.close();
     }
 
-    // TODO: Hacer las comprobaciones de contraseña
     @FXML
     void handleBtnSiguienteAction(MouseEvent event) throws IOException {
         if(
@@ -108,11 +102,11 @@ public class Controller_Registro3 implements Initializable{
         }else{
             byte[] salt = SecureUtils.getSalt();
             String contraseniaHasheada = SecureUtils.generate512(new String(this.TxtF_Contra.getText()), salt);
-            this.usuario.setContrasenia(contraseniaHasheada);
-            this.usuario.setSalt(Base64.getEncoder().encodeToString(salt));
+            usuario.setContrasenia(contraseniaHasheada);
+            usuario.setSalt(Base64.getEncoder().encodeToString(salt));
 
             ObjectMapper mapper = new ObjectMapper();
-            String usuarioJSON = mapper.writeValueAsString(this.usuario);
+            String usuarioJSON = mapper.writeValueAsString(usuario);
 
             Mensaje msg = new Mensaje();
             msg.setTipo("REGISTRAR_USUARIO");
@@ -122,15 +116,12 @@ public class Controller_Registro3 implements Initializable{
         }
     }
 
-    public void setUsuario(Usuario usuario){
-        this.usuario = usuario;
-    }
-
     public void setHiloLector(Lector_InicioSesion hiloLector){
         this.hiloLector = hiloLector;
     }
 
     public void siguientePaso(){
         System.out.println("Registro completado");
+        usuario = null;
     }
 }

@@ -70,20 +70,32 @@ public class Lector_InicioSesion extends Thread{
 
                     case "DNI_EXISTE":
                         System.out.println("DNI_EXISTE");
-                        if("si".equals(msgServidor.getParams().get(0))){
-                            this.controllerR1.dniExistente();
-                        }else if ("no".equals(msgServidor.getParams().get(0))){
-                            this.controllerR1.siguientePaso();
-                        }
+                        Platform.runLater(() -> {
+                            if("si".equals(msgServidor.getParams().get(0))){
+                                this.controllerR1.dniExistente();
+                            }else if ("no".equals(msgServidor.getParams().get(0))){
+                                try {
+                                    this.controllerR1.siguientePaso();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                         System.out.println(msgServidor.getParams().get(0));
                         break;
 
                     case "USUARIO_EXISTE":
-                        if("si".equals(msgServidor.getParams().get(0))){
-                            this.controllerR2.usuarioExistente();
-                        }else if("no".equals(msgServidor.getParams().get(0))){
-                            this.controllerR2.siguientePaso();
-                        }
+                        Platform.runLater(() -> {
+                            if("si".equals(msgServidor.getParams().get(0))){
+                                this.controllerR2.usuarioExistente();
+                            }else if("no".equals(msgServidor.getParams().get(0))){
+                                try {
+                                    this.controllerR2.siguientePaso();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        });
                         break;
 
                     case "USUARIO_REGISTRADO":
