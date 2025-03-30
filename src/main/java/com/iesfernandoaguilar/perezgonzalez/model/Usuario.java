@@ -1,7 +1,7 @@
 package com.iesfernandoaguilar.perezgonzalez.model;
 
 public class Usuario {
-    private Long id;
+    private Long idUsuario;
 
     private String nombre;
 
@@ -26,7 +26,7 @@ public class Usuario {
     private String salt;
 
     public Usuario() {
-        this.id = -1L;
+        this.idUsuario = -1L;
         this.nombreUsuario = "";
         this.correo = "";
         this.correoPP = "";
@@ -35,9 +35,9 @@ public class Usuario {
     }
     
 
-    public Usuario(Long id, String nombre, String apellidos, String dni, String direccion, String nombreUsuario, String contrasenia,
+    public Usuario(String nombre, String apellidos, String dni, String direccion, String nombreUsuario, String contrasenia,
             String correo, String correoPP, String salt, boolean moderador) {
-        this.id = -1L;
+        this.idUsuario = -1L;
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.dni = dni;
@@ -52,12 +52,12 @@ public class Usuario {
     }
 
 
-    public Long getId() {
-        return id;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public String getNombreUsuario() {

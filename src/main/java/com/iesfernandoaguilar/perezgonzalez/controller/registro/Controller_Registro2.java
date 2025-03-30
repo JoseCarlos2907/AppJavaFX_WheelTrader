@@ -47,13 +47,9 @@ public class Controller_Registro2 implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         usuario = Controller_Registro1.usuario;
-        // if(usuario != null){
-            this.TxtF_NombreUsuario.setText(usuario.getNombreUsuario().length() < 1 ? "" : new String(usuario.getNombreUsuario()));
-            this.TxtF_Correo.setText(usuario.getCorreo().length() < 1 ? "" : new String(usuario.getCorreo()));
-            this.TxtF_CorreoPP.setText(usuario.getCorreoPP().length() < 1 ? "" : new String(usuario.getCorreoPP()));
-        // }
-
-        System.out.println("Hola");
+        this.TxtF_NombreUsuario.setText(usuario.getNombreUsuario().length() < 1 ? "" : new String(usuario.getNombreUsuario()));
+        this.TxtF_Correo.setText(usuario.getCorreo().length() < 1 ? "" : new String(usuario.getCorreo()));
+        this.TxtF_CorreoPP.setText(usuario.getCorreoPP().length() < 1 ? "" : new String(usuario.getCorreoPP()));
 
         try {
             this.dos = new DataOutputStream(Session.getOutputStream());

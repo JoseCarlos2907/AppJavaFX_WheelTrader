@@ -24,7 +24,7 @@ public class Lector_InicioSesion extends Thread{
 
     private Controller_Registro1 controllerR1;
     private Controller_Registro2 controllerR2;
-    // private Controller_Registro3 controllerR3;
+    private Controller_Registro3 controllerR3;
 
     private static String usuarioJSON;
 
@@ -34,7 +34,7 @@ public class Lector_InicioSesion extends Thread{
 
         this.controllerR1 = null;
         this.controllerR2 = null;
-        // this.controllerR3 = null;
+        this.controllerR3 = null;
 
         usuarioJSON = "";
     }
@@ -69,7 +69,7 @@ public class Lector_InicioSesion extends Thread{
                         break;
 
                     case "DNI_EXISTE":
-                        System.out.println("DNI_EXISTE");
+                        // System.out.println("DNI_EXISTE");
                         Platform.runLater(() -> {
                             if("si".equals(msgServidor.getParams().get(0))){
                                 this.controllerR1.dniExistente();
@@ -99,7 +99,13 @@ public class Lector_InicioSesion extends Thread{
                         break;
 
                     case "USUARIO_REGISTRADO":
-                        System.out.println("Registrado");
+                        Platform.runLater(() -> {
+                            try {
+                                this.controllerR3.siguientePaso();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
                         break;
                 }
 
@@ -134,6 +140,6 @@ public class Lector_InicioSesion extends Thread{
     }
 
     public void setRegistroController3(Controller_Registro3 controller){
-        // this.controllerR3 = controller;
+        this.controllerR3 = controller;
     }
 }

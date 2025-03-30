@@ -120,8 +120,17 @@ public class Controller_Registro3 implements Initializable{
         this.hiloLector = hiloLector;
     }
 
-    public void siguientePaso(){
-        System.out.println("Registro completado");
-        usuario = null;
+    public void siguientePaso() throws IOException{
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro4.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_Registro4 controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+
+        Stage stage2 = (Stage) Btn_Anterior.getScene().getWindow();
+        stage2.close();
     }
 }

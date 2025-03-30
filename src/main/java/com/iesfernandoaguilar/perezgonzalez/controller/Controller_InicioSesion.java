@@ -35,7 +35,7 @@ import com.iesfernandoaguilar.perezgonzalez.util.Session;
 public class Controller_InicioSesion implements Initializable {
     private DataOutputStream dos;
     private Lector_InicioSesion hiloLector;
-    
+
     @FXML
     private Button Btn_InicioSesion;
 
@@ -51,43 +51,40 @@ public class Controller_InicioSesion implements Initializable {
     @FXML
     private TextField TxtF_Correo_NomUsu;
 
-    
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
-        if(Session.getSocket() == null){
-            Properties prop = new Properties();
-            try {
+        try {
+            if (Session.getSocket() == null) {
+                Properties prop = new Properties();
                 prop.load(new FileInputStream("src/main/resources/conf.properties"));
-                
+
                 int serverPort = Integer.parseInt(prop.getProperty("PORT"));
                 String serverAddr = prop.getProperty("ADDRESS");
-                
+
                 Session.setSocket(new Socket(serverAddr, serverPort));
-                this.dos = new DataOutputStream(Session.getOutputStream());
                 this.hiloLector = new Lector_InicioSesion(Session.getInputStream(), this);
                 this.hiloLector.start();
-            } catch (IOException e) {
-                System.err.println(e.getMessage());
             }
+            this.dos = new DataOutputStream(Session.getOutputStream());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
         }
     }
-    
-    
-    public void respuestaSalt(byte[] salt) throws IOException{
+
+    public void respuestaSalt(byte[] salt) throws IOException {
         String contraseniaStr = new String(TxtF_Contrasenia.getText());
-        
+
         Mensaje msg = new Mensaje();
         msg.setTipo("INICIAR_SESION");
         msg.addParam(TxtF_Correo_NomUsu.getText());
         msg.addParam(SecureUtils.generate512(contraseniaStr, salt));
-        // msg.addParam(contraseniaStr);
         dos.writeUTF(Serializador.codificarMensaje(msg));
     }
-    
+
     @FXML
     void handleBtnIniciarSesionAction(MouseEvent event) throws IOException {
         String nombreUsuario = new String(TxtF_Correo_NomUsu.getText());
-        
+
         Mensaje msg = new Mensaje();
         msg.setTipo("OBTENER_SALT");
         msg.addParam(nombreUsuario);
@@ -96,13 +93,13 @@ public class Controller_InicioSesion implements Initializable {
 
     @FXML
     void handleBtnRegistrarseAction(MouseEvent event) throws IOException {
-        FXMLLoader loader  = new FXMLLoader(getClass().getResource("/view/FXML_Registro1.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro1.fxml"));
         Parent nuevaVista = loader.load();
 
         Controller_Registro1 controller = loader.getController();
         controller.setHiloLector(this.hiloLector);
         this.hiloLector.setRegistroController1(controller);
-    
+
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
 
         Scene scene = new Scene(nuevaVista);
@@ -140,23 +137,21 @@ public class Controller_InicioSesion implements Initializable {
         System.out.println("Todavia no");
     }
 
-    public void inicioDeSesionIncorrecto(){
+    public void inicioDeSesionIncorrecto() {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Credenciales incorrectas");
         alert.setHeaderText(null);
         alert.setContentText("El nombre de usuario, el correo o la contraseña no son correctos");
-        // alert.getDialogPane().getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+        alert.getDialogPane().getStylesheets()
+                .add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
         alert.getDialogPane().getStyleClass().add("alert-error");
         alert.showAndWait();
     }
 
-    public void abrirAplicacion() throws IOException{
-        FXMLLoader loader  = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
+    public void abrirAplicacion() throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent nuevaVista = loader.load();
 
-        // Controller_Home controller = loader.getController();
-    
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
 
         Scene scene = new Scene(nuevaVista);
@@ -167,22 +162,22 @@ public class Controller_InicioSesion implements Initializable {
         stage.centerOnScreen();
     }
 
-    public String getNombreUsuarioCorreo(){
+    public String getNombreUsuarioCorreo() {
         return this.TxtF_Correo_NomUsu.getText();
     }
 
-    public String getContrasenia(){
+    public String getContrasenia() {
         return this.TxtF_Contrasenia.getText();
     }
 
-    public void pedirUsuarioJSON() throws IOException{
+    public void pedirUsuarioJSON() throws IOException {
         Mensaje msg = new Mensaje();
         msg.setTipo("OBTENER_USUARIO");
         msg.addParam(this.getNombreUsuarioCorreo());
         this.dos.writeUTF(Serializador.codificarMensaje(msg));
     }
 
-    public void setHiloLector(Lector_InicioSesion hiloLector){
+    public void setHiloLector(Lector_InicioSesion hiloLector) {
         this.hiloLector = hiloLector;
     }
 }
