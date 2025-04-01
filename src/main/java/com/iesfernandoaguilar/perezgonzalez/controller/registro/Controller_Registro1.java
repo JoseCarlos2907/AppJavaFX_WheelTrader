@@ -105,6 +105,7 @@ public class Controller_Registro1 implements Initializable{
         Parent nuevaVista = loader.load();
 
         Controller_InicioSesion controller = loader.getController();
+        hiloLector.setInicioSesionController(controller);
         controller.setHiloLector(this.hiloLector);
         Stage stage = (Stage) Btn_Siguiente.getScene().getWindow();
 

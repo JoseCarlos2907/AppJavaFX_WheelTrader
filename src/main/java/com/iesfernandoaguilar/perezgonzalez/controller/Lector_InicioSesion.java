@@ -131,6 +131,10 @@ public class Lector_InicioSesion extends Thread{
         }
     }
 
+    public void setInicioSesionController(Controller_InicioSesion controller){
+        this.controllerInicioSesion = controller;
+    }
+
     public void setRegistroController1(Controller_Registro1 controller){
         this.controllerR1 = controller;
     }

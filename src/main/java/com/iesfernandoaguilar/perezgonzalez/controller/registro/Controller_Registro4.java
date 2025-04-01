@@ -28,6 +28,7 @@ public class Controller_Registro4 {
         stage.show();
 
         Controller_InicioSesion controller = loader.getController();
+        hiloLector.setInicioSesionController(controller);
         controller.setHiloLector(hiloLector);
 
         Stage stage2 = (Stage) Btn_IniciarSesion.getScene().getWindow();
