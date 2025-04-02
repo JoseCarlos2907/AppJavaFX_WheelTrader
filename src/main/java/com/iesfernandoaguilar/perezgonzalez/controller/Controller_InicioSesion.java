@@ -19,6 +19,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
@@ -46,7 +47,7 @@ public class Controller_InicioSesion implements Initializable {
     private Label Lbl_RecuperarContrasenia;
 
     @FXML
-    private TextField TxtF_Contrasenia;
+    private PasswordField TxtF_Contrasenia;
 
     @FXML
     private TextField TxtF_Correo_NomUsu;

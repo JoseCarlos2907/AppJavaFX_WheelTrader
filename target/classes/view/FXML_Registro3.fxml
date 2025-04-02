@@ -4,7 +4,7 @@
 <?import javafx.scene.Cursor?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -64,22 +64,6 @@
             </DropShadow>
          </effect>
       </Button>
-      <TextField fx:id="TxtF_Contra" accessibleRole="PASSWORD_FIELD" layoutX="318.0" layoutY="364.0" prefHeight="50.0" prefWidth="350.0" promptText="Contraseña" styleClass="inputs">
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </TextField>
-      <TextField fx:id="TxtF_ConfContra" accessibleRole="PASSWORD_FIELD" layoutX="320.0" layoutY="505.0" prefHeight="50.0" prefWidth="350.0" promptText="Confirmar Contraseña" styleClass="inputs">
-         <cursor>
-            <Cursor fx:constant="TEXT" />
-         </cursor>
-         <font>
-            <Font size="20.0" />
-         </font>
-      </TextField>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="731.0" layoutY="359.0" text="Requisitos de la contraseña" textFill="WHITE">
          <font>
             <Font size="26.0" />
@@ -100,6 +84,16 @@
             <Font size="18.0" />
          </font>
       </Label>
+      <PasswordField fx:id="TxtF_Contra" layoutX="318.0" layoutY="364.0" prefHeight="50.0" prefWidth="350.0" promptText="Contraseña" styleClass="inputs">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </PasswordField>
+      <PasswordField fx:id="TxtF_ConfContra" layoutX="320.0" layoutY="505.0" prefHeight="50.0" prefWidth="350.0" promptText="Confirmar Contraseña" styleClass="inputs">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </PasswordField>
    </children>
    <stylesheets>
       <URL value="@../styles/EstiloGeneral.css" />
