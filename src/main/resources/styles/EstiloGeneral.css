@@ -18,6 +18,8 @@
     background-color: #84aedd;
     -fx-background-color: #84aedd;
     -fx-text-fill: black;
+    font-size: 20px;
+    -fx-font-size: 20px;
 }
 
 .botonNegro{
@@ -25,6 +27,8 @@
     -fx-text-fill: white;
     background-color: black;
     -fx-background-color: black;
+    font-size: 20px;
+    -fx-font-size: 20px;
 }
 
 

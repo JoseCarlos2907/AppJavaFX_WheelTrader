@@ -1,5 +1,11 @@
 .inputs, .inputs:focus{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
     -fx-background-radius: 25;
+    -fx-font-size: 20px;
 }
 
 .activo{
@@ -7,14 +13,5 @@
 }
 
 .titulo{
-    font-size: 40px !important;
     -fx-font-size: 40px !important;
-}
-
-.inputs, .inputs:focus{
-    -fx-background-color: transparent;
-    -fx-border-color: transparent transparent white transparent;
-    -fx-border-width: 0 0 2px 0;
-    -fx-text-fill: white;
-    -fx-prompt-text-fill: white;
 }

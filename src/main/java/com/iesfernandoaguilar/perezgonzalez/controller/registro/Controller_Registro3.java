@@ -101,18 +101,6 @@ public class Controller_Registro3 implements Initializable{
             alert.showAndWait();
         }else{
             byte[] salt = SecureUtils.getSalt();
-            String contraseniaHasheada = SecureUtils.generate512(new String(this.TxtF_Contra.getText()), salt);
-            usuario.setContrasenia(contraseniaHasheada);
-            usuario.setSalt(Base64.getEncoder().encodeToString(salt));
-
-            ObjectMapper mapper = new ObjectMapper();
-            String usuarioJSON = mapper.writeValueAsString(usuario);
-
-            Mensaje msg = new Mensaje();
-            msg.setTipo("REGISTRAR_USUARIO");
-            msg.addParam(usuarioJSON);
-
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
         }
     }
 
