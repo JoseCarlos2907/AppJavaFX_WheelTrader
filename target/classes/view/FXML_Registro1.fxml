@@ -14,9 +14,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1"
->
+<Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1">
    <children>
       <Circle fill="WHITE" layoutX="551.0" layoutY="153.0" radius="40.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" />
       <Rectangle arcHeight="5.0" arcWidth="5.0" fill="WHITE" height="25.0" layoutX="295.0" layoutY="139.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="220.0" />
@@ -74,7 +72,7 @@
             <Font size="20.0" />
          </font>
       </TextField>
-      <TextField fx:id="TxtF_DNI" accessibleRole="PASSWORD_FIELD" layoutX="320.0" layoutY="505.0" prefHeight="50.0" prefWidth="350.0" promptText="DNI" styleClass="inputs">
+      <TextField fx:id="TxtF_Apellidos" accessibleRole="PASSWORD_FIELD" layoutX="755.0" layoutY="362.0" prefHeight="50.0" prefWidth="350.0" promptText="Apellidos" styleClass="inputs">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>
@@ -82,7 +80,7 @@
             <Font size="20.0" />
          </font>
       </TextField>
-      <TextField fx:id="TxtF_Apellidos" accessibleRole="PASSWORD_FIELD" layoutX="755.0" layoutY="362.0" prefHeight="50.0" prefWidth="350.0" promptText="Apellidos" styleClass="inputs">
+      <TextField fx:id="TxtF_DNI" accessibleRole="PASSWORD_FIELD" layoutX="320.0" layoutY="505.0" prefHeight="50.0" prefWidth="350.0" promptText="DNI" styleClass="inputs">
          <cursor>
             <Cursor fx:constant="TEXT" />
          </cursor>

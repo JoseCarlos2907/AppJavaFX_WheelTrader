@@ -81,7 +81,6 @@ public class Lector_InicioSesion extends Thread{
                                 }
                             }
                         });
-                        System.out.println(msgServidor.getParams().get(0));
                         break;
 
                     case "USUARIO_EXISTE":
