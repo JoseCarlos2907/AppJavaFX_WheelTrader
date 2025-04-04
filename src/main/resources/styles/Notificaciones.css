@@ -1,0 +1,22 @@
+.titulo{
+    -fx-text-fill: #84aedd;
+    -fx-font-size: 40px;
+}
+
+.asunto{
+    -fx-text-fill: white;
+    -fx-font-size: 26px;
+}
+
+.mensaje{
+    -fx-text-fill: white;
+    -fx-font-size: 18px;
+}
+
+.seleccionada{
+    -fx-fill: #626262;
+}
+
+.noSeleccionada{
+    -fx-fill: #282828;
+}

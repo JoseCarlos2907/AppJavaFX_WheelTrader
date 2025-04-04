@@ -3,12 +3,15 @@
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro2.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro1.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_InicioSesion.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificacion.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/App.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Lector_InicioSesion.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro4.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/util/Serializador.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificaciones.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/app/LanzarVentanaCliente.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro3.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Usuario.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_Home.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/util/SecureUtils.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Notificacion.java

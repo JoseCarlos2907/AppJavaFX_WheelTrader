@@ -1,6 +1,9 @@
 com/iesfernandoaguilar/perezgonzalez/util/Serializador.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificacion.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificaciones.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro4.class
 com/iesfernandoaguilar/perezgonzalez/controller/Lector_InicioSesion.class
+com/iesfernandoaguilar/perezgonzalez/model/Notificacion.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro3.class
 com/iesfernandoaguilar/perezgonzalez/model/Usuario.class
 com/iesfernandoaguilar/perezgonzalez/model/Mensaje.class
