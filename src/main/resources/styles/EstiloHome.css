@@ -1,0 +1,30 @@
+.botonSeleccionado{
+    -fx-background-color: #84AEDD;
+    -fx-background-radius: 20px 20px 0px 0px;
+    -fx-text-fill: #1c1c1c;
+    -fx-font-size: 30px;
+}
+
+.botonNoSeleccionado{
+    -fx-background-color: transparent;
+    -fx-background-radius: 20px 20px 0px 0px;
+    -fx-text-fill: #84AEDD;
+    -fx-font-size: 30px;
+}
+
+
+.barraBusqueda{
+    -fx-background-radius: 15px 0px 0px 15px;
+    font-size: 20px;
+    -fx-font-size: 20px;
+    -fx-border-color: black;
+    -fx-border-width: 3px;
+    -fx-border-radius: 15px 0px 0px 15px;
+}
+
+.botonFiltros{
+    -fx-background-radius: 0px 15px 15px 0px;
+    -fx-background-color: black;
+    -fx-font-size: 26px;
+    -fx-text-fill: white;
+}

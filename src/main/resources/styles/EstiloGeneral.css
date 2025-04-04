@@ -31,6 +31,14 @@
     -fx-font-size: 20px;
 }
 
+.botonTransparente{
+    -fx-background-color: transparent;
+    -fx-border-color: #84AEDD;
+    -fx-border-width: 3px;
+    -fx-border-radius: 20px;
+    -fx-text-fill: white;
+    -fx-font-size: 36px;
+}
 
 .alert-error{
     background-color: #d26666;
