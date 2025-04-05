@@ -20,9 +20,11 @@
     -fx-text-fill: black;
     font-size: 20px;
     -fx-font-size: 20px;
+    -fx-cursor: hand;
 }
 
 .botonNegro{
+    -fx-cursor: hand;
     -fx-background-radius: 18;
     -fx-text-fill: white;
     background-color: black;
@@ -32,6 +34,7 @@
 }
 
 .botonTransparente{
+    -fx-cursor: hand;
     -fx-background-color: transparent;
     -fx-border-color: #84AEDD;
     -fx-border-width: 3px;

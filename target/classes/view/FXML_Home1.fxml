@@ -92,7 +92,7 @@
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField layoutX="483.0" layoutY="283.0" prefHeight="65.0" prefWidth="604.0" promptText="Escribe algo para buscar" styleClass="barraBusqueda">
+      <TextField fx:id="TxtF_BarraBusqueda" layoutX="483.0" layoutY="283.0" prefHeight="65.0" prefWidth="604.0" promptText="Escribe algo para buscar" styleClass="barraBusqueda">
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>

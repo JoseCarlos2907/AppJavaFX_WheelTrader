@@ -20,3 +20,7 @@
 .noSeleccionada{
     -fx-fill: #282828;
 }
+
+.scrollPane .viewport, .scrollPane{
+    -fx-background-color: transparent;
+}

@@ -12,9 +12,7 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1"
-   fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Notificaciones"
->
+<Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Notificaciones">
    <children>
       <Button fx:id="Btn_ConfCuenta" graphicTextGap="10.0" layoutX="105.0" layoutY="32.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleBtnVolverAction" prefHeight="85.0" prefWidth="232.0" styleClass="botonTransparente" text="Volver">
          <font>
@@ -35,7 +33,7 @@
       <Line endX="569.0" endY="527.3333129882812" layoutX="-153.0" layoutY="222.0" startX="569.0" startY="-66.0" stroke="#84aedd" strokeWidth="3.0" />
       <ScrollPane layoutX="4.0" layoutY="136.0" prefHeight="660.0" prefWidth="401.0" styleClass="scrollPane">
          <content>
-            <VBox fx:id="VBox_Notificaciones" prefHeight="658.0" prefWidth="382.0" styleClass="listaNotificaciones">
+            <VBox fx:id="VBox_Notificaciones" prefHeight="658.0" prefWidth="382.0">
                <opaqueInsets>
                   <Insets />
                </opaqueInsets>

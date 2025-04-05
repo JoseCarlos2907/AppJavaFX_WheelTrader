@@ -1,0 +1,17 @@
+.inputs, .inputs:focus{
+    -fx-background-radius: 25;
+    font-size: 20px;
+    -fx-font-size: 20px;
+}
+
+.titulo{
+    -fx-text-fill: #84aedd;
+    -fx-font-size: 40px;
+}
+
+.desplegable{
+    -fx-background-color: #84aedd;
+    -fx-text-fill: #1c1c1c;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+}

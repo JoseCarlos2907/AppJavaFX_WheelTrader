@@ -6,13 +6,13 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.shape.Rectangle?>
 
-<Pane fx:id="Pane_Notificacion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handlePaneNotificacionAction" prefHeight="142.0" prefWidth="387.0" stylesheets="@../styles/Notificaciones.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Notificacion">
+<Pane fx:id="Pane_Notificacion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handlePaneNotificacionAction" prefHeight="142.0" prefWidth="371.0" styleClass="fondoTransparente" stylesheets="@../styles/Notificaciones.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Notificacion">
    <children>
-      <Rectangle fx:id="Rectangle_Fondo" arcHeight="50.0" arcWidth="50.0" fill="#282828" height="138.0" layoutX="1.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="384.0" />
+      <Rectangle fx:id="Rectangle_Fondo" arcHeight="50.0" arcWidth="50.0" fill="#282828" height="138.0" layoutX="1.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="368.0" />
       <ImageView fx:id="ImgView_Icono" fitHeight="97.0" fitWidth="107.0" layoutX="20.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="Lbl_Titulo" layoutX="137.0" layoutY="27.0" text="Titulo" textFill="#84aedd" />
-      <Label fx:id="Lbl_Usuario" alignment="CENTER_RIGHT" layoutX="248.0" layoutY="112.0" text="De JoseCarlos2907" textFill="WHITE" />
-      <ImageView fx:id="ImgView_Icono2" fitHeight="24.0" fitWidth="28.0" layoutX="345.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="Lbl_Usuario" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="234.0" layoutY="112.0" text="De JoseCarlos2907" textAlignment="RIGHT" textFill="WHITE" />
+      <ImageView fx:id="ImgView_Icono2" fitHeight="24.0" fitWidth="28.0" layoutX="326.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
    </children>
    <cursor>
       <Cursor fx:constant="HAND" />

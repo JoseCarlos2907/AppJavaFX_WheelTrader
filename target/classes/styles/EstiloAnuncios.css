@@ -1,0 +1,19 @@
+.scrollPane .viewport, .scrollPane{
+    -fx-background-color: transparent;
+}
+
+.barraBusqueda{
+    -fx-background-radius: 15px 0px 0px 15px;
+    font-size: 20px;
+    -fx-font-size: 20px;
+    -fx-border-color: black;
+    -fx-border-width: 3px;
+    -fx-border-radius: 15px 0px 0px 15px;
+}
+
+.botonFiltros{
+    -fx-background-radius: 0px 15px 15px 0px;
+    -fx-background-color: black;
+    -fx-font-size: 26px;
+    -fx-text-fill: white;
+}
