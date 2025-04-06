@@ -1,0 +1,289 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Accordion?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.text.Font?>
+
+<Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_ConfUsuario">
+   <children>
+      <Button fx:id="Btn_Volver" graphicTextGap="10.0" layoutX="105.0" layoutY="32.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleBtnVolverAction" prefHeight="85.0" prefWidth="232.0" styleClass="botonTransparente" text="Volver">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="52.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/IconoFlechaBlanca.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="75.0" fitWidth="145.0" layoutX="627.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/LogoAzul.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="Btn_CerrarSesion" layoutX="1152.0" layoutY="34.0" mnemonicParsing="false" onMouseClicked="#handleBtnCerrarSesionAction" prefHeight="72.0" prefWidth="193.0" styleClass="botonNegro" text="Cerrar Sesión">
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Button fx:id="Btn_MisValoraciones" layoutX="738.0" layoutY="204.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisValoracionesAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Valoraciones" textAlignment="CENTER">
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Accordion layoutX="103.0" layoutY="169.0" prefHeight="514.0" prefWidth="501.0" style="" styleClass="acordeon">
+        <panes>
+          <TitledPane animated="false" styleClass="titledPane" text="Datos Personales" textFill="WHITE">
+               <content>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="scrollPane">
+                     <content>
+                        <VBox alignment="CENTER" prefHeight="365.0" prefWidth="501.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="Lbl_Nombre" styleClass="datos" text="Nombre: José Carlos" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="Lbl_Apellidos" styleClass="datos" text="Apellidos: Pérez González" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="Lbl_DNI" styleClass="datos" text="DNI: 12345678A" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="Lbl_Direccion" styleClass="datos" text="Dirección: c/ Mi Casa n9" />
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+          </TitledPane>
+          <TitledPane animated="false" styleClass="titledPane" text="Datos de Cuenta" textFill="WHITE">
+               <content>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="scrollPane">
+                     <content>
+                        <VBox alignment="CENTER" prefHeight="365.0" prefWidth="501.0">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" prefHeight="81.0" prefWidth="440.0">
+                                 <children>
+                                    <Label fx:id="Lbl_NombreUsuario" prefHeight="110.0" prefWidth="501.0" styleClass="datos" text="Nombre de Usuario: JoseCarlos9207" wrapText="true">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="Lbl_Correo" prefHeight="143.0" prefWidth="608.0" styleClass="datos" text="Correo: josecarlosperezgonzalez200@gmail.com" wrapText="true">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <children>
+                                    <Label fx:id="Lbl_CorreoPP" prefHeight="100.0" prefWidth="508.0" styleClass="datos" text="CorreoPP: correo.pp@gmail.com">
+                                       <HBox.margin>
+                                          <Insets />
+                                       </HBox.margin>
+                                    </Label>
+                                 </children>
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+          </TitledPane>
+          <TitledPane animated="false" prefHeight="506.0" prefWidth="389.0" styleClass="titledPane" text="Contraseña" textFill="WHITE">
+               <content>
+                  <ScrollPane prefHeight="200.0" prefWidth="200.0" styleClass="scrollPane">
+                     <content>
+                        <VBox alignment="CENTER" prefHeight="365.0" prefWidth="499.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <PasswordField fx:id="TxtF_Contra" prefHeight="50.0" prefWidth="350.0" promptText="Contraseña" styleClass="inputs">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </PasswordField>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <PasswordField fx:id="TxtF_ConfContra" prefHeight="50.0" prefWidth="350.0" promptText="Confirmar Contraseña" styleClass="inputs">
+                                       <font>
+                                          <Font size="20.0" />
+                                       </font>
+                                    </PasswordField>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <VBox alignment="CENTER" prefHeight="94.0" prefWidth="713.0">
+                                       <children>
+                                          <Label alignment="CENTER" contentDisplay="CENTER" styleClass="tituloRequisitosContra" text="Requisitos de la contraseña" textFill="WHITE">
+                                             <font>
+                                                <Font size="26.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="41.0" prefWidth="350.0" styleClass="requisitosContra" text="· Mínimo 6 caracteres" textFill="WHITE">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="41.0" prefWidth="350.0" styleClass="requisitosContra" text="· Mínimo 1 mayúscula y 1 minúscula" textFill="WHITE">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                          <Label prefHeight="41.0" prefWidth="350.0" styleClass="requisitosContra" text="· Mínimo 1 número" textFill="WHITE">
+                                             <font>
+                                                <Font size="18.0" />
+                                             </font>
+                                          </Label>
+                                       </children>
+                                       <HBox.margin>
+                                          <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                                       </HBox.margin>
+                                    </VBox>
+                                 </children>
+                              </HBox>
+                              <HBox alignment="CENTER" prefHeight="72.0" prefWidth="499.0">
+                                 <VBox.margin>
+                                    <Insets />
+                                 </VBox.margin>
+                                 <children>
+                                    <Button fx:id="Btn_CambiarContrasenia" mnemonicParsing="false" onMouseClicked="#handleBtnCambiarContraseniaAction" prefHeight="49.0" prefWidth="238.0" styleClass="botonNegro" text="Cambiar Contraseña">
+                                       <effect>
+                                          <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+                                             <color>
+                                                <Color opacity="0.4000000059604645" />
+                                             </color>
+                                          </DropShadow>
+                                       </effect>
+                                    </Button>
+                                 </children>
+                              </HBox>
+                           </children>
+                        </VBox>
+                     </content>
+                  </ScrollPane>
+               </content>
+          </TitledPane>
+        </panes>
+      </Accordion>
+      <Button fx:id="Btn_MisPagos" layoutX="738.0" layoutY="509.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisPagosAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Pagos" textAlignment="CENTER">
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Button fx:id="Btn_MisGuardados" layoutX="1070.0" layoutY="509.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisGuardadosAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Guardados" textAlignment="CENTER">
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Button fx:id="Btn_MisAnuncios" layoutX="1069.0" layoutY="203.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisAnunciosAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Anuncios" textAlignment="CENTER">
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Button fx:id="Btn_MisCompras" layoutX="738.0" layoutY="355.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisComprasAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Compras y Garantías" textAlignment="CENTER" wrapText="true">
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Button fx:id="Btn_MisReuniones" layoutX="1070.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisReunionesAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Reuniones" textAlignment="CENTER">
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+   </children>
+   <stylesheets>
+      <URL value="@../styles/EstiloGeneral.css" />
+      <URL value="@../styles/EstiloConfUsuario.css" />
+   </stylesheets>
+</Pane>

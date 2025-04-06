@@ -1,0 +1,38 @@
+.titledPane .title, .titledPane{
+    -fx-background-color: transparent;
+    -fx-border-color: #84aedd;
+    -fx-border-width: 0px 0px 2px 0px;
+}
+
+.titledPane .title .text{
+    -fx-font-size: 30px;
+}
+
+.scrollPane .viewport, .scrollPane, .acordeon, .titledPane .content{
+    -fx-background-color: transparent;
+    -fx-border-width: 0;
+}
+
+.datos{
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+}
+
+.inputs, .inputs:focus{
+    -fx-background-color: transparent;
+    -fx-border-color: transparent transparent white transparent;
+    -fx-border-width: 0 0 2px 0;
+    -fx-text-fill: white;
+    -fx-prompt-text-fill: white;
+    -fx-background-radius: 25;
+    -fx-font-size: 20px;
+}
+
+.tituloRequisitosContra{
+    -fx-font-size: 26px;
+    
+}
+
+.requisitosContra{
+    -fx-font-size: 18px;
+}
