@@ -1,0 +1,14 @@
+.botonImagen{
+    background-color: #84aedd;
+    -fx-background-color: #84aedd;
+    -fx-text-fill: black;
+    -fx-cursor: hand;
+}
+
+.radiusDerecha{
+    -fx-background-radius: 18px 0px 0px 18px;
+}
+
+.radiusIzquierda{
+    -fx-background-radius: 0px 18px 18px 0px;
+}

@@ -3,9 +3,10 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import org.kordamp.bootstrapfx.BootstrapFX;
 
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 
@@ -13,11 +14,13 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 public class Controller_ListaAnuncios implements Initializable{
     @FXML
@@ -72,8 +75,25 @@ public class Controller_ListaAnuncios implements Initializable{
         // TODO: Volver a la ventana Home
     }
 
-    public void abrirAnuncio(Anuncio anuncio){
-        // TODO: Abrir la ventana de detalles del anuncio
+    public void abrirAnuncio(Anuncio anuncio) throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_DetalleAnuncio.fxml"));
+        Parent nuevaVista = loader.load();
+
+        Controller_DetalleAnuncio controller = loader.getController();
+        controller.setAnuncio(anuncio);
+        controller.setMarcaModelo(anuncio.getMarca(), anuncio.getModelo());
+        controller.setCategoria(anuncio.getCategoria());
+        controller.setDescripcion(anuncio.getDescripcion());
+        controller.setPrecio(anuncio.getPrecioAlContado(), anuncio.getPrecioMensual());
+        controller.setDatos(anuncio.getCv(), anuncio.getColor(), anuncio.getPuertas(), anuncio.getAnio(), anuncio.getTipoMarchas(), anuncio.getCantMarchas(), anuncio.getKilometraje(), anuncio.getCombustible());
+
+        Stage stage = (Stage) Btn_Filtros.getScene().getWindow();
+
+        Scene scene = new Scene(nuevaVista);
+        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
+
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

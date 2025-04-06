@@ -10,6 +10,7 @@ com/iesfernandoaguilar/perezgonzalez/model/Notificacion.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro3.class
 com/iesfernandoaguilar/perezgonzalez/model/Usuario.class
 com/iesfernandoaguilar/perezgonzalez/model/Mensaje.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_DetalleAnuncio.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro2.class
 com/iesfernandoaguilar/perezgonzalez/App.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_InicioSesion.class

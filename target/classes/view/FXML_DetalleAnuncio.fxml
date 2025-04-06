@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.String?>
+<?import java.net.URL?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Line?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_DetalleAnuncio">
+   <children>
+      <Button fx:id="Btn_Volver" graphicTextGap="10.0" layoutX="105.0" layoutY="32.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleBtnVolverAction" prefHeight="85.0" prefWidth="232.0" styleClass="botonTransparente" text="Volver">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="52.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/IconoFlechaBlanca.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
+      <ImageView fitHeight="75.0" fitWidth="145.0" layoutX="627.0" layoutY="42.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/LogoAzul.png" />
+         </image>
+      </ImageView>
+      <ImageView fx:id="ImgView_ImagenCoche" fitHeight="317.0" fitWidth="356.0" layoutX="108.0" layoutY="168.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/IconoReunionConcretada.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="Btn_SiguienteImg" layoutX="379.0" layoutY="301.0" mnemonicParsing="false" onMouseClicked="#handleSiguienteImgAction" prefHeight="44.0" prefWidth="35.0">
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/IconoFlechaDrcGris.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <styleClass>
+            <String fx:value="botonImagen" />
+            <String fx:value="radiusDerecha" />
+         </styleClass>
+      </Button>
+      <Button fx:id="Btn_AnteriorImg" layoutX="109.0" layoutY="302.0" mnemonicParsing="false" onMouseClicked="#handleAnteriorImgAction" prefHeight="44.0" prefWidth="45.0">
+         <graphic>
+            <ImageView fitHeight="36.0" fitWidth="27.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/IconoFlechaIzqGris.png" />
+               </image>
+            </ImageView>
+         </graphic>
+         <styleClass>
+            <String fx:value="botonImagen" />
+            <String fx:value="radiusIzquierda" />
+         </styleClass>
+      </Button>
+      <Label fx:id="Lbl_MarcaModelo" layoutX="492.0" layoutY="164.0" text="Marca | Modelo" textFill="#84aedd">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_Categoria" layoutX="497.0" layoutY="216.0" text="Categoría" textFill="WHITE">
+         <font>
+            <Font size="30.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_Usuario" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="1003.0" layoutY="171.0" prefHeight="40.0" prefWidth="351.0" text="De JoseCarlos2907" textAlignment="RIGHT" textFill="#84aedd">
+         <font>
+            <Font size="23.0" />
+         </font>
+      </Label>
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#ffffff80" height="241.0" layoutX="107.0" layoutY="522.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="925.0" />
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#ffffff80" height="434.0" layoutX="1076.0" layoutY="225.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="278.0" />
+      <Label layoutX="138.0" layoutY="536.0" text="Descripción:" textFill="#1c1c1c">
+         <font>
+            <Font size="34.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_Descripcion" alignment="TOP_LEFT" layoutX="140.0" layoutY="579.0" prefHeight="170.0" prefWidth="870.0" text="Aquí iría todo el textaco de la descripción" textFill="#1c1c1c" wrapText="true">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label layoutX="1122.0" layoutY="257.0" text="Precio al contado" textFill="#1c1c1c">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_PrecioContado" alignment="CENTER_RIGHT" layoutX="1094.0" layoutY="294.0" prefHeight="49.0" prefWidth="238.0" text="99.999€" textAlignment="RIGHT" textFill="WHITE">
+         <font>
+            <Font size="40.0" />
+         </font>
+      </Label>
+      <Label layoutX="1123.0" layoutY="366.0" text="Precio financiado" textFill="#1c1c1c">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_PrecioFinanciadoTotal" alignment="CENTER_RIGHT" layoutX="1123.0" layoutY="392.0" prefHeight="30.0" prefWidth="209.0" text="109.000€" textAlignment="RIGHT" textFill="#1c1c1c">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_PrecioMensual" alignment="CENTER_RIGHT" layoutX="1099.0" layoutY="427.0" prefHeight="49.0" prefWidth="232.0" text="10.999€ /mes" textAlignment="RIGHT" textFill="WHITE">
+         <font>
+            <Font size="33.0" />
+         </font>
+      </Label>
+      <Button fx:id="Btn_Reunirse" layoutX="1097.0" layoutY="579.0" mnemonicParsing="false" onMouseClicked="#handleBtnReunirseAction" prefHeight="53.0" prefWidth="238.0" styleClass="botonNegro" text="Reunirse">
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Button fx:id="Btn_Comprar" layoutX="1096.0" layoutY="494.0" mnemonicParsing="false" onMouseClicked="#handleBtnComprarAction" prefHeight="53.0" prefWidth="238.0" styleClass="botonAzul" text="Comprar">
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Label fx:id="Lbl_CV" layoutX="522.0" layoutY="302.0" prefHeight="26.0" prefWidth="154.0" text="90 CV" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Line endX="329.0" layoutX="608.0" layoutY="338.0" startX="-100.0" stroke="#84aedd" strokeWidth="2.0" />
+      <Line endX="333.0" layoutX="607.0" layoutY="384.0" startX="-100.0" stroke="#84aedd" strokeWidth="2.0" />
+      <Line endX="330.0" layoutX="608.0" layoutY="429.0" startX="-100.0" stroke="#84aedd" strokeWidth="2.0" />
+      <Line endX="-100.0" endY="159.0" layoutX="791.0" layoutY="310.0" startX="-100.0" startY="-17.0" stroke="#84aedd" strokeWidth="2.0" />
+      <Label fx:id="Lbl_Color" layoutX="520.0" layoutY="348.0" prefHeight="26.0" prefWidth="165.0" text="Color amarillo" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_Puertas" layoutX="520.0" layoutY="394.0" prefHeight="26.0" prefWidth="154.0" text="5 Puertas" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_Anio" layoutX="520.0" layoutY="439.0" prefHeight="26.0" prefWidth="154.0" text="Año 2013" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_CantMarchas" layoutX="705.0" layoutY="347.0" prefHeight="26.0" prefWidth="232.0" text="5 Marchas" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_TipoMarchas" layoutX="705.0" layoutY="299.0" prefHeight="26.0" prefWidth="232.0" text="Cambio Manual" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_Km" layoutX="705.0" layoutY="394.0" prefHeight="26.0" prefWidth="232.0" text="240000 Km" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_TipoCombustible" layoutX="705.0" layoutY="437.0" prefHeight="26.0" prefWidth="232.0" text="Diésel" textFill="WHITE">
+         <font>
+            <Font size="22.0" />
+         </font>
+      </Label>
+   </children>
+   <stylesheets>
+      <URL value="@../styles/EstiloGeneral.css" />
+      <URL value="@../styles/EstiloDetalleAnuncio.css" />
+   </stylesheets>
+</Pane>

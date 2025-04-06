@@ -1,5 +1,7 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
+import java.io.IOException;
+
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 
 import javafx.fxml.FXML;
@@ -41,7 +43,7 @@ public class Controller_Anuncio {
     private Anuncio anuncio;
 
     @FXML
-    void handlePaneAnuncioAction(MouseEvent event) {
+    void handlePaneAnuncioAction(MouseEvent event) throws IOException {
         this.controller.abrirAnuncio(anuncio);
     }
 
@@ -66,7 +68,7 @@ public class Controller_Anuncio {
     }
 
     public void setUsuario(String usuario){
-        this.Lbl_Usuario.setText(usuario);
+        this.Lbl_Usuario.setText("De " + usuario);
     }
 
     public void setController(Controller_ListaAnuncios controller){

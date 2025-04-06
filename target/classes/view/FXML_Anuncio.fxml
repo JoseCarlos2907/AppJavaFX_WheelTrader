@@ -7,30 +7,30 @@
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="Pane_Anuncio" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handlePaneAnuncioAction" prefHeight="369.0" prefWidth="1238.0" styleClass="fondoTransparente" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Anuncio">
+<Pane fx:id="Pane_Anuncio" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handlePaneAnuncioAction" prefHeight="369.0" prefWidth="1238.0" stylesheets="@../styles/EstiloAnuncios.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Anuncio">
    <children>
       <Rectangle fx:id="Rectangle_Fondo" arcHeight="50.0" arcWidth="50.0" fill="#282828" height="349.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1220.0" />
       <ImageView fx:id="ImgView_Vehiculo" fitHeight="305.0" fitWidth="399.0" layoutX="40.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="Lbl_MarcaModelo" layoutX="463.0" layoutY="52.0" text="Marca | Modelo" textFill="#84aedd">
+      <Label fx:id="Lbl_MarcaModelo" layoutX="463.0" layoutY="52.0" styleClass="marcaModelo" text="Marca | Modelo" textFill="#84aedd">
          <font>
             <Font size="44.0" />
          </font></Label>
-      <Label fx:id="Lbl_Usuario" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="848.0" layoutY="291.0" prefHeight="40.0" prefWidth="351.0" text="De JoseCarlos2907" textAlignment="RIGHT" textFill="#84aedd">
+      <Label fx:id="Lbl_Usuario" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="848.0" layoutY="291.0" prefHeight="40.0" prefWidth="351.0" styleClass="usuario" text="De JoseCarlos2907" textAlignment="RIGHT" textFill="#84aedd">
          <font>
             <Font size="30.0" />
          </font></Label>
       <ImageView fx:id="ImgView_Guardado" fitHeight="45.0" fitWidth="53.0" layoutX="1140.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="Lbl_Precio" layoutX="463.0" layoutY="106.0" text="99.999€" textFill="WHITE">
+      <Label fx:id="Lbl_Precio" layoutX="463.0" layoutY="106.0" styleClass="precio" text="99.999€" textFill="WHITE">
          <font>
             <Font size="34.0" />
          </font>
       </Label>
-      <Label fx:id="Lbl_Datos" layoutX="463.0" layoutY="204.0" text="Categoría - Año - Kilometraje" textFill="WHITE">
+      <Label fx:id="Lbl_Datos" layoutX="463.0" layoutY="204.0" styleClass="datos" text="Categoría - Año - Kilometraje" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Label fx:id="Lbl_Ubicacion" layoutX="465.0" layoutY="296.0" text="En Jerez, Cádiz" textFill="WHITE">
+      <Label fx:id="Lbl_Ubicacion" layoutX="465.0" layoutY="296.0" styleClass="datos" text="En Jerez, Cádiz" textFill="WHITE">
          <font>
             <Font size="25.0" />
          </font>

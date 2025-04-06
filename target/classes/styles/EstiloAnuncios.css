@@ -17,3 +17,23 @@
     -fx-font-size: 26px;
     -fx-text-fill: white;
 }
+
+.marcaModelo{
+    -fx-font-size: 44px;
+    -fx-text-fill: #84aedd;
+}
+
+.precio{
+    -fx-font-size: 34px;
+    -fx-text-fill: white;
+}
+
+.datos{
+    -fx-font-size: 25px;
+    -fx-text-fill: white;
+}
+
+.usuario{
+    -fx-font-size: 30px;
+    -fx-text-fill: #84aedd;
+}
