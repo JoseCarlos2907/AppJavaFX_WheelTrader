@@ -1,17 +1,25 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import org.kordamp.bootstrapfx.BootstrapFX;
+
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
+import com.iesfernandoaguilar.perezgonzalez.model.IListaAnuncios;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class Controller_DetalleAnuncio implements Initializable {
     @FXML
@@ -80,6 +88,8 @@ public class Controller_DetalleAnuncio implements Initializable {
     private Anuncio anuncio;
     private List<String> imagenes;
 
+    private IListaAnuncios controller;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // TODO: Cargar imagenes de la BD y mostrar la primera
@@ -106,8 +116,29 @@ public class Controller_DetalleAnuncio implements Initializable {
     }
 
     @FXML
-    void handleBtnVolverAction(MouseEvent event) {
+    void handleBtnVolverAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = null;
+        if(this.controller instanceof Controller_ListaAnuncios){
+            loader = new FXMLLoader(getClass().getResource("/view/FXML_ListaAnuncios.fxml"));
+        }else if(this.controller instanceof Controller_MisAnuncios){
+            loader = new FXMLLoader(getClass().getResource("/view/FXML_MisAnuncios.fxml"));
+        }else if(this.controller instanceof Controller_MisGuardados){
+            loader = new FXMLLoader(getClass().getResource("/view/FXML_MisGuardados.fxml"));
+        }
 
+        Parent nuevaVista = loader.load();
+
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(nuevaVista);
+        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
+
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public void setController(IListaAnuncios controller){
+        this.controller = controller;
     }
 
     public void setAnuncio(Anuncio anuncio){

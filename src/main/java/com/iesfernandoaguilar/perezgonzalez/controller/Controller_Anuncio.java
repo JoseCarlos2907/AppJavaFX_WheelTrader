@@ -3,6 +3,7 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 import java.io.IOException;
 
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
+import com.iesfernandoaguilar.perezgonzalez.model.IListaAnuncios;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -39,7 +40,7 @@ public class Controller_Anuncio {
     @FXML
     private Rectangle Rectangle_Fondo;
 
-    private Controller_ListaAnuncios controller;
+    private IListaAnuncios controller;
     private Anuncio anuncio;
 
     @FXML
@@ -71,7 +72,7 @@ public class Controller_Anuncio {
         this.Lbl_Usuario.setText("De " + usuario);
     }
 
-    public void setController(Controller_ListaAnuncios controller){
+    public void setController(IListaAnuncios controller){
         this.controller = controller;
     }
 

@@ -17,13 +17,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
+public class Controller_MisAnuncios implements Initializable, IListaAnuncios{
     @FXML
     private Button Btn_Volver;
 
@@ -32,9 +31,6 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
 
     @FXML
     private Rectangle Rectangle_Fondo;
-
-    @FXML
-    private TextField TxtF_BarraBusqueda;
 
     @FXML
     private VBox VBox_Anuncios;
@@ -63,7 +59,7 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
                 controller.setUbicacion(anuncio.getProvincia(), anuncio.getCiudad());
                 controller.setUsuario("JoseCarlos2907");
                 controller.setController(this);
-
+                
                 this.VBox_Anuncios.getChildren().add(componente);
             } catch (IOException e) {
                 e.printStackTrace();
