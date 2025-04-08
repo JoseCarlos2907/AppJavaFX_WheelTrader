@@ -2,13 +2,16 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisAnuncios.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificacion.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificaciones.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro4.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_Valoracion.class
 com/iesfernandoaguilar/perezgonzalez/model/Venta.class
+com/iesfernandoaguilar/perezgonzalez/model/Valoracion.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ListaAnuncios.class
 com/iesfernandoaguilar/perezgonzalez/controller/Lector_InicioSesion.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisGuardados.class
 com/iesfernandoaguilar/perezgonzalez/controller/recuperarContrasenia/Controller_RecuperarContrasenia3.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Anuncio.class
 com/iesfernandoaguilar/perezgonzalez/model/Notificacion.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisValoraciones.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ConfUsuario.class
 com/iesfernandoaguilar/perezgonzalez/model/Mensaje.class
 com/iesfernandoaguilar/perezgonzalez/App.class

@@ -1,0 +1,19 @@
+.titulo{
+    -fx-text-fill: #84aedd;
+    -fx-font-size: 40px;
+}
+
+.usuario{
+    -fx-font-size: 36px;
+    -fx-text-fill: #84aedd;
+}
+
+.texto{
+    -fx-font-size: 22px;
+    -fx-text-fill: white;
+}
+
+.valoracion{
+    -fx-font-size: 30px;
+    -fx-text-fill: white;
+}
