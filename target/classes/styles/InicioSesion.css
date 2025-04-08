@@ -3,3 +3,8 @@
     font-size: 20px;
     -fx-font-size: 20px;
 }
+
+.parrafo{
+    -fx-font-size: 24px;
+    -fx-text-fill: white;
+}

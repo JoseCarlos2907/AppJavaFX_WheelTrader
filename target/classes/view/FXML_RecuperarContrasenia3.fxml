@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.net.URL?>
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.effect.DropShadow?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia3">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="419.0" layoutY="136.0" styleClass="titulo" text="Recuperar Contraseña" textFill="WHITE">
+         <font>
+            <Font size="50.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="89.0" fitWidth="165.0" layoutX="626.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/LogoAzul.png" />
+         </image>
+      </ImageView>
+      <Button fx:id="Btn_CambiarContrasenia" layoutX="841.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnCambiarContraseniaAction" prefHeight="70.0" prefWidth="244.0" styleClass="botonAzul" text="Cambiar Contraseña" textFill="WHITE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="20.0" />
+         </font>
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Button fx:id="Btn_Volver" layoutX="363.0" layoutY="686.0" mnemonicParsing="false" onMouseClicked="#handleBtnVolverAction" prefHeight="70.0" prefWidth="208.0" styleClass="botonNegro" text="Volver" textFill="#1c1c1c">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="20.0" />
+         </font>
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#404040" height="343.0" layoutX="262.0" layoutY="261.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="893.0" />
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="730.0" layoutY="337.0" text="Requisitos de la contraseña" textFill="WHITE">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Label>
+      <Label layoutX="741.0" layoutY="378.0" prefHeight="41.0" prefWidth="350.0" text="· Mínimo 6 caracteres" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="741.0" layoutY="419.0" prefHeight="41.0" prefWidth="350.0" text="· Mínimo 1 mayúscula y 1 minúscula" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label layoutX="741.0" layoutY="460.0" prefHeight="41.0" prefWidth="350.0" text="· Mínimo 1 número" textFill="WHITE">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <PasswordField fx:id="TxtF_Contra" layoutX="317.0" layoutY="342.0" prefHeight="50.0" prefWidth="350.0" promptText="Contraseña" styleClass="inputs">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </PasswordField>
+      <PasswordField fx:id="TxtF_ConfContra" layoutX="319.0" layoutY="483.0" prefHeight="50.0" prefWidth="350.0" promptText="Confirmar Contraseña" styleClass="inputs">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </PasswordField>
+   </children>
+   <stylesheets>
+      <URL value="@../styles/EstiloGeneral.css" />
+      <URL value="@../styles/InicioSesion.css" />
+   </stylesheets>
+</Pane>

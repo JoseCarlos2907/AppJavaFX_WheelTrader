@@ -142,7 +142,6 @@ public class Controller_Registro1 implements Initializable{
         Parent parent = loader.load();
         stage.setScene(new Scene(parent));
         stage.show();
-        // stage.centerOnScreen();
 
         Controller_Registro2 controller = loader.getController();
         controller.setHiloLector(hiloLector);

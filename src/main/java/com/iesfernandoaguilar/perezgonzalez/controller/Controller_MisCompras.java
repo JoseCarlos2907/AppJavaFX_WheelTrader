@@ -3,11 +3,9 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Venta;
 
 import javafx.fxml.FXML;

@@ -10,6 +10,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javafx.application.Platform;
 
+import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia1;
+import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia2;
+import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia3;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro2;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro3;
@@ -26,6 +29,10 @@ public class Lector_InicioSesion extends Thread{
     private Controller_Registro2 controllerR2;
     private Controller_Registro3 controllerR3;
 
+    private Controller_RecuperarContrasenia1 controllerRC1;
+    private Controller_RecuperarContrasenia2 controllerRC2;
+    private Controller_RecuperarContrasenia3 controllerRC3;
+
     private static String usuarioJSON;
 
     public Lector_InicioSesion(InputStream flujoInicioSesion, Controller_InicioSesion controllerInicioSesion) {
@@ -35,6 +42,10 @@ public class Lector_InicioSesion extends Thread{
         this.controllerR1 = null;
         this.controllerR2 = null;
         this.controllerR3 = null;
+
+        this.controllerRC1 = null;
+        this.controllerRC2 = null;
+        this.controllerRC3 = null;
 
         usuarioJSON = "";
     }
@@ -144,5 +155,17 @@ public class Lector_InicioSesion extends Thread{
 
     public void setRegistroController3(Controller_Registro3 controller){
         this.controllerR3 = controller;
+    }
+
+    public void setRecupContraController1(Controller_RecuperarContrasenia1 controller){
+        this.controllerRC1 = controller;
+    }
+
+    public void setRecupContraController2(Controller_RecuperarContrasenia2 controller){
+        this.controllerRC2 = controller;
+    }
+
+    public void setRecupContraController3(Controller_RecuperarContrasenia3 controller){
+        this.controllerRC3 = controller;
     }
 }
