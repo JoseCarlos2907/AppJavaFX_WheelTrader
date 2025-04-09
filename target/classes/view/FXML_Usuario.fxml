@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="Pane_Usuario" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handlePaneUsuarioAction" prefHeight="131.0" prefWidth="1238.0" stylesheets="@../styles/EstiloUsuario.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Usuario">
+   <children>
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#282828" height="109.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1220.0" />
+      <Label fx:id="Lbl_NombreUsuario" layoutX="53.0" layoutY="43.0" prefHeight="44.0" prefWidth="489.0" styleClass="nombreUsuario" text="JoseCarlos2907" textFill="#84aedd">
+         <font>
+            <Font size="44.0" />
+         </font></Label>
+      <Label fx:id="Lbl_CantReportes" alignment="CENTER_RIGHT" layoutX="591.0" layoutY="43.0" prefHeight="44.0" prefWidth="107.0" styleClass="cantReportes" text="0" textFill="#84aedd">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <Label fx:id="Lbl_ValoracionMedia" alignment="CENTER_RIGHT" layoutX="1048.0" layoutY="44.0" prefHeight="44.0" prefWidth="97.0" styleClass="valMedia" text="4.5" textFill="#84aedd">
+         <font>
+            <Font size="44.0" />
+         </font>
+      </Label>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="711.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/IconoReporte.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+      </ImageView>
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1154.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@../img/IconoEstrella.png" />
+         </image>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </ImageView>
+   </children>
+   <cursor>
+      <Cursor fx:constant="HAND" />
+   </cursor>
+</Pane>

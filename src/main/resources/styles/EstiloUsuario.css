@@ -1,0 +1,9 @@
+.nombreUsuario{
+    -fx-font-size: 36px;
+    -fx-text-fill: #84aedd;
+}
+
+.cantReportes, .valMedia{
+    -fx-font-size: 36px;
+    -fx-text-fill: white;
+}

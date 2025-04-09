@@ -64,8 +64,8 @@ public class Usuario {
         return nombreUsuario;
     }
 
-    public void setNombreUsuario(String nombreUsuaroio) {
-        this.nombreUsuario = nombreUsuaroio;
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public String getContrasenia() {

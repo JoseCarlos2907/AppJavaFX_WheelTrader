@@ -104,7 +104,6 @@ public class Controller_InicioSesion implements Initializable {
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
 
         Scene scene = new Scene(nuevaVista);
-        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
 
         stage.setScene(scene);
         stage.show();

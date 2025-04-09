@@ -74,3 +74,51 @@
     background-color: #530101;
     -fx-background-color: #530101;
 }
+
+
+/* Diseño para las ventanas que contengan tabs */
+
+.tabPane {
+    -fx-background-color: transparent;
+    
+    /* Alto de cada tab */
+    -fx-tab-min-height: 78px;
+    -fx-tab-max-height: 78px;
+
+    /* Ancho de cada tab */
+    -fx-tab-min-width: 200px;
+    -fx-tab-max-width: 200px;
+}
+
+.tabPane .tab-header-area {
+    /* El padding es para centrar los tabs */
+    -fx-padding: 0 0 0 400px;
+    -fx-border-color: #84aadd;
+    -fx-border-width: 0 0 2 0;
+}
+
+.tabPane .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tabPane .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 20 20 0 0;
+    -fx-padding: 10px;
+    -fx-border-width: 0;
+}
+
+.tabPane .tab:selected {
+    -fx-background-color: #84AEDD;
+    -fx-text-fill: #1c1c1c;
+}
+
+.tabPane .tab-label {
+    -fx-text-fill: #84AEDD;
+    -fx-font-size: 30px;
+    -fx-cursor: hand;
+}
+
+.tabPane .tab:selected .tab-label {
+    -fx-text-fill: #1c1c1c;
+}

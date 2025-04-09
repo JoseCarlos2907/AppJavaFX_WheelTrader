@@ -124,6 +124,8 @@ public class Controller_DetalleAnuncio implements Initializable {
             loader = new FXMLLoader(getClass().getResource("/view/FXML_MisAnuncios.fxml"));
         }else if(this.controller instanceof Controller_MisGuardados){
             loader = new FXMLLoader(getClass().getResource("/view/FXML_MisGuardados.fxml"));
+        }else if(this.controller instanceof Controller_HomeModerador){
+            loader = new FXMLLoader(getClass().getResource("/view/FXML_HomeModerador.fxml"));
         }
 
         Parent nuevaVista = loader.load();
