@@ -1,0 +1,24 @@
+.paneYCanvas{
+    -fx-border-width: 2px;
+    -fx-border-color: white;
+    -fx-background-color: transparent;
+}
+
+.paneYCanvas .viewport{
+    -fx-background-color: transparent;
+}
+
+.lblFirma{
+    -fx-text-fill: #84aedd;
+    -fx-font-size: 40px;
+}
+
+.aviso{
+    -fx-text-fill: #84aedd;
+    -fx-font-size: 20px;
+}
+
+.precio{
+    -fx-text-fill: white;
+    -fx-font-size: 22px;
+}
