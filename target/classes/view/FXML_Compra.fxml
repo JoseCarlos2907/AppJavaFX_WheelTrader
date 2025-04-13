@@ -14,7 +14,7 @@
    <children>
       <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#282828" height="349.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1220.0" />
       <ImageView fx:id="ImgView_Vehiculo" fitHeight="305.0" fitWidth="399.0" layoutX="40.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="Lbl_MarcaModelo" layoutX="463.0" layoutY="52.0" styleClass="marcaModelo" text="Marca | Modelo" textFill="#84aedd">
+      <Label fx:id="Lbl_MarcaModelo" layoutX="463.0" layoutY="52.0" prefHeight="54.0" prefWidth="391.0" styleClass="marcaModelo" text="Marca | Modelo" textFill="#84aedd">
          <font>
             <Font size="44.0" />
          </font></Label>
@@ -27,7 +27,7 @@
             <Font size="34.0" />
          </font>
       </Label>
-      <Label fx:id="Lbl_Fecha" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="781.0" layoutY="62.0" prefHeight="25.0" prefWidth="417.0" styleClass="fecha" text="La garantía acaba el 20/04/2029" textAlignment="RIGHT" textFill="WHITE">
+      <Label fx:id="Lbl_Fecha" alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="868.0" layoutY="62.0" prefHeight="61.0" prefWidth="330.0" styleClass="fecha" text="La garantía acaba el 20/04/2029" textAlignment="RIGHT" textFill="WHITE" wrapText="true">
          <font>
             <Font size="25.0" />
          </font>

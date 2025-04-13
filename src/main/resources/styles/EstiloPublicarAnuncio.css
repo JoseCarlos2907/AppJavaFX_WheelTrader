@@ -1,0 +1,59 @@
+.desplegable{
+    -fx-background-color: #84aedd;
+    -fx-text-fill: #1c1c1c;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+}
+
+.inputs, .inputs:focus{
+    -fx-background-radius: 25;
+    font-size: 20px;
+    -fx-font-size: 20px;
+}
+
+
+
+.tabPanePA {
+    -fx-background-color: transparent;
+    
+    /* Alto de cada tab */
+    -fx-tab-min-height: 78px;
+    -fx-tab-max-height: 78px;
+
+    /* Ancho de cada tab */
+    -fx-tab-min-width: 200px;
+    -fx-tab-max-width: 200px;
+}
+
+.tabPanePA .tab-header-area {
+    /* El padding es para centrar los tabs */
+    -fx-padding: 0 0 0 77px;
+    -fx-border-color: #84aadd;
+    -fx-border-width: 0 0 2 0;
+}
+
+.tabPanePA .tab-header-background {
+    -fx-background-color: transparent;
+}
+
+.tabPanePA .tab {
+    -fx-background-color: transparent;
+    -fx-background-radius: 20 20 0 0;
+    -fx-padding: 10px;
+    -fx-border-width: 0;
+}
+
+.tabPanePA .tab:selected {
+    -fx-background-color: #84AEDD;
+    -fx-text-fill: #1c1c1c;
+}
+
+.tabPanePA .tab-label {
+    -fx-text-fill: #84AEDD;
+    -fx-font-size: 30px;
+    -fx-cursor: hand;
+}
+
+.tabPanePA .tab:selected .tab-label {
+    -fx-text-fill: #1c1c1c;
+}

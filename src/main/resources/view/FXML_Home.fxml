@@ -44,55 +44,28 @@
             </ImageView>
          </graphic>
       </Button>
-      <Line endX="1118.0" layoutX="198.0" layoutY="212.0" startX="-100.0" stroke="#84aedd" strokeWidth="3.0" />
-      <Button fx:id="Btn_Home" graphicTextGap="10.0" layoutX="437.0" layoutY="132.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="78.0" prefWidth="238.0" styleClass="botonSeleccionado" text="Home">
-         <font>
-            <Font size="24.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="52.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/IconoHomeGris.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Button fx:id="Btn_Descubrir" graphicTextGap="10.0" layoutX="706.0" layoutY="133.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="77.0" prefWidth="318.0" styleClass="botonNoSeleccionado" text="Descubrir">
-         <font>
-            <Font size="24.0" />
-         </font>
-         <graphic>
-            <ImageView fitHeight="52.0" fitWidth="55.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/IconoLupaAzul.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
-      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#ffffff80" height="528.0" layoutX="96.0" layoutY="240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="290.0" />
-      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#ffffff80" height="239.0" layoutX="432.0" layoutY="240.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="883.0" />
-      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#ffffff80" height="241.0" layoutX="432.0" layoutY="526.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="883.0" />
-      <Label layoutX="135.0" layoutY="253.0" prefHeight="53.0" prefWidth="218.0" text="Últimos coches vendidos" textAlignment="CENTER" textFill="#1c1c1c" wrapText="true">
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#ffffff80" height="528.0" layoutX="103.0" layoutY="191.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="290.0" />
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#ffffff80" height="239.0" layoutX="439.0" layoutY="191.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="883.0" />
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#ffffff80" height="241.0" layoutX="439.0" layoutY="477.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="883.0" />
+      <Label layoutX="142.0" layoutY="204.0" prefHeight="53.0" prefWidth="218.0" text="Últimos coches vendidos" textAlignment="CENTER" textFill="#1c1c1c" wrapText="true">
          <font>
             <Font name="Instrument Sans Regular" size="20.0" />
          </font>
       </Label>
-      <Line endX="142.0" layoutX="223.0" layoutY="315.0" startX="-100.0" stroke="WHITE" strokeWidth="2.0" />
-      <Line endX="142.0" layoutX="223.0" layoutY="504.0" startX="-100.0" stroke="WHITE" strokeWidth="2.0" />
-      <Line endX="142.0" layoutX="223.0" layoutY="720.0" startX="-100.0" stroke="WHITE" strokeWidth="2.0" />
-      <Rectangle fx:id="ImgView_Coche1" arcHeight="50.0" arcWidth="50.0" fill="#c3c3c3" height="136.0" layoutX="148.0" layoutY="328.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="193.0" />
-      <Label fx:id="Label_Coche1" alignment="CENTER" contentDisplay="CENTER" layoutX="158.0" layoutY="464.0" prefHeight="36.0" prefWidth="166.0" text="Marca | Modelo" textAlignment="CENTER" textFill="#1c1c1c" wrapText="true">
+      <Line endX="142.0" layoutX="230.0" layoutY="266.0" startX="-100.0" stroke="WHITE" strokeWidth="2.0" />
+      <Line endX="142.0" layoutX="230.0" layoutY="455.0" startX="-100.0" stroke="WHITE" strokeWidth="2.0" />
+      <Line endX="142.0" layoutX="230.0" layoutY="671.0" startX="-100.0" stroke="WHITE" strokeWidth="2.0" />
+      <Label fx:id="Label_Coche1" alignment="CENTER" contentDisplay="CENTER" layoutX="165.0" layoutY="415.0" prefHeight="36.0" prefWidth="166.0" text="Marca | Modelo" textAlignment="CENTER" textFill="#1c1c1c" wrapText="true">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <Rectangle fx:id="ImgView_Coche1" arcHeight="50.0" arcWidth="50.0" fill="#c3c3c3" height="136.0" layoutX="145.0" layoutY="526.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="193.0" />
-      <Label fx:id="Label_Coche1" alignment="CENTER" contentDisplay="CENTER" layoutX="155.0" layoutY="662.0" prefHeight="36.0" prefWidth="166.0" text="Marca | Modelo" textAlignment="CENTER" textFill="#1c1c1c" wrapText="true">
+      <Label fx:id="Label_Coche2" alignment="CENTER" contentDisplay="CENTER" layoutX="162.0" layoutY="613.0" prefHeight="36.0" prefWidth="166.0" text="Marca | Modelo" textAlignment="CENTER" textFill="#1c1c1c" wrapText="true">
          <font>
             <Font name="System Bold" size="16.0" />
          </font>
       </Label>
-      <TextField fx:id="TxtF_BarraBusqueda" layoutX="483.0" layoutY="283.0" prefHeight="65.0" prefWidth="604.0" promptText="Escribe algo para buscar" styleClass="barraBusqueda">
+      <TextField fx:id="TxtF_BarraBusqueda" layoutX="490.0" layoutY="234.0" prefHeight="65.0" prefWidth="604.0" promptText="Escribe algo para buscar" styleClass="barraBusqueda">
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>
@@ -101,7 +74,7 @@
             </DropShadow>
          </effect>
       </TextField>
-      <Button fx:id="Btn_Filtros" graphicTextGap="5.0" layoutX="1087.0" layoutY="283.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="177.0" styleClass="botonFiltros" text="Filtros">
+      <Button fx:id="Btn_Filtros" graphicTextGap="5.0" layoutX="1094.0" layoutY="234.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="177.0" styleClass="botonFiltros" text="Filtros">
          <font>
             <Font size="33.0" />
          </font>
@@ -120,7 +93,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="Btn_Buscar" layoutX="506.0" layoutY="395.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="238.0" styleClass="botonNegro" text="Buscar">
+      <Button fx:id="Btn_Buscar" layoutX="513.0" layoutY="346.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="238.0" styleClass="botonNegro" text="Buscar">
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>
@@ -129,7 +102,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button fx:id="Btn_PublicarAnuncio" layoutX="1007.0" layoutY="395.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="238.0" styleClass="botonAzul" text="Publicar anuncio">
+      <Button fx:id="Btn_PublicarAnuncio" layoutX="1014.0" layoutY="346.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="238.0" styleClass="botonAzul" text="Publicar anuncio">
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>
@@ -138,6 +111,8 @@
             </DropShadow>
          </effect>
       </Button>
+      <ImageView fx:id="ImgView_Coche1" fitHeight="136.0" fitWidth="193.0" layoutX="155.0" layoutY="279.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="ImgView_Coche2" fitHeight="136.0" fitWidth="193.0" layoutX="152.0" layoutY="477.0" pickOnBounds="true" preserveRatio="true" />
    </children>
    <stylesheets>
       <URL value="@../styles/EstiloGeneral.css" />

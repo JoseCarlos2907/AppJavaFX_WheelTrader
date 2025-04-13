@@ -1,13 +1,18 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 public class Controller_Compra {
     private static final DateTimeFormatter formatoFecha = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -33,11 +38,21 @@ public class Controller_Compra {
     private LocalDateTime fechaFinGarantia;
 
     @FXML
-    void handleBtnIncidenciaAction(MouseEvent event) {
+    void handleBtnIncidenciaAction(MouseEvent event) throws IOException {
         if(LocalDateTime.now().isAfter(fechaFinGarantia)){
             // TODO: Alert de que se ha acabado la garantía
         }else{
-            // TODO: Mandar al formulario de registrar incidencia
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_RegistrarIncidencia.fxml"));
+            Parent parent = loader.load();
+            stage.setScene(new Scene(parent));
+            stage.show();
+
+            Controller_RegistrarIncidencia controller = loader.getController();
+            controller.setTituloIncidencia(new String(this.Lbl_MarcaModelo.getText()));
+
+            Stage stage2 = (Stage) Btn_Incidencia.getScene().getWindow();
+            stage2.close();
         }
     }
 

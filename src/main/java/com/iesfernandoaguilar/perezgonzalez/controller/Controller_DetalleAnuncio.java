@@ -87,6 +87,7 @@ public class Controller_DetalleAnuncio implements Initializable {
 
     private Anuncio anuncio;
     private List<String> imagenes;
+    private String nombreUsuario;
 
     private IListaAnuncios controller;
 
@@ -126,6 +127,9 @@ public class Controller_DetalleAnuncio implements Initializable {
             loader = new FXMLLoader(getClass().getResource("/view/FXML_MisGuardados.fxml"));
         }else if(this.controller instanceof Controller_HomeModerador){
             loader = new FXMLLoader(getClass().getResource("/view/FXML_HomeModerador.fxml"));
+        }else if(this.controller instanceof Controller_PerfilUsuario){
+            loader = new FXMLLoader(getClass().getResource("/view/FXML_PerfilUsuario.fxml"));
+            ((Controller_PerfilUsuario)this.controller).setNombreUsuario(nombreUsuario);
         }
 
         Parent nuevaVista = loader.load();
@@ -160,6 +164,7 @@ public class Controller_DetalleAnuncio implements Initializable {
     }
 
     public void setUsuario(String nombreUsuario){
+        this.nombreUsuario = nombreUsuario;
         this.Lbl_Usuario.setText("De " + nombreUsuario);
     }
 

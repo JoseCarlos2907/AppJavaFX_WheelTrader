@@ -1,0 +1,35 @@
+.titulo{
+    -fx-text-fill: #84aedd;
+    -fx-font-size: 40px;
+}
+
+.etiquetaTituloIncidencia{
+    -fx-text-fill: #84aedd;
+    -fx-font-size: 30px;
+}
+
+.tituloIncidencia{
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+.inputs{
+    -fx-font-size: 20px;
+    -fx-background-radius: 25;
+    -fx-border-radius: 25;
+    -fx-background-insets: 0;
+    -fx-border-insets: 0;
+}
+
+.inputs .content{
+    -fx-background-radius: 25;
+    -fx-padding: 10px;
+}
+
+.inputs .scroll-pane{
+    -fx-background-radius: 25;
+}
+
+.inputs .viewport{
+    -fx-background-color: transparent;
+}

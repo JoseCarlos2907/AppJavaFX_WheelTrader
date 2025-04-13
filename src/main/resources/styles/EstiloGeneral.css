@@ -92,7 +92,7 @@
 
 .tabPane .tab-header-area {
     /* El padding es para centrar los tabs */
-    -fx-padding: 0 0 0 400px;
+    -fx-padding: 0 0 0 410px;
     -fx-border-color: #84aadd;
     -fx-border-width: 0 0 2 0;
 }

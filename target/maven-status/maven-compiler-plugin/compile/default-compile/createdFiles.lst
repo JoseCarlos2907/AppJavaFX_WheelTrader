@@ -5,6 +5,7 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificaciones.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro4.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Reportes.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Valoracion.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_RegistrarIncidencia.class
 com/iesfernandoaguilar/perezgonzalez/model/Venta.class
 com/iesfernandoaguilar/perezgonzalez/model/Valoracion.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ListaAnuncios.class
@@ -26,6 +27,7 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_Usuario.class
 com/iesfernandoaguilar/perezgonzalez/util/Serializador.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Filtros.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro3.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_PerfilUsuario.class
 com/iesfernandoaguilar/perezgonzalez/model/Reporte.class
 com/iesfernandoaguilar/perezgonzalez/model/Usuario.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisCompras.class
