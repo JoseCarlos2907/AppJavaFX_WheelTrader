@@ -1,5 +1,6 @@
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_HomeModerador.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisAnuncios.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_CompraVendedor.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificacion.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificaciones.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_CompraComprador.class
