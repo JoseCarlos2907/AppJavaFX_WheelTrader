@@ -74,7 +74,7 @@ public class Controller_RecuperarContrasenia1 implements ILogin, Initializable{
 
         Controller_InicioSesion controller = loader.getController();
         controller.setHiloLector(hiloLector);
-        this.hiloLector.setInicioSesionController(controller);
+        this.hiloLector.setController(controller);
 
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
         stage2.close();
