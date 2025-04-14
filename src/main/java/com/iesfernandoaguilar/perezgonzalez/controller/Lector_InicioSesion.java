@@ -16,6 +16,7 @@ import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Cont
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro2;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro3;
+import com.iesfernandoaguilar.perezgonzalez.model.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
@@ -29,9 +30,11 @@ public class Lector_InicioSesion extends Thread{
     private Controller_Registro2 controllerR2;
     private Controller_Registro3 controllerR3;
 
-    private Controller_RecuperarContrasenia1 controllerRC1;
-    private Controller_RecuperarContrasenia2 controllerRC2;
-    private Controller_RecuperarContrasenia3 controllerRC3;
+    private ILogin controller;
+
+    // private Controller_RecuperarContrasenia1 controllerRC1;
+    // private Controller_RecuperarContrasenia2 controllerRC2;
+    // private Controller_RecuperarContrasenia3 controllerRC3;
 
     private static String usuarioJSON;
 
@@ -39,13 +42,15 @@ public class Lector_InicioSesion extends Thread{
         this.flujoInicioSesion = flujoInicioSesion;
         this.controllerInicioSesion = controllerInicioSesion;
 
-        this.controllerR1 = null;
-        this.controllerR2 = null;
-        this.controllerR3 = null;
+        // this.controllerR1 = null;
+        // this.controllerR2 = null;
+        // this.controllerR3 = null;
 
-        this.controllerRC1 = null;
-        this.controllerRC2 = null;
-        this.controllerRC3 = null;
+        this.controller = null;
+
+        // this.controllerRC1 = null;
+        // this.controllerRC2 = null;
+        // this.controllerRC3 = null;
 
         usuarioJSON = "";
     }
@@ -117,6 +122,49 @@ public class Lector_InicioSesion extends Thread{
                             }
                         });
                         break;
+                        
+                    case "CODIGO_ENVIADO":
+                        Platform.runLater(() -> {
+                            try {
+                                this.controller.siguientePaso();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
+
+                    case "CORREO_NO_EXISTE":
+                        Platform.runLater(() -> {
+                            ((Controller_RecuperarContrasenia1) this.controller).correoNoExiste();
+                        });
+                        break;
+                        
+                    case "CODIGO_CORRECTO":
+                        Platform.runLater(() -> {
+                            try {
+                                ((Controller_RecuperarContrasenia2) this.controller).setSalt(Base64.getDecoder().decode(msgServidor.getParams().get(0)));
+                                this.controller.siguientePaso();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
+                        
+                    case "CODIGO_INCORRECTO":
+                        Platform.runLater(() -> {
+                            ((Controller_RecuperarContrasenia2) this.controller).codigoIncorrecto();
+                        });
+                        break;
+
+                    case "CONTRASENIA_REGISTRADA":
+                        Platform.runLater(() -> {
+                            try {
+                                this.controller.siguientePaso();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
                 }
 
             } catch (EOFException e) {
@@ -157,15 +205,19 @@ public class Lector_InicioSesion extends Thread{
         this.controllerR3 = controller;
     }
 
-    public void setRecupContraController1(Controller_RecuperarContrasenia1 controller){
-        this.controllerRC1 = controller;
+    public void setController(ILogin controller){
+        this.controller = controller;
     }
 
-    public void setRecupContraController2(Controller_RecuperarContrasenia2 controller){
-        this.controllerRC2 = controller;
-    }
+    // public void setRecupContraController1(Controller_RecuperarContrasenia1 controller){
+    //     this.controllerRC1 = controller;
+    // }
 
-    public void setRecupContraController3(Controller_RecuperarContrasenia3 controller){
-        this.controllerRC3 = controller;
-    }
+    // public void setRecupContraController2(Controller_RecuperarContrasenia2 controller){
+    //     this.controllerRC2 = controller;
+    // }
+
+    // public void setRecupContraController3(Controller_RecuperarContrasenia3 controller){
+    //     this.controllerRC3 = controller;
+    // }
 }

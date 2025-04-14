@@ -24,6 +24,7 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_Reporte.class
 com/iesfernandoaguilar/perezgonzalez/model/Anuncio.class
 com/iesfernandoaguilar/perezgonzalez/util/SecureUtils.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Home.class
+com/iesfernandoaguilar/perezgonzalez/model/ILogin.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_PublicarAnuncio.class
 com/iesfernandoaguilar/perezgonzalez/model/IListaUsuarios.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Usuario.class

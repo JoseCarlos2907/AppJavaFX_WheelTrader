@@ -9,8 +9,6 @@ import java.net.URL;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
-import org.kordamp.bootstrapfx.BootstrapFX;
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -25,6 +23,8 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia1;
+import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia3;
 // import com.fasterxml.jackson.databind.ObjectMapper;
 // import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1;
@@ -133,8 +133,20 @@ public class Controller_InicioSesion implements Initializable {
     }
 
     @FXML
-    void handleLblRecuperarContraseniaAction(MouseEvent event) {
-        System.out.println("Todavia no");
+    void handleLblRecuperarContraseniaAction(MouseEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_RecuperarContrasenia1.fxml"));
+        Parent nuevaVista = loader.load();
+
+        Controller_RecuperarContrasenia1 controller = loader.getController();
+        controller.setHiloLector(this.hiloLector);
+        this.hiloLector.setController(controller);
+
+        Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
+
+        Scene scene = new Scene(nuevaVista);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void inicioDeSesionIncorrecto() {
@@ -155,7 +167,6 @@ public class Controller_InicioSesion implements Initializable {
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
 
         Scene scene = new Scene(nuevaVista);
-        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
 
         stage.setScene(scene);
         stage.show();
