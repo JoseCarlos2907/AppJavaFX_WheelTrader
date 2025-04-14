@@ -9,6 +9,7 @@ import org.kordamp.bootstrapfx.BootstrapFX;
 
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_InicioSesion;
 import com.iesfernandoaguilar.perezgonzalez.controller.Lector_InicioSesion;
+import com.iesfernandoaguilar.perezgonzalez.model.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
@@ -26,7 +27,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class Controller_Registro1 implements Initializable{
+public class Controller_Registro1 implements ILogin, Initializable{
     private Lector_InicioSesion hiloLector;
     private DataOutputStream dos;
 
@@ -105,7 +106,7 @@ public class Controller_Registro1 implements Initializable{
         Parent nuevaVista = loader.load();
 
         Controller_InicioSesion controller = loader.getController();
-        hiloLector.setInicioSesionController(controller);
+        hiloLector.setController(controller);
         controller.setHiloLector(this.hiloLector);
         Stage stage = (Stage) Btn_Siguiente.getScene().getWindow();
 
@@ -145,7 +146,7 @@ public class Controller_Registro1 implements Initializable{
 
         Controller_Registro2 controller = loader.getController();
         controller.setHiloLector(hiloLector);
-        this.hiloLector.setRegistroController2(controller);
+        this.hiloLector.setController(controller);
 
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
         stage2.close();

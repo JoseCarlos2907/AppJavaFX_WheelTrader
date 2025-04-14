@@ -24,16 +24,16 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia1;
-import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia3;
 // import com.fasterxml.jackson.databind.ObjectMapper;
 // import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1;
+import com.iesfernandoaguilar.perezgonzalez.model.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.SecureUtils;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
-public class Controller_InicioSesion implements Initializable {
+public class Controller_InicioSesion implements ILogin, Initializable {
     private DataOutputStream dos;
     private Lector_InicioSesion hiloLector;
 
@@ -99,7 +99,7 @@ public class Controller_InicioSesion implements Initializable {
 
         Controller_Registro1 controller = loader.getController();
         controller.setHiloLector(this.hiloLector);
-        this.hiloLector.setRegistroController1(controller);
+        this.hiloLector.setController(controller);
 
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
 
@@ -160,7 +160,7 @@ public class Controller_InicioSesion implements Initializable {
         alert.showAndWait();
     }
 
-    public void abrirAplicacion() throws IOException {
+    public void siguientePaso() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent nuevaVista = loader.load();
 

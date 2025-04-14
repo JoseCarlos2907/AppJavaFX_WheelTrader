@@ -12,10 +12,8 @@ import javafx.application.Platform;
 
 import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia1;
 import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia2;
-import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia3;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro2;
-import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro3;
 import com.iesfernandoaguilar.perezgonzalez.model.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
@@ -24,33 +22,14 @@ import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 public class Lector_InicioSesion extends Thread{
     private InputStream flujoInicioSesion;
-    private Controller_InicioSesion controllerInicioSesion;
-
-    private Controller_Registro1 controllerR1;
-    private Controller_Registro2 controllerR2;
-    private Controller_Registro3 controllerR3;
 
     private ILogin controller;
-
-    // private Controller_RecuperarContrasenia1 controllerRC1;
-    // private Controller_RecuperarContrasenia2 controllerRC2;
-    // private Controller_RecuperarContrasenia3 controllerRC3;
 
     private static String usuarioJSON;
 
     public Lector_InicioSesion(InputStream flujoInicioSesion, Controller_InicioSesion controllerInicioSesion) {
         this.flujoInicioSesion = flujoInicioSesion;
-        this.controllerInicioSesion = controllerInicioSesion;
-
-        // this.controllerR1 = null;
-        // this.controllerR2 = null;
-        // this.controllerR3 = null;
-
         this.controller = null;
-
-        // this.controllerRC1 = null;
-        // this.controllerRC2 = null;
-        // this.controllerRC3 = null;
 
         usuarioJSON = "";
     }
@@ -69,7 +48,7 @@ public class Lector_InicioSesion extends Thread{
                 switch (msgServidor.getTipo()) {
                     case "ENVIA_SALT":
                         // System.out.println("ENVIA_SALT");
-                        this.controllerInicioSesion.respuestaSalt(Base64.getDecoder().decode(msgServidor.getParams().get(0)));
+                        ((Controller_InicioSesion) this.controller).respuestaSalt(Base64.getDecoder().decode(msgServidor.getParams().get(0)));
                         break;
                 
                     case "INICIA_SESION":
@@ -79,7 +58,7 @@ public class Lector_InicioSesion extends Thread{
                             usuarioJSON = msgServidor.getParams().get(1);
                         }else if("no".equals(msgServidor.getParams().get(0))){
                             Platform.runLater(() -> {
-                                this.controllerInicioSesion.inicioDeSesionIncorrecto();
+                                ((Controller_InicioSesion) this.controller).inicioDeSesionIncorrecto();
                             });
                         }
                         break;
@@ -88,10 +67,10 @@ public class Lector_InicioSesion extends Thread{
                         // System.out.println("DNI_EXISTE");
                         Platform.runLater(() -> {
                             if("si".equals(msgServidor.getParams().get(0))){
-                                this.controllerR1.dniExistente();
+                                ((Controller_Registro1) this.controller).dniExistente();
                             }else if ("no".equals(msgServidor.getParams().get(0))){
                                 try {
-                                    this.controllerR1.siguientePaso();
+                                    this.controller.siguientePaso();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -102,10 +81,10 @@ public class Lector_InicioSesion extends Thread{
                     case "USUARIO_EXISTE":
                         Platform.runLater(() -> {
                             if("si".equals(msgServidor.getParams().get(0))){
-                                this.controllerR2.usuarioExistente();
+                                ((Controller_Registro2) this.controller).usuarioExistente();
                             }else if("no".equals(msgServidor.getParams().get(0))){
                                 try {
-                                    this.controllerR2.siguientePaso();
+                                    this.controller.siguientePaso();
                                 } catch (IOException e) {
                                     e.printStackTrace();
                                 }
@@ -116,7 +95,7 @@ public class Lector_InicioSesion extends Thread{
                     case "USUARIO_REGISTRADO":
                         Platform.runLater(() -> {
                             try {
-                                this.controllerR3.siguientePaso();
+                                this.controller.siguientePaso();
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }
@@ -181,7 +160,7 @@ public class Lector_InicioSesion extends Thread{
                     ObjectMapper mapper = new ObjectMapper();
                     Usuario usuario = mapper.readValue(usuarioJSON, Usuario.class);
                     Session.iniciarSession(usuario);
-                    this.controllerInicioSesion.abrirAplicacion();
+                    this.controller.siguientePaso();
                 } catch (IOException e) {
                     System.err.println(e.getMessage());
                 }
@@ -189,35 +168,7 @@ public class Lector_InicioSesion extends Thread{
         }
     }
 
-    public void setInicioSesionController(Controller_InicioSesion controller){
-        this.controllerInicioSesion = controller;
-    }
-
-    public void setRegistroController1(Controller_Registro1 controller){
-        this.controllerR1 = controller;
-    }
-
-    public void setRegistroController2(Controller_Registro2 controller){
-        this.controllerR2 = controller;
-    }
-
-    public void setRegistroController3(Controller_Registro3 controller){
-        this.controllerR3 = controller;
-    }
-
     public void setController(ILogin controller){
         this.controller = controller;
     }
-
-    // public void setRecupContraController1(Controller_RecuperarContrasenia1 controller){
-    //     this.controllerRC1 = controller;
-    // }
-
-    // public void setRecupContraController2(Controller_RecuperarContrasenia2 controller){
-    //     this.controllerRC2 = controller;
-    // }
-
-    // public void setRecupContraController3(Controller_RecuperarContrasenia3 controller){
-    //     this.controllerRC3 = controller;
-    // }
 }

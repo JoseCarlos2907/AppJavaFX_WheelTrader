@@ -6,6 +6,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.iesfernandoaguilar.perezgonzalez.controller.Lector_InicioSesion;
+import com.iesfernandoaguilar.perezgonzalez.model.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
@@ -23,7 +24,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class Controller_Registro2 implements Initializable{
+public class Controller_Registro2 implements ILogin, Initializable{
     private Lector_InicioSesion hiloLector;
     private DataOutputStream dos;
 
@@ -68,7 +69,7 @@ public class Controller_Registro2 implements Initializable{
 
         Controller_Registro1 controller = loader.getController();
         controller.setHiloLector(hiloLector);
-        this.hiloLector.setRegistroController1(controller);
+        this.hiloLector.setController(controller);
 
         Stage stage2 = (Stage) Btn_Anterior.getScene().getWindow();
         stage2.close();
@@ -133,7 +134,7 @@ public class Controller_Registro2 implements Initializable{
 
         Controller_Registro3 controller = loader.getController();
         controller.setHiloLector(hiloLector);
-        this.hiloLector.setRegistroController3(controller);
+        this.hiloLector.setController(controller);
 
         Stage stage2 = (Stage) Btn_Anterior.getScene().getWindow();
         stage2.close();
