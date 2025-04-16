@@ -1,4 +1,4 @@
-package com.iesfernandoaguilar.perezgonzalez.model;
+package com.iesfernandoaguilar.perezgonzalez.util;
 
 import java.util.ArrayList;
 import java.util.List;

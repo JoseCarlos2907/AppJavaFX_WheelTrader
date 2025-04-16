@@ -1,7 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.util;
 
-import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
-
 public class Serializador {
     public static String codificarMensaje(Mensaje msg){
         return msg.getTipo() + ";" + String.join(";", msg.getParams());

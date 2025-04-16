@@ -5,10 +5,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import com.iesfernandoaguilar.perezgonzalez.controller.Lector_InicioSesion;
-import com.iesfernandoaguilar.perezgonzalez.model.ILogin;
-import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
+import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 

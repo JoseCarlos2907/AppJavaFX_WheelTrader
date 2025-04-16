@@ -3,7 +3,7 @@ package com.iesfernandoaguilar.perezgonzalez.controller.registro;
 import java.io.IOException;
 
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_InicioSesion;
-import com.iesfernandoaguilar.perezgonzalez.controller.Lector_InicioSesion;
+import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

@@ -1,11 +1,8 @@
 package com.iesfernandoaguilar.perezgonzalez.model;
 
 public class Notificacion {
+    // *-- Atributos --* //
     private Long idNotificacion;
-
-    private Long idUsuarioEnvia;
-
-    private Long idUsuarioRecibe;
 
     private String titulo;
 
@@ -15,38 +12,30 @@ public class Notificacion {
 
     private String tipo;
 
-    public Notificacion(String titulo, String mensaje, String estado, String tipo) {
-        this.idNotificacion = -1L;
-        this.idUsuarioEnvia = -1L;
-        this.idUsuarioRecibe = -1L;
+
+    // *-- Relaciones --* //
+    private Usuario usuarioEnvia;
+
+    private Usuario usuarioRecibe;
+
+
+    // *-- Constructores --* //
+    public Notificacion() {}
+
+    public Notificacion(String titulo, String mensaje, String estado, String tipo){
         this.titulo = titulo;
         this.mensaje = mensaje;
         this.estado = estado;
         this.tipo = tipo;
     }
 
+    // *-- Getters y Setters --* //
     public Long getIdNotificacion() {
         return idNotificacion;
     }
 
     public void setIdNotificacion(Long idNotificacion) {
         this.idNotificacion = idNotificacion;
-    }
-
-    public Long getIdUsuarioEnvia() {
-        return idUsuarioEnvia;
-    }
-
-    public void setIdUsuarioEnvia(Long idUsuarioEnvia) {
-        this.idUsuarioEnvia = idUsuarioEnvia;
-    }
-
-    public Long getIdUsuarioRecibe() {
-        return idUsuarioRecibe;
-    }
-
-    public void setIdUsuarioRecibe(Long idUsuarioRecibe) {
-        this.idUsuarioRecibe = idUsuarioRecibe;
     }
 
     public String getTitulo() {
@@ -81,5 +70,32 @@ public class Notificacion {
         this.tipo = tipo;
     }
 
-    
+    public Usuario getUsuarioEnvia() {
+        return usuarioEnvia;
+    }
+
+    public void setUsuarioEnvia(Usuario usuarioEnvia) {
+        this.usuarioEnvia = usuarioEnvia;
+    }
+
+    public Usuario getUsuarioRecibe() {
+        return usuarioRecibe;
+    }
+
+    public void setUsuarioRecibe(Usuario usuarioRecibe) {
+        this.usuarioRecibe = usuarioRecibe;
+    }
+
+
+    // *-- Métodos --* //
+    public void parse(Notificacion notificacion) {
+        this.idNotificacion = notificacion.getIdNotificacion();
+        this.titulo = notificacion.getTitulo();
+        this.mensaje = notificacion.getMensaje();
+        this.estado = notificacion.getEstado();
+        this.tipo = notificacion.getTipo();
+
+        this.usuarioEnvia = null;
+        this.usuarioRecibe = null;
+    }
 }

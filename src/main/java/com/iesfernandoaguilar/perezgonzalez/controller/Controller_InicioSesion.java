@@ -27,8 +27,9 @@ import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Cont
 // import com.fasterxml.jackson.databind.ObjectMapper;
 // import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1;
-import com.iesfernandoaguilar.perezgonzalez.model.ILogin;
-import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
+import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.SecureUtils;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
@@ -63,7 +64,8 @@ public class Controller_InicioSesion implements ILogin, Initializable {
                 String serverAddr = prop.getProperty("ADDRESS");
 
                 Session.setSocket(new Socket(serverAddr, serverPort));
-                this.hiloLector = new Lector_InicioSesion(Session.getInputStream(), this);
+                this.hiloLector = new Lector_InicioSesion(Session.getInputStream());
+                this.hiloLector.setController(this);
                 this.hiloLector.start();
             }
             this.dos = new DataOutputStream(Session.getOutputStream());

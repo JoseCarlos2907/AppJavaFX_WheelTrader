@@ -1,8 +1,11 @@
 package com.iesfernandoaguilar.perezgonzalez.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 public class Anuncio {
+    // *-- Atributos --* //
     private Long idAnuncio;
 
     private LocalDateTime fechaPublicacion;
@@ -11,75 +14,39 @@ public class Anuncio {
 
     private String descripcion;
 
-    private double precioAlContado;
+    private double precio;
 
-    private double precioMensual;
+    private String estado;
 
     private String provincia;
 
     private String ciudad;
 
-    private String estado;
-
-
-    // Datos vehiculo
     private String matricula;
 
-    private String marca;
+    private String numSerieBastidor;
 
-    private String modelo;
+    // *-- Relaciones --* //
+    private Usuario vendedor;
 
-    private int cv;
+    private Set<Usuario> usuariosGuardan;
 
-    private int anio;
+    private String tipoVehiculo;
 
-    private int puertas;
+    private List<Imagen> imagenes;
 
-    private int plazas;
+    private Venta venta;
 
-    private String tipoMarchas;
+    private List<Reunion> reuniones;
 
-    private int cantMarchas;
+    private List<ValorCaracteristica> valoresCaracteristicas;
 
-    private String categoria;
 
-    private String numBastidor;
+    // *-- Constructores --* //
+    public Anuncio() {}
 
-    private int kilometraje;
 
-    private String color;
-
-    private String combustible;
-    
-    private Long idVendedor;
-
-    public Anuncio(LocalDateTime fechaPublicacion, LocalDateTime fechaExpiracion, String descripcion, double precioAlContado, double precioMensual, String provincia, String ciudad, String estado, String matricula, String marca, String modelo, int cv, int anio, int puertas, int plazas, String tipoMarchas, int cantMarchas, String categoria, String numBastidor, int kilometraje, String color, String combustible) {
-        this.idAnuncio = -1L;
-        this.fechaPublicacion = fechaPublicacion;
-        this.fechaExpiracion = fechaExpiracion;
-        this.descripcion = descripcion;
-        this.precioAlContado = precioAlContado;
-        this.precioMensual = precioMensual;
-        this.provincia = provincia;
-        this.ciudad = ciudad;
-        this.estado = estado;
-        this.matricula = matricula;
-        this.marca = marca;
-        this.modelo = modelo;
-        this.cv = cv;
-        this.anio = anio;
-        this.puertas = puertas;
-        this.plazas = plazas;
-        this.tipoMarchas = tipoMarchas;
-        this.cantMarchas = cantMarchas;
-        this.categoria = categoria;
-        this.numBastidor = numBastidor;
-        this.kilometraje = kilometraje;
-        this.color = color;
-        this.combustible = combustible;
-        this.idVendedor = -1L;
-    }
-
+    // *-- Getters y Setters --* //
     public Long getIdAnuncio() {
         return idAnuncio;
     }
@@ -112,20 +79,20 @@ public class Anuncio {
         this.descripcion = descripcion;
     }
 
-    public double getPrecioAlContado() {
-        return precioAlContado;
+    public double getPrecio() {
+        return precio;
     }
 
-    public void setPrecioAlContado(double precioAlContado) {
-        this.precioAlContado = precioAlContado;
+    public void setPrecio(double precio) {
+        this.precio = precio;
     }
 
-    public double getPrecioMensual() {
-        return precioMensual;
+    public String getEstado() {
+        return estado;
     }
 
-    public void setPrecioMensual(double precioMensual) {
-        this.precioMensual = precioMensual;
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
     public String getProvincia() {
@@ -144,22 +111,6 @@ public class Anuncio {
         this.ciudad = ciudad;
     }
 
-    public String getEstado() {
-        return estado;
-    }
-
-    public void setEstado(String estado) {
-        this.estado = estado;
-    }
-
-    public Long getIdVendedor() {
-        return idVendedor;
-    }
-
-    public void setIdVendedor(Long idVendedor) {
-        this.idVendedor = idVendedor;
-    }
-
     public String getMatricula() {
         return matricula;
     }
@@ -168,109 +119,103 @@ public class Anuncio {
         this.matricula = matricula;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getNumSerieBastidor() {
+        return numSerieBastidor;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setNumSerieBastidor(String numSerieBastidor) {
+        this.numSerieBastidor = numSerieBastidor;
     }
 
-    public String getModelo() {
-        return modelo;
+    public Usuario getVendedor() {
+        return vendedor;
     }
 
-    public void setModelo(String modelo) {
-        this.modelo = modelo;
+    public void setVendedor(Usuario vendedor) {
+        this.vendedor = vendedor;
     }
 
-    public int getCv() {
-        return cv;
+    public Set<Usuario> getUsuariosGuardan() {
+        return usuariosGuardan;
     }
 
-    public void setCv(int cv) {
-        this.cv = cv;
+    public void setUsuariosGuardan(Set<Usuario> usuariosGuardan) {
+        this.usuariosGuardan = usuariosGuardan;
     }
 
-    public int getAnio() {
-        return anio;
+    public void addUsuarioGuarda(Usuario usuario) {
+        this.usuariosGuardan.add(usuario);
     }
 
-    public void setAnio(int anio) {
-        this.anio = anio;
+    public String getTipoVehiculo() {
+        return tipoVehiculo;
     }
 
-    public int getPuertas() {
-        return puertas;
+    public void setTipoVehiculo(String tipoVehiculo) {
+        this.tipoVehiculo = tipoVehiculo;
     }
 
-    public void setPuertas(int puertas) {
-        this.puertas = puertas;
+    public List<Imagen> getImagenes() {
+        return imagenes;
     }
 
-    public int getPlazas() {
-        return plazas;
+    public void setImagenes(List<Imagen> imagenes) {
+        this.imagenes = imagenes;
     }
 
-    public void setPlazas(int plazas) {
-        this.plazas = plazas;
+    public void addImagen(Imagen imagen) {
+        this.imagenes.add(imagen);
     }
 
-    public String getTipoMarchas() {
-        return tipoMarchas;
+    public Venta getVenta() {
+        return venta;
     }
 
-    public void setTipoMarchas(String tipoMarchas) {
-        this.tipoMarchas = tipoMarchas;
+    public void setVenta(Venta venta) {
+        this.venta = venta;
     }
 
-    public int getCantMarchas() {
-        return cantMarchas;
+    public List<Reunion> getReuniones() {
+        return reuniones;
     }
 
-    public void setCantMarchas(int cantMarchas) {
-        this.cantMarchas = cantMarchas;
+    public void setReuniones(List<Reunion> reuniones) {
+        this.reuniones = reuniones;
     }
 
-    public String getCategoria() {
-        return categoria;
+    public void addReunion(Reunion reunion) {
+        this.reuniones.add(reunion);
     }
 
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
+    public List<ValorCaracteristica> getValoresCaracteristicas() {
+        return valoresCaracteristicas;
     }
 
-    public String getNumBastidor() {
-        return numBastidor;
+    public void setValoresCaracteristicas(List<ValorCaracteristica> valoresCaracteristicas) {
+        this.valoresCaracteristicas = valoresCaracteristicas;
     }
 
-    public void setNumBastidor(String numBastidor) {
-        this.numBastidor = numBastidor;
+    public void addValorCaracteristica(ValorCaracteristica valorCaracteristica) {
+        this.valoresCaracteristicas.add(valorCaracteristica);
     }
 
-    public int getKilometraje() {
-        return kilometraje;
-    }
+    // *-- Métodos --* //
+    public void parse(Anuncio anuncio) {
+        this.idAnuncio = anuncio.getIdAnuncio();
+        this.fechaPublicacion = anuncio.getFechaPublicacion();
+        this.fechaExpiracion = anuncio.getFechaExpiracion();
+        this.descripcion = anuncio.getDescripcion();
+        this.precio = anuncio.getPrecio();
+        this.estado = anuncio.getEstado();
+        this.provincia = anuncio.getProvincia();
+        this.ciudad = anuncio.getCiudad();
 
-    public void setKilometraje(int kilometraje) {
-        this.kilometraje = kilometraje;
+        this.vendedor = null;
+        this.usuariosGuardan = null;
+        this.tipoVehiculo = null;
+        this.imagenes = null;
+        this.venta = null;
+        this.reuniones = null;
+        this.valoresCaracteristicas = null;
     }
-
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
-
-    public String getCombustible() {
-        return combustible;
-    }
-
-    public void setCombustible(String combustible) {
-        this.combustible = combustible;
-    }
-
-    
 }

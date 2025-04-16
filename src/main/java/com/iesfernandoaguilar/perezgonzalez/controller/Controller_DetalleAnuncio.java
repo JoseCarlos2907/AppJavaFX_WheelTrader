@@ -7,8 +7,8 @@ import java.util.ResourceBundle;
 
 import org.kordamp.bootstrapfx.BootstrapFX;
 
+import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
-import com.iesfernandoaguilar.perezgonzalez.model.IListaAnuncios;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;

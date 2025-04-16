@@ -54,7 +54,7 @@ public class Controller_Notificaciones implements Initializable {
 
                 Controller_Notificacion controller = loader.getController();
                 controller.setTitulo(noti.getTitulo());
-                controller.setUsuario(noti.getIdUsuarioEnvia().toString());
+                controller.setUsuario(noti.getUsuarioEnvia().getNombreUsuario());
                 controller.setIconoLeido(noti.getEstado());
                 controller.setIconoPrincipal(noti.getTipo());
                 controller.setNotificacion(noti);

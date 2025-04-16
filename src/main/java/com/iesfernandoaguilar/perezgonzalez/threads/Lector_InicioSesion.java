@@ -1,4 +1,4 @@
-package com.iesfernandoaguilar.perezgonzalez.controller;
+package com.iesfernandoaguilar.perezgonzalez.threads;
 
 import java.io.DataInputStream;
 import java.io.EOFException;
@@ -10,13 +10,14 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import javafx.application.Platform;
 
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_InicioSesion;
 import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia1;
 import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia2;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro2;
-import com.iesfernandoaguilar.perezgonzalez.model.ILogin;
-import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
@@ -27,7 +28,7 @@ public class Lector_InicioSesion extends Thread{
 
     private static String usuarioJSON;
 
-    public Lector_InicioSesion(InputStream flujoInicioSesion, Controller_InicioSesion controllerInicioSesion) {
+    public Lector_InicioSesion(InputStream flujoInicioSesion) {
         this.flujoInicioSesion = flujoInicioSesion;
         this.controller = null;
 

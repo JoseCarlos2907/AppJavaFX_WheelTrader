@@ -2,8 +2,8 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 
 import java.io.IOException;
 
+import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
-import com.iesfernandoaguilar.perezgonzalez.model.IListaAnuncios;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;

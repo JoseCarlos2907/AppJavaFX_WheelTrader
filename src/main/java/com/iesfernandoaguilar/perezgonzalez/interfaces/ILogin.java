@@ -1,4 +1,4 @@
-package com.iesfernandoaguilar.perezgonzalez.model;
+package com.iesfernandoaguilar.perezgonzalez.interfaces;
 
 import java.io.IOException;
 

@@ -26,12 +26,12 @@ public class Controller_MisCompras implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         List<Venta> ventas = List.of(
-            new Venta(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "CONTADO"),
-            new Venta(LocalDateTime.now(), LocalDateTime.now().plusDays(20), "CONTADO"),
-            new Venta(LocalDateTime.now(), LocalDateTime.now().plusDays(30), "CONTADO"),
-            new Venta(LocalDateTime.now(), LocalDateTime.now().plusDays(40), "FINANCIADO"),
-            new Venta(LocalDateTime.now(), LocalDateTime.now().plusDays(50), "FINANCIADO"),
-            new Venta(LocalDateTime.now(), LocalDateTime.now().plusDays(60), "FINANCIADO")
+            new Venta(LocalDateTime.now().plusDays(10)),
+            new Venta(LocalDateTime.now().plusDays(20)),
+            new Venta(LocalDateTime.now().plusDays(30)),
+            new Venta(LocalDateTime.now().plusDays(40)),
+            new Venta(LocalDateTime.now().plusDays(50)),
+            new Venta(LocalDateTime.now().plusDays(60))
         );
 
         for (Venta venta : ventas) {

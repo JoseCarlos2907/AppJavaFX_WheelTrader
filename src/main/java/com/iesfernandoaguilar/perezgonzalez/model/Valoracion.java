@@ -1,33 +1,36 @@
 package com.iesfernandoaguilar.perezgonzalez.model;
 
 public class Valoracion {
-    private Long idValorador;
-
-    private Long idValorado;
+    // *-- Atributos --* //
+    private Long idValoracion;
 
     private int valoracion;
 
     private String comentario;
 
-    public Valoracion(int valoracion, String comentario) {
+
+    // *-- Relaciones --* //
+    private Usuario usuarioEnvia;
+
+    private Usuario usuarioRecibe;
+
+
+    // *-- Constructores --* //
+    public Valoracion() {}
+
+    public Valoracion(int valoracion, String comentario){
         this.valoracion = valoracion;
         this.comentario = comentario;
     }
 
-    public Long getIdValorador() {
-        return idValorador;
+
+    // *-- Getters y Setters --* //
+    public Long getIdValoracion() {
+        return idValoracion;
     }
 
-    public void setIdValorador(Long idValorador) {
-        this.idValorador = idValorador;
-    }
-
-    public Long getIdValorado() {
-        return idValorado;
-    }
-
-    public void setIdValorado(Long idValorado) {
-        this.idValorado = idValorado;
+    public void setIdValoracion(Long idValoracion) {
+        this.idValoracion = idValoracion;
     }
 
     public int getValoracion() {
@@ -46,5 +49,29 @@ public class Valoracion {
         this.comentario = comentario;
     }
 
-    
+    public Usuario getUsuarioEnvia() {
+        return usuarioEnvia;
+    }
+
+    public void setUsuarioEnvia(Usuario usuarioEnvia) {
+        this.usuarioEnvia = usuarioEnvia;
+    }
+
+    public Usuario getUsuarioRecibe() {
+        return usuarioRecibe;
+    }
+
+    public void setUsuarioRecibe(Usuario usuarioRecibe) {
+        this.usuarioRecibe = usuarioRecibe;
+    }
+
+    // *-- Métodos --* //
+    public void parse(Valoracion valoracion) {
+        this.idValoracion = valoracion.getIdValoracion();
+        this.valoracion = valoracion.getValoracion();
+        this.comentario = valoracion.getComentario();
+
+        this.usuarioEnvia = null;
+        this.usuarioRecibe = null;
+    }
 }

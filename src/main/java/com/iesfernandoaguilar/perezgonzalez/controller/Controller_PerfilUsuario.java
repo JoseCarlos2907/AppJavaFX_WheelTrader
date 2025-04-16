@@ -8,8 +8,8 @@ import java.util.ResourceBundle;
 
 import org.kordamp.bootstrapfx.BootstrapFX;
 
+import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
-import com.iesfernandoaguilar.perezgonzalez.model.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Valoracion;
 
 import javafx.fxml.FXML;
@@ -45,7 +45,7 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         // this.setNombreUsuario("Juan");
         this.cargarValoraciones();
-        this.cargarAnuncios();
+        // this.cargarAnuncios();
     }
 
     public void cargarValoraciones(){
@@ -83,63 +83,63 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     }
 
     public void cargarAnuncios(){
-        List<Anuncio> anuncios = List.of(
-            new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
-            new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
-            new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
-            new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
-            new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
-            new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL")
-        );
+        // List<Anuncio> anuncios = List.of(
+        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
+        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
+        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
+        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
+        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
+        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL")
+        // );
 
-        for (Anuncio anuncio : anuncios) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Anuncio.fxml"));
-                Parent componente = loader.load();
+        // for (Anuncio anuncio : anuncios) {
+        //     try {
+        //         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Anuncio.fxml"));
+        //         Parent componente = loader.load();
 
-                Controller_Anuncio controller = loader.getController();
-                controller.setAnuncio(anuncio);
-                controller.setDatos(anuncio.getCategoria(), anuncio.getAnio(), anuncio.getKilometraje());
-                controller.setMarcaModelo(anuncio.getMarca(), anuncio.getModelo());
-                controller.setPrecio(anuncio.getPrecioAlContado());
-                controller.setUbicacion(anuncio.getProvincia(), anuncio.getCiudad());
-                controller.setUsuario("JoseCarlos2907");
-                controller.setController(this);
+        //         Controller_Anuncio controller = loader.getController();
+        //         controller.setAnuncio(anuncio);
+        //         controller.setDatos(anuncio.getCategoria(), anuncio.getAnio(), anuncio.getKilometraje());
+        //         controller.setMarcaModelo(anuncio.getMarca(), anuncio.getModelo());
+        //         controller.setPrecio(anuncio.getPrecioAlContado());
+        //         controller.setUbicacion(anuncio.getProvincia(), anuncio.getCiudad());
+        //         controller.setUsuario("JoseCarlos2907");
+        //         controller.setController(this);
                 
-                this.VBox_Anuncios.getChildren().add(componente);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
+        //         this.VBox_Anuncios.getChildren().add(componente);
+        //     } catch (IOException e) {
+        //         e.printStackTrace();
+        //     }
+        // }
     }
 
     @Override
     public void abrirAnuncio(Anuncio anuncio) {
-        try {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_DetalleAnuncio.fxml"));
-            Parent nuevaVista;
-            nuevaVista = loader.load();
+        // try {
+        //     FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_DetalleAnuncio.fxml"));
+        //     Parent nuevaVista;
+        //     nuevaVista = loader.load();
             
-            Controller_DetalleAnuncio controller = loader.getController();
-            controller.setUsuario(nombreUsuario);
-            controller.setAnuncio(anuncio);
-            controller.setController(this);
-            controller.setMarcaModelo(anuncio.getMarca(), anuncio.getModelo());
-            controller.setCategoria(anuncio.getCategoria());
-            controller.setDescripcion(anuncio.getDescripcion());
-            controller.setPrecio(anuncio.getPrecioAlContado(), anuncio.getPrecioMensual());
-            controller.setDatos(anuncio.getCv(), anuncio.getColor(), anuncio.getPuertas(), anuncio.getAnio(), anuncio.getTipoMarchas(), anuncio.getCantMarchas(), anuncio.getKilometraje(), anuncio.getCombustible());
+        //     Controller_DetalleAnuncio controller = loader.getController();
+        //     controller.setUsuario(nombreUsuario);
+        //     controller.setAnuncio(anuncio);
+        //     controller.setController(this);
+        //     controller.setMarcaModelo(anuncio.getMarca(), anuncio.getModelo());
+        //     controller.setCategoria(anuncio.getCategoria());
+        //     controller.setDescripcion(anuncio.getDescripcion());
+        //     controller.setPrecio(anuncio.getPrecioAlContado(), anuncio.getPrecioMensual());
+        //     controller.setDatos(anuncio.getCv(), anuncio.getColor(), anuncio.getPuertas(), anuncio.getAnio(), anuncio.getTipoMarchas(), anuncio.getCantMarchas(), anuncio.getKilometraje(), anuncio.getCombustible());
     
-            Stage stage = (Stage) Btn_Menu.getScene().getWindow();
+        //     Stage stage = (Stage) Btn_Menu.getScene().getWindow();
     
-            Scene scene = new Scene(nuevaVista);
-            scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
+        //     Scene scene = new Scene(nuevaVista);
+        //     scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
     
-            stage.setScene(scene);
-            stage.show();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //     stage.setScene(scene);
+        //     stage.show();
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
     }
 
     @FXML

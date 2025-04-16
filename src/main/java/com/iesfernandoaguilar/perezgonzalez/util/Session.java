@@ -17,6 +17,7 @@ public class Session {
 
     public static void cerrarSession() {
         usuario = null;
+        socket = null;
     }
 
     public static Usuario getUsuario() {

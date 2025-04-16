@@ -1,70 +1,38 @@
 package com.iesfernandoaguilar.perezgonzalez.model;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Venta {
+    // *-- Atributos --* //
     private Long idVenta;
-
-    private Long idVendedor;
-
-    private Long idComprador;
-
-    private Long idAnuncio;
-
-    private LocalDateTime fechaCompra;
 
     private LocalDateTime fechaFinGarantia;
 
-    private String tipo;
+    // *-- Relaciones --* //
+    private Anuncio anuncio;
 
-    public Venta(LocalDateTime fechaCompra, LocalDateTime fechaFinGarantia, String tipo) {
-        this.idVenta = -1L;
-        this.idVendedor = -1L;
-        this.idComprador = -1L;
-        this.idAnuncio = -1L;
-        this.fechaCompra = fechaCompra;
+    private Usuario vendedor;
+
+    private Usuario comprador;
+
+    private List<Pago> pagos;
+
+    // *-- Constructores --* //
+    public Venta() {}
+
+    public Venta(LocalDateTime fechaFinGarantia){
         this.fechaFinGarantia = fechaFinGarantia;
-        this.tipo = tipo;
     }
 
+
+    // *-- Getters y Setters --* //
     public Long getIdVenta() {
         return idVenta;
     }
 
     public void setIdVenta(Long idVenta) {
         this.idVenta = idVenta;
-    }
-
-    public Long getIdVendedor() {
-        return idVendedor;
-    }
-
-    public void setIdVendedor(Long idVendedor) {
-        this.idVendedor = idVendedor;
-    }
-
-    public Long getIdComprador() {
-        return idComprador;
-    }
-
-    public void setIdComprador(Long idComprador) {
-        this.idComprador = idComprador;
-    }
-
-    public Long getIdAnuncio() {
-        return idAnuncio;
-    }
-
-    public void setIdAnuncio(Long idAnuncio) {
-        this.idAnuncio = idAnuncio;
-    }
-
-    public LocalDateTime getFechaCompra() {
-        return fechaCompra;
-    }
-
-    public void setFechaCompra(LocalDateTime fechaCompra) {
-        this.fechaCompra = fechaCompra;
     }
 
     public LocalDateTime getFechaFinGarantia() {
@@ -75,13 +43,51 @@ public class Venta {
         this.fechaFinGarantia = fechaFinGarantia;
     }
 
-    public String getTipo() {
-        return tipo;
+    public Anuncio getAnuncio() {
+        return anuncio;
     }
 
-    public void setTipo(String tipo) {
-        this.tipo = tipo;
+    public void setAnuncio(Anuncio anuncio) {
+        this.anuncio = anuncio;
     }
 
-    
+    public Usuario getVendedor() {
+        return vendedor;
+    }
+
+    public void setVendedor(Usuario vendedor) {
+        this.vendedor = vendedor;
+    }
+
+    public Usuario getComprador() {
+        return comprador;
+    }
+
+    public void setComprador(Usuario comprador) {
+        this.comprador = comprador;
+    }
+
+    public List<Pago> getPagos() {
+        return pagos;
+    }
+
+    public void setPagos(List<Pago> pagos) {
+        this.pagos = pagos;
+    }
+
+    public void addPago(Pago pago) {
+        this.pagos.add(pago);
+    }
+
+
+    // *-- Métodos --* //
+    public void parse(Venta venta) {
+        this.idVenta = venta.getIdVenta();
+        this.fechaFinGarantia = venta.getFechaFinGarantia();
+
+        this.anuncio = null;
+        this.vendedor = null;
+        this.comprador = null;
+        this.pagos = null;
+    }
 }

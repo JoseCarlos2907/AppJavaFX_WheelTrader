@@ -1,46 +1,35 @@
 package com.iesfernandoaguilar.perezgonzalez.model;
 
 public class Reporte {
+    // *-- Atributos --* //
     private Long idReporte;
-
-    private Long idUsuarioReportado;
-
-    private Long idUsuarioReporta;
 
     private String motivo;
 
     private String explicacion;
 
-    public Reporte(String motivo, String explicacion) {
-        this.idReporte = -1L;
-        this.idUsuarioReportado = -1L;
-        this.idUsuarioReporta = -1L;
+
+    // *-- Relaciones --* //
+    private Usuario usuarioEnvia;
+
+    private Usuario usuarioRecibe;
+
+
+    // *-- Constructores --* //
+    public Reporte() {}
+
+    public Reporte(String motivo, String explicacion){
         this.motivo = motivo;
         this.explicacion = explicacion;
     }
 
+    // *-- Getters y Setters --* //
     public Long getIdReporte() {
         return idReporte;
     }
 
     public void setIdReporte(Long idReporte) {
         this.idReporte = idReporte;
-    }
-
-    public Long getIdUsuarioReportado() {
-        return idUsuarioReportado;
-    }
-
-    public void setIdUsuarioReportado(Long idUsuarioReportado) {
-        this.idUsuarioReportado = idUsuarioReportado;
-    }
-
-    public Long getIdUsuarioReporta() {
-        return idUsuarioReporta;
-    }
-
-    public void setIdUsuarioReporta(Long idUsuarioReporta) {
-        this.idUsuarioReporta = idUsuarioReporta;
     }
 
     public String getMotivo() {
@@ -51,6 +40,22 @@ public class Reporte {
         this.motivo = motivo;
     }
 
+    public Usuario getUsuarioEnvia() {
+        return usuarioEnvia;
+    }
+
+    public void setUsuarioEnvia(Usuario usuarioEnvia) {
+        this.usuarioEnvia = usuarioEnvia;
+    }
+
+    public Usuario getUsuarioRecibe() {
+        return usuarioRecibe;
+    }
+
+    public void setUsuarioRecibe(Usuario usuarioRecibe) {
+        this.usuarioRecibe = usuarioRecibe;
+    }
+
     public String getExplicacion() {
         return explicacion;
     }
@@ -58,6 +63,14 @@ public class Reporte {
     public void setExplicacion(String explicacion) {
         this.explicacion = explicacion;
     }
-
     
+    // *-- Métodos --* //
+    public void parse(Reporte reporte) {
+        this.idReporte = reporte.getIdReporte();
+        this.motivo = reporte.getMotivo();
+        this.explicacion = reporte.getExplicacion();
+
+        this.usuarioEnvia = null;
+        this.usuarioRecibe = null;
+    }
 }

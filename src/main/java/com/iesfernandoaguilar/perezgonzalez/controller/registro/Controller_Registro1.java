@@ -5,13 +5,11 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import org.kordamp.bootstrapfx.BootstrapFX;
-
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_InicioSesion;
-import com.iesfernandoaguilar.perezgonzalez.controller.Lector_InicioSesion;
-import com.iesfernandoaguilar.perezgonzalez.model.ILogin;
-import com.iesfernandoaguilar.perezgonzalez.model.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
+import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
@@ -111,7 +109,6 @@ public class Controller_Registro1 implements ILogin, Initializable{
         Stage stage = (Stage) Btn_Siguiente.getScene().getWindow();
 
         Scene scene = new Scene(nuevaVista);
-        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
 
         stage.setScene(scene);
         stage.show();

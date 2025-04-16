@@ -88,7 +88,7 @@ public class Controller_Notificacion {
     }
 
     public void setUsuario(String usuario){
-        this.Lbl_Usuario.setText(usuario);
+        this.Lbl_Usuario.setText("De " + usuario);
     }
 
     public void setController(Controller_Notificaciones controller){
