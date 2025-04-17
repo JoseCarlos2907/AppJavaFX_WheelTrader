@@ -15,7 +15,7 @@
 
 <Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Home">
    <children>
-      <Button fx:id="Btn_ConfCuenta" graphicTextGap="25.0" layoutX="105.0" layoutY="32.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="85.0" prefWidth="334.0" styleClass="botonTransparente" text="José Carlos">
+      <Button fx:id="Btn_ConfCuenta" graphicTextGap="25.0" layoutX="105.0" layoutY="32.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleBtnConfCuentaAction" prefHeight="78.0" prefWidth="328.0" styleClass="botonTransparente" text="José Carlos">
          <font>
             <Font size="24.0" />
          </font>
@@ -32,7 +32,7 @@
             <Image url="@../img/LogoAzul.png" />
          </image>
       </ImageView>
-      <Button fx:id="Btn_Notificaciones" graphicTextGap="25.0" layoutX="932.0" layoutY="28.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" prefHeight="85.0" prefWidth="387.0" styleClass="botonTransparente" text="Notificaciones">
+      <Button fx:id="Btn_Notificaciones" graphicTextGap="25.0" layoutX="984.0" layoutY="28.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleBtnNotificacionAction" prefHeight="71.0" prefWidth="335.0" styleClass="botonTransparente" text="Notificaciones">
          <font>
             <Font size="24.0" />
          </font>
@@ -93,7 +93,7 @@
             </ImageView>
          </graphic>
       </Button>
-      <Button fx:id="Btn_Buscar" layoutX="513.0" layoutY="346.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="238.0" styleClass="botonNegro" text="Buscar">
+      <Button fx:id="Btn_Buscar" layoutX="513.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#handleBtnBuscarAction" prefHeight="53.0" prefWidth="238.0" styleClass="botonNegro" text="Buscar">
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>
@@ -102,7 +102,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button fx:id="Btn_PublicarAnuncio" layoutX="1014.0" layoutY="346.0" mnemonicParsing="false" prefHeight="53.0" prefWidth="238.0" styleClass="botonAzul" text="Publicar anuncio">
+      <Button fx:id="Btn_PublicarAnuncio" layoutX="1014.0" layoutY="346.0" mnemonicParsing="false" onMouseClicked="#handleBtnPublicarAnuncioAction" prefHeight="53.0" prefWidth="238.0" styleClass="botonAzul" text="Publicar anuncio">
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>

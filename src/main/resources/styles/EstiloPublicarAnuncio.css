@@ -57,3 +57,20 @@
 .tabPanePA .tab:selected .tab-label {
     -fx-text-fill: #1c1c1c;
 }
+
+.inputs .content{
+    -fx-background-radius: 25;
+    -fx-padding: 10px;
+}
+
+.inputs .scroll-pane{
+    -fx-background-radius: 25;
+}
+
+.inputs .viewport{
+    -fx-background-color: transparent;
+}
+
+.scrollPane .viewport, .scrollPane{
+    -fx-background-color: transparent;
+}

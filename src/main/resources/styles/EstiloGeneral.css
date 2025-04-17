@@ -40,7 +40,15 @@
     -fx-border-width: 3px;
     -fx-border-radius: 20px;
     -fx-text-fill: white;
-    -fx-font-size: 36px;
+    -fx-font-size: 30px;
+}
+
+.botonAniadir{
+    -fx-cursor: hand;
+    -fx-background-radius: 18;
+    -fx-text-fill: #84aedd;
+    -fx-background-color: #282828;
+    -fx-font-size: 20px;
 }
 
 .alert-error{

@@ -24,3 +24,7 @@
 .scrollPane .viewport, .scrollPane{
     -fx-background-color: transparent;
 }
+
+.hand{
+    -fx-cursor: hand;
+}

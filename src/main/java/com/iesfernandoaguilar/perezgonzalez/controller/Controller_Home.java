@@ -6,11 +6,16 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
@@ -65,6 +70,37 @@ public class Controller_Home implements IApp, Initializable {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void handleBtnBuscarAction(MouseEvent event) {
+
+    }
+
+    @FXML
+    void handleBtnConfCuentaAction(MouseEvent event) {
+
+    }
+
+    @FXML
+    void handleBtnNotificacionAction(MouseEvent event) {
+
+    }
+
+    @FXML
+    void handleBtnPublicarAnuncioAction(MouseEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PublicarAnuncio.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_PublicarAnuncio controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_ConfCuenta.getScene().getWindow();
+        stage2.close();
     }
     
     public void setHiloLector(Lector_App hiloLector){

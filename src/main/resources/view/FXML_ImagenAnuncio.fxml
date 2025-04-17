@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.Cursor?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.shape.Rectangle?>
+
+<Pane fx:id="Pane_Notificacion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="192.0" prefWidth="216.0" styleClass="fondoTransparente" stylesheets="@../styles/Notificaciones.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_ImagenAnuncio">
+   <children>
+      <Rectangle fx:id="Rectangle_Fondo" arcHeight="50.0" arcWidth="50.0" fill="#282828" height="189.0" layoutX="1.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="213.0" />
+      <ImageView fx:id="ImgView_Vehiculo" fitHeight="126.0" fitWidth="183.0" layoutX="17.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="ImgView_Borrar" fitHeight="40.0" fitWidth="40.0" layoutX="174.0" layoutY="1.0" onMouseClicked="#handlerImgViewBorrarAction" pickOnBounds="true" preserveRatio="true" styleClass="hand">
+         <image>
+            <Image url="@../img/IconoCruz.png" />
+         </image>
+      </ImageView>
+   </children>
+   <cursor>
+      <Cursor fx:constant="DEFAULT" />
+   </cursor>
+</Pane>

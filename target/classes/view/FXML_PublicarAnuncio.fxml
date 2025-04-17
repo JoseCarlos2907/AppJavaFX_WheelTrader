@@ -36,7 +36,7 @@
                         <TextField fx:id="TxtF_Coche_NPuertas" layoutX="856.0" layoutY="252.0" prefHeight="52.0" promptText="Número de Puertas" styleClass="inputs" />
                         <TextField fx:id="TxtF_Coche_NBastidor" layoutX="133.0" layoutY="352.0" prefHeight="52.0" promptText="Número de Bastidor" styleClass="inputs" />
                         <TextField fx:id="TxtF_Coche_Matricula" layoutX="501.0" layoutY="352.0" prefHeight="52.0" promptText="Matrícula" styleClass="inputs" />
-                        <Button fx:id="Btn_Publicar_Coche" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnPublicarCocheAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Publicar">
+                        <Button fx:id="Btn_Siguiente_Coche" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnSiguienteCocheAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Siguiente">
                            <effect>
                               <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                                  <color>
@@ -63,7 +63,7 @@
                         <TextField fx:id="TxtF_Moto_NBastidor" layoutX="501.0" layoutY="304.0" prefHeight="52.0" promptText="Número de Bastidor" styleClass="inputs" />
                         <TextField fx:id="TxtF_Moto_Matricula" layoutX="856.0" layoutY="304.0" prefHeight="52.0" promptText="Matrícula" styleClass="inputs" />
                         <ChoiceBox fx:id="CB_Moto_TipoCombustible" layoutX="856.0" layoutY="200.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
-                        <Button fx:id="Btn_Publicar_Moto" layoutX="507.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#handleBtnPublicarMotoAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Publicar">
+                        <Button fx:id="Btn_Siguiente_Moto" layoutX="507.0" layoutY="439.0" mnemonicParsing="false" onMouseClicked="#handleBtnSiguienteMotoAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Siguiente">
                            <effect>
                               <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                                  <color>
@@ -88,7 +88,7 @@
                         <TextField fx:id="TxtF_Camioneta_NPuertas" layoutX="856.0" layoutY="252.0" prefHeight="52.0" promptText="Número de Puertas" styleClass="inputs" />
                         <TextField fx:id="TxtF_Camioneta_CargaMax" layoutX="133.0" layoutY="352.0" prefHeight="52.0" promptText="Capacidad de Carga" styleClass="inputs" />
                         <TextField fx:id="TxtF_Camioneta_NBastidor" layoutX="501.0" layoutY="352.0" prefHeight="52.0" promptText="Número de Bastidor" styleClass="inputs" />
-                        <Button fx:id="Btn_Publicar_Camioneta" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnPublicarCamionetaAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Publicar">
+                        <Button fx:id="Btn_Siguiente_Camioneta" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnSiguienteCamionetaAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Siguiente">
                            <effect>
                               <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                                  <color>
@@ -114,7 +114,7 @@
                         <TextField fx:id="TxtF_Camion_KM" layoutX="501.0" layoutY="147.0" prefHeight="52.0" promptText="Kilometraje" styleClass="inputs" />
                         <TextField fx:id="TxtF_Camion_CargaMax" layoutX="133.0" layoutY="252.0" prefHeight="52.0" promptText="Capacidad de Carga" styleClass="inputs" />
                         <TextField fx:id="TxtF_Camion_NBastidor" layoutX="501.0" layoutY="252.0" prefHeight="52.0" promptText="Número de Bastidor" styleClass="inputs" />
-                        <Button fx:id="Btn_Publicar_Camion" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnPublicarCamionAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Publicar">
+                        <Button fx:id="Btn_Siguiente_Camion" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnSiguienteCamionAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Siguiente">
                            <effect>
                               <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                                  <color>
@@ -123,7 +123,7 @@
                               </DropShadow>
                            </effect>
                         </Button>
-                        <ChoiceBox layoutX="856.0" layoutY="147.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
+                        <ChoiceBox fx:id="CB_Camion_TipoCombustible" layoutX="856.0" layoutY="147.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
                         <TextField fx:id="TxtF_Camion_Matricula" layoutX="856.0" layoutY="252.0" prefHeight="52.0" promptText="Matrícula" styleClass="inputs" />
                         <TextField fx:id="TxtF_Camion_CantMarchas" layoutX="133.0" layoutY="352.0" prefHeight="52.0" promptText="Cantidad de Marchas" styleClass="inputs" />
                      </children></AnchorPane>
@@ -137,8 +137,8 @@
                         <TextField fx:id="TxtF_Maquinaria_Modelo" layoutX="501.0" layoutY="46.0" prefHeight="52.0" promptText="Modelo" styleClass="inputs" />
                         <TextField fx:id="TxtF_Maquinaria_Anio" layoutX="856.0" layoutY="46.0" prefHeight="52.0" promptText="Año" styleClass="inputs" />
                         <TextField fx:id="TxtF_Maquinaria_NSerieBastidor" layoutX="501.0" layoutY="147.0" prefHeight="52.0" promptText="Número Serie/Bastidor" styleClass="inputs" />
-                        <ChoiceBox fx:id="CB_Maquinaria_TIpoCombustible" layoutX="133.0" layoutY="147.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
-                        <Button fx:id="Btn_Publicar_Maquinaria" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnPublicarMaquinariaAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Publicar">
+                        <ChoiceBox fx:id="CB_Maquinaria_TipoCombustible" layoutX="133.0" layoutY="147.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
+                        <Button fx:id="Btn_Siguiente_Maquinaria" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnSiguienteMaquinariaAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Siguiente">
                            <effect>
                               <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                                  <color>
@@ -152,7 +152,7 @@
             </Tab>
         </tabs>
       </TabPane>
-      <Button fx:id="Btn_Volver" graphicTextGap="10.0" layoutX="125.0" layoutY="52.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleBtnVolverAction" prefHeight="85.0" prefWidth="232.0" styleClass="botonTransparente" text="Volver">
+      <Button fx:id="Btn_Volver" graphicTextGap="10.0" layoutX="125.0" layoutY="38.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleBtnVolverAction" prefHeight="71.0" prefWidth="212.0" styleClass="botonTransparente" text="Volver">
          <font>
             <Font size="24.0" />
          </font>

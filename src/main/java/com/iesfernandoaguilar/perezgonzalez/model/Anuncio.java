@@ -1,6 +1,8 @@
 package com.iesfernandoaguilar.perezgonzalez.model;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,7 +45,12 @@ public class Anuncio {
 
 
     // *-- Constructores --* //
-    public Anuncio() {}
+    public Anuncio() {
+        this.usuariosGuardan = new HashSet<>();
+        this.imagenes = new ArrayList<>();
+        this.reuniones = new ArrayList<>();
+        this.valoresCaracteristicas = new ArrayList<>();
+    }
 
 
     // *-- Getters y Setters --* //

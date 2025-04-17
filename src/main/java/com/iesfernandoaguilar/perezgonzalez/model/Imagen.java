@@ -4,7 +4,7 @@ public class Imagen {
     // *-- Atributos --* //
     private Long idImagen;
 
-    private String imgBase64;
+    private byte[] imagen;
 
 
     // *-- Relaciones --* //
@@ -24,12 +24,12 @@ public class Imagen {
         this.idImagen = idImagen;
     }
 
-    public String getImgBase64() {
-        return imgBase64;
+    public byte[] getImagen() {
+        return imagen;
     }
 
-    public void setImgBase64(String imgBase64) {
-        this.imgBase64 = imgBase64;
+    public void setImagen(byte[] imagen) {
+        this.imagen = imagen;
     }
 
     public Anuncio getAnuncio() {
@@ -43,7 +43,7 @@ public class Imagen {
     // *-- Métodos --* //
     public void parse(Imagen imagen){
         this.idImagen = imagen.getIdImagen();
-        this.imgBase64 = imagen.getImgBase64();
+        this.imagen = imagen.getImagen();
 
         this.anuncio = null;
     }

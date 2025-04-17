@@ -10,11 +10,16 @@ public class ValorCaracteristica {
     // *-- Relaciones --* //
     private Anuncio anuncio;
 
-    private Caracteristica caracteristica;
+    private String nombreCaracteristica;
 
 
     // *-- Constructores --* //
     public ValorCaracteristica() {}
+
+    public ValorCaracteristica(String valor, String nombreCaracteristica){
+        this.valor = valor;
+        this.nombreCaracteristica = nombreCaracteristica;
+    }
 
 
     // *-- Getters y Setters --* //
@@ -42,12 +47,12 @@ public class ValorCaracteristica {
         this.anuncio = anuncio;
     }
 
-    public Caracteristica getCaracteristica() {
-        return caracteristica;
+    public String getNombreCaracteristica() {
+        return this.nombreCaracteristica;
     }
 
-    public void setCaracteristica(Caracteristica caracteristica) {
-        this.caracteristica = caracteristica;
+    public void setNombreCaracteristica(String nombreCaracteristica) {
+        this.nombreCaracteristica = nombreCaracteristica;
     }
 
     // *-- Métodos --* //
@@ -56,6 +61,6 @@ public class ValorCaracteristica {
         this.valor = valorCaracteristica.getValor();
 
         this.anuncio = null;
-        this.caracteristica = null;
+        this.nombreCaracteristica = null;
     }
 }

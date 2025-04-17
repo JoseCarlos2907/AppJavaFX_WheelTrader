@@ -6,10 +6,14 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Home;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio2;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
+
+import javafx.application.Platform;
 
 public class Lector_App extends Thread{
     private IApp controller;
@@ -42,6 +46,30 @@ public class Lector_App extends Thread{
                     case "BIENVENIDO":
                         ((Controller_Home) this.controller).bienvenida();
                         break;
+                    
+                    case "DATOS_VALIDOS":
+                        Platform.runLater(() -> {
+                            try {
+                                if("si".equals(msgServidor.getParams().get(0))){
+                                    ((Controller_PublicarAnuncio) this.controller).siguientePaso();
+                                }else if("no".equals(msgServidor.getParams().get(0))){
+                                    ((Controller_PublicarAnuncio) this.controller).datosIncorrectos();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
+
+                        case "ANUNCIO_PUBLICADO":
+                            Platform.runLater(() ->{
+                                try {
+                                    ((Controller_PublicarAnuncio2) this.controller).anuncioPublicado();
+                                } catch (IOException e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                            break;
                 }
             }
         } catch (IOException e) {
