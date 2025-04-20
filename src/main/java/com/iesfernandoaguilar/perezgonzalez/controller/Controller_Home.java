@@ -73,8 +73,24 @@ public class Controller_Home implements IApp, Initializable {
     }
 
     @FXML
-    void handleBtnBuscarAction(MouseEvent event) {
+    void handleBtnFiltrosAction(MouseEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Filtros.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
 
+        Controller_Filtros controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_ConfCuenta.getScene().getWindow();
+        stage2.close();
+    }
+
+    @FXML
+    void handleBtnBuscarAction(MouseEvent event) {
+        
     }
 
     @FXML
@@ -84,7 +100,7 @@ public class Controller_Home implements IApp, Initializable {
 
     @FXML
     void handleBtnNotificacionAction(MouseEvent event) {
-
+        
     }
 
     @FXML

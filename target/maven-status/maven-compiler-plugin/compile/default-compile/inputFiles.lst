@@ -12,6 +12,8 @@
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro3.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_PerfilUsuario.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_HomeModerador.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/interfaces/IFiltro.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroTodo.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_CompraComprador.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_ConfUsuario.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_Anuncio.java

@@ -1,5 +1,6 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
 
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
@@ -7,6 +8,7 @@ import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
@@ -42,10 +44,16 @@ public class Controller_Anuncio {
 
     private IListaAnuncios controller;
     private Anuncio anuncio;
+    private byte[] imagen;
 
     @FXML
     void handlePaneAnuncioAction(MouseEvent event) throws IOException {
         this.controller.abrirAnuncio(anuncio);
+    }
+
+    @FXML
+    void handleGuardarAction(MouseEvent event){
+        // TODO: Guardar o quitar de guardado, depende de lo que tenga el usuario
     }
 
     public void setAnuncio(Anuncio anuncio){
@@ -60,8 +68,8 @@ public class Controller_Anuncio {
         this.Lbl_Precio.setText(precio + " €");
     }
 
-    public void setDatos(String categoria, int anio, int km){
-        this.Lbl_Datos.setText(categoria + " - " + anio + " - " + km);
+    public void setDatos(String tipo, String anio, String km){
+        this.Lbl_Datos.setText(tipo + " - " + anio + " - " + km);
     }
 
     public void setUbicacion(String provincia, String ciudad){
@@ -70,6 +78,12 @@ public class Controller_Anuncio {
 
     public void setUsuario(String usuario){
         this.Lbl_Usuario.setText("De " + usuario);
+    }
+
+    public void setImagen(byte[] imagen){
+        this.imagen = imagen;
+        ByteArrayInputStream is = new ByteArrayInputStream(imagen);
+        this.ImgView_Vehiculo.setImage(new Image(is));
     }
 
     public void setController(IListaAnuncios controller){

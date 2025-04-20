@@ -19,7 +19,7 @@
          <font>
             <Font size="30.0" />
          </font></Label>
-      <ImageView fx:id="ImgView_Guardado" fitHeight="45.0" fitWidth="53.0" layoutX="1140.0" layoutY="28.0" pickOnBounds="true" preserveRatio="true" />
+      <ImageView fx:id="ImgView_Guardado" fitHeight="45.0" fitWidth="53.0" layoutX="1140.0" layoutY="28.0" onMouseClicked="#handleGuardarAction" pickOnBounds="true" preserveRatio="true" />
       <Label fx:id="Lbl_Precio" layoutX="463.0" layoutY="106.0" styleClass="precio" text="99.999€" textFill="WHITE">
          <font>
             <Font size="34.0" />

@@ -84,6 +84,7 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
 
         Controller_Home controller = loader.getController();
         controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
 
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
         stage2.close();
@@ -133,21 +134,9 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
         String numBastidor = new String(this.TxtF_Coche_NBastidor.getText());
 
         if(!matricula.matches("^\\d{4}[A-Z]{1,3}$")){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Formato de matrícula errónea");
-            alert.setHeaderText(null);
-            alert.setContentText("El formato de la matrícula no es el correcto");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            this.formatoMatriculaIncorrecto();
         }else if(numBastidor.length() != 13){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Formato de número de bastidor");
-            alert.setHeaderText(null);
-            alert.setContentText("El formato del número de bastidor no es el correcto");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            this.formatoNumSerieBastidorIncorrecto();
         }else{
             this.anuncio.setTipoVehiculo("Coche");
             this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Coche_Marca.getText()), "Marca_Coche"));
@@ -171,7 +160,6 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
 
             this.dos.writeUTF(Serializador.codificarMensaje(msg));
         }
-
     }
 
 
@@ -207,8 +195,35 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
     private TextField TxtF_Moto_NBastidor;
     
     @FXML
-    void handleBtnSiguienteMotoAction(MouseEvent event) {
+    void handleBtnSiguienteMotoAction(MouseEvent event) throws IOException {
+        String matricula = new String(this.TxtF_Moto_Matricula.getText());
+        String numBastidor = new String(this.TxtF_Moto_NBastidor.getText());
 
+        if(!matricula.matches("^\\d{4}[A-Z]{1,3}$")){
+            this.formatoMatriculaIncorrecto();
+        }else if(numBastidor.length() != 13){
+            this.formatoNumSerieBastidorIncorrecto();
+        }else{
+            this.anuncio.setTipoVehiculo("Moto");
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Moto_Marca.getText()), "Marca_Moto"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Moto_Modelo.getText()), "Modelo_Moto"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Moto_CV.getText()), "Cilindrada_Moto"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Moto_Anio.getText()), "Anio_Moto"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Moto_KM.getText()), "KM_Moto"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.CB_Moto_TipoCombustible.getValue()), "TipoCombustible_Moto"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Moto_CantMarchas.getText()), "Marchas_Moto"));
+            this.anuncio.setMatricula(matricula);
+            this.anuncio.setNumSerieBastidor(numBastidor);
+            
+            Mensaje msg = new Mensaje();
+            msg.setTipo("COMPROBAR_DATOS_VEHICULO");
+            
+            ObjectMapper mapper = new ObjectMapper();
+            String valoresAnuncioJSON = mapper.writeValueAsString(this.anuncio.getValoresCaracteristicas());
+            msg.addParam(valoresAnuncioJSON);
+
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        }
     }
 
 
@@ -253,8 +268,38 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
     private TextField TxtF_Camioneta_NPuertas;
 
     @FXML
-    void handleBtnSiguienteCamionetaAction(MouseEvent event) {
+    void handleBtnSiguienteCamionetaAction(MouseEvent event) throws IOException {
+        String matricula = new String(this.TxtF_Camioneta_Matricula.getText());
+        String numBastidor = new String(this.TxtF_Camioneta_NBastidor.getText());
 
+        if(!matricula.matches("^\\d{4}[A-Z]{1,3}$")){
+            this.formatoMatriculaIncorrecto();
+        }else if(numBastidor.length() != 13){
+            this.formatoNumSerieBastidorIncorrecto();
+        }else{
+            this.anuncio.setTipoVehiculo("Camioneta");
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camioneta_Marca.getText()), "Marca_Camioneta"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camioneta_Modelo.getText()), "Modelo_Camioneta"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.CB_Camioneta_TipoTraccion.getValue()), "TipoTraccion_Camioneta"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camioneta_Anio.getText()), "Anio_Camioneta"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camioneta_KM.getText()), "KM_Camioneta"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.CB_Camioneta_TipoCombustible.getValue()), "TipoCombustible_Camioneta"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camioneta_CargaMax.getText()), "CargaKg_Camioneta"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camioneta_CV.getText()), "CV_Camioneta"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camioneta_CantMarchas.getText()), "Marchas_Camioneta"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camioneta_NPuertas.getText()), "Puertas_Camioneta"));
+            this.anuncio.setMatricula(matricula);
+            this.anuncio.setNumSerieBastidor(numBastidor);
+            
+            Mensaje msg = new Mensaje();
+            msg.setTipo("COMPROBAR_DATOS_VEHICULO");
+            
+            ObjectMapper mapper = new ObjectMapper();
+            String valoresAnuncioJSON = mapper.writeValueAsString(this.anuncio.getValoresCaracteristicas());
+            msg.addParam(valoresAnuncioJSON);
+
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        }
     }
 
 
@@ -293,8 +338,36 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
     private TextField TxtF_Camion_NBastidor;
 
     @FXML
-    void handleBtnSiguienteCamionAction(MouseEvent event) {
+    void handleBtnSiguienteCamionAction(MouseEvent event) throws IOException {
+        String matricula = new String(this.TxtF_Camion_Matricula.getText());
+        String numBastidor = new String(this.TxtF_Camion_NBastidor.getText());
 
+        if(!matricula.matches("^\\d{4}[A-Z]{1,3}$")){
+            this.formatoMatriculaIncorrecto();
+        }else if(numBastidor.length() != 13){
+            this.formatoNumSerieBastidorIncorrecto();
+        }else{
+            this.anuncio.setTipoVehiculo("Camion");
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camion_Marca.getText()), "Marca_Camion"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camion_Modelo.getText()), "Modelo_Camion"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camion_Anio.getText()), "Anio_Camion"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camion_KM.getText()), "KM_Camion"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camion_CargaMax.getText()), "CargaKg_Camion"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.CB_Camion_TipoCombustible.getValue()), "TipoCombustible_Camion"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camion_CV.getText()), "CV_Camion"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Camion_CantMarchas.getText()), "Marchas_Camion"));
+            this.anuncio.setMatricula(matricula);
+            this.anuncio.setNumSerieBastidor(numBastidor);
+            
+            Mensaje msg = new Mensaje();
+            msg.setTipo("COMPROBAR_DATOS_VEHICULO");
+            
+            ObjectMapper mapper = new ObjectMapper();
+            String valoresAnuncioJSON = mapper.writeValueAsString(this.anuncio.getValoresCaracteristicas());
+            msg.addParam(valoresAnuncioJSON);
+
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        }
     }
 
 
@@ -318,8 +391,49 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
     private TextField TxtF_Maquinaria_NSerieBastidor;
 
     @FXML
-    void handleBtnSiguienteMaquinariaAction(MouseEvent event) {
+    void handleBtnSiguienteMaquinariaAction(MouseEvent event) throws IOException {
+        String numBastidor = new String(this.TxtF_Maquinaria_NSerieBastidor.getText());
 
+        if(numBastidor.length() != 13){
+            this.formatoNumSerieBastidorIncorrecto();
+        }else{
+            this.anuncio.setTipoVehiculo("Maquinaria");
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Maquinaria_Marca.getText()), "Marca_Maquinaria"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Maquinaria_Modelo.getText()), "Modelo_Maquinaria"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Maquinaria_Anio.getText()), "Anio_Maquinaria"));
+            this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.CB_Maquinaria_TipoCombustible.getValue()), "TipoCombustible_Maquinaria"));
+            this.anuncio.setMatricula("MAQUINARIA");
+            this.anuncio.setNumSerieBastidor(numBastidor);
+            
+            Mensaje msg = new Mensaje();
+            msg.setTipo("COMPROBAR_DATOS_VEHICULO");
+            
+            ObjectMapper mapper = new ObjectMapper();
+            String valoresAnuncioJSON = mapper.writeValueAsString(this.anuncio.getValoresCaracteristicas());
+            msg.addParam(valoresAnuncioJSON);
+
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        }
+    }
+
+    public void formatoMatriculaIncorrecto(){
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Formato de matrícula errónea");
+        alert.setHeaderText(null);
+        alert.setContentText("El formato de la matrícula no es el correcto");
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("alert-error");
+        alert.showAndWait();
+    }
+
+    public void formatoNumSerieBastidorIncorrecto(){
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Formato de número de bastidor");
+        alert.setHeaderText(null);
+        alert.setContentText("El formato del número de bastidor no es el correcto");
+        alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("alert-error");
+        alert.showAndWait();
     }
 
     public void siguientePaso() throws IOException{

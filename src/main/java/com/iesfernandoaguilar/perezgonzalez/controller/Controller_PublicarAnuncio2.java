@@ -131,7 +131,15 @@ public class Controller_PublicarAnuncio2 implements IApp, Initializable{
         String ciudad = new String(this.TxtF_Ciudad.getText());
         String descripcion = new String(this.TxtA_Desccripcion.getText());
         
-        if(provincia.isEmpty() || ciudad.isEmpty() || descripcion.isEmpty()){
+        if(this.imagenes.size() < 1){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("No hay imagenes");
+            alert.setHeaderText(null);
+            alert.setContentText("El anuncio debe tener al menos una imagen");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+            alert.getDialogPane().getStyleClass().add("alert-error");
+            alert.showAndWait();
+        }else if(provincia.isEmpty() || ciudad.isEmpty() || descripcion.isEmpty()){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Datos incompletos");
             alert.setHeaderText(null);

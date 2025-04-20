@@ -74,7 +74,7 @@
             </DropShadow>
          </effect>
       </TextField>
-      <Button fx:id="Btn_Filtros" graphicTextGap="5.0" layoutX="1094.0" layoutY="234.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="177.0" styleClass="botonFiltros" text="Filtros">
+      <Button fx:id="Btn_Filtros" graphicTextGap="5.0" layoutX="1094.0" layoutY="234.0" mnemonicParsing="false" onMouseClicked="#handleBtnFiltrosAction" prefHeight="64.0" prefWidth="177.0" styleClass="botonFiltros" text="Filtros">
          <font>
             <Font size="33.0" />
          </font>

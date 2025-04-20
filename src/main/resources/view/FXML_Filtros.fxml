@@ -2,17 +2,23 @@
 
 <?import java.net.URL?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.ChoiceBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Tab?>
+<?import javafx.scene.control.TabPane?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
 <Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Filtros">
    <children>
-      <Button fx:id="Btn_ConfCuenta" graphicTextGap="10.0" layoutX="105.0" layoutY="32.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleBtnVolverAction" prefHeight="85.0" prefWidth="232.0" styleClass="botonTransparente" text="Volver">
+      <Button fx:id="Btn_Volver" graphicTextGap="10.0" layoutX="105.0" layoutY="32.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleBtnVolverAction" prefHeight="78.0" prefWidth="206.0" styleClass="botonTransparente" text="Volver">
          <font>
             <Font size="24.0" />
          </font>
@@ -24,24 +30,186 @@
             </ImageView>
          </graphic>
       </Button>
-      <Label layoutX="639.0" layoutY="50.0" styleClass="titulo" text="Filtros" />
-      <ChoiceBox fx:id="CB_Categoria" layoutX="152.0" layoutY="192.0" prefHeight="49.0" prefWidth="284.0" styleClass="desplegable" />
-      <TextField fx:id="TxtF_Marca" layoutX="153.0" layoutY="309.0" prefHeight="49.0" prefWidth="284.0" promptText="Marca" styleClass="inputs" />
-      <Button fx:id="Btn_Buscar" graphicTextGap="10.0" layoutX="584.0" layoutY="646.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleBtnBuscarAction" prefHeight="85.0" prefWidth="232.0" styleClass="botonNegro" text="Buscar">
-         <font>
-            <Font size="24.0" />
-         </font>
-      </Button>
-      <ChoiceBox fx:id="CB_TipoMarchas" layoutX="558.0" layoutY="192.0" prefHeight="49.0" prefWidth="284.0" styleClass="desplegable" />
-      <ChoiceBox fx:id="CB_TipoCombustible" layoutX="978.0" layoutY="192.0" prefHeight="49.0" prefWidth="284.0" styleClass="desplegable" />
-      <TextField fx:id="TxtF_Modelo" layoutX="153.0" layoutY="416.0" prefHeight="49.0" prefWidth="284.0" promptText="Modelo" styleClass="inputs" />
-      <TextField fx:id="TxtF_Anio" layoutX="155.0" layoutY="521.0" prefHeight="49.0" prefWidth="284.0" promptText="Año" styleClass="inputs" />
-      <TextField fx:id="TxtF_CantMarchas" layoutX="558.0" layoutY="311.0" prefHeight="49.0" prefWidth="284.0" promptText="Cantidad de marchas" styleClass="inputs" />
-      <TextField fx:id="TxtF_CV" layoutX="558.0" layoutY="418.0" prefHeight="49.0" prefWidth="284.0" promptText="CV" styleClass="inputs" />
-      <TextField fx:id="TxtF_NPuertas" layoutX="560.0" layoutY="523.0" prefHeight="49.0" prefWidth="284.0" promptText="Nº de Puertas" styleClass="inputs" />
-      <TextField fx:id="TxtF_KmMin" layoutX="979.0" layoutY="310.0" prefHeight="49.0" prefWidth="284.0" promptText="Km mínimo" styleClass="inputs" />
-      <TextField fx:id="TxtF_KmMax" layoutX="979.0" layoutY="417.0" prefHeight="49.0" prefWidth="284.0" promptText="Km máximo" styleClass="inputs" />
-      <TextField fx:id="TxtF_Plazas" layoutX="981.0" layoutY="522.0" prefHeight="49.0" prefWidth="284.0" promptText="Plazas" styleClass="inputs" />
+      <Label layoutX="656.0" layoutY="50.0" styleClass="titulo" text="Filtros" />
+      <TabPane layoutX="85.0" layoutY="130.0" prefHeight="661.0" prefWidth="1264.0" styleClass="tabPanePA" tabClosingPolicy="UNAVAILABLE">
+         <tabs>
+            <Tab text="Todo">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="562.0" prefWidth="1264.0">
+                     <children>
+                        <TextField fx:id="TxtF_Todo_Marca" layoutX="133.0" layoutY="46.0" prefHeight="52.0" prefWidth="262.0" promptText="Marca" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Todo_Modelo" layoutX="501.0" layoutY="46.0" prefHeight="52.0" promptText="Modelo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Todo_AnioMin" layoutX="856.0" layoutY="46.0" prefHeight="52.0" promptText="Año Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Todo_AnioMax" layoutX="133.0" layoutY="147.0" prefHeight="52.0" promptText="Año Máximo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Todo_PrecioMin" layoutX="501.0" layoutY="147.0" prefHeight="52.0" promptText="Precio Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Todo_Provincia" layoutX="501.0" layoutY="255.0" prefHeight="52.0" promptText="Provincia" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Todo_PrecioMax" layoutX="854.0" layoutY="147.0" prefHeight="52.0" promptText="Precio Máximo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Todo_Ciudad" layoutX="135.0" layoutY="255.0" prefHeight="52.0" promptText="Ciudad" styleClass="inputs" />
+                        <Button fx:id="Btn_Buscar_Todo" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnBuscarTodoAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Buscar">
+                           <effect>
+                              <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+                                 <color>
+                                    <Color opacity="0.4000000059604645" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Button>
+                        <CheckBox fx:id="CB_Coche" layoutX="308.0" layoutY="392.0" mnemonicParsing="false" styleClass="checkbox" text="Coche" />
+                        <Label layoutX="602.0" layoutY="345.0" styleClass="checkbox" text="Tipos:" />
+                        <CheckBox fx:id="CB_Moto" layoutX="422.0" layoutY="392.0" mnemonicParsing="false" styleClass="checkbox" text="Moto" />
+                        <CheckBox fx:id="CB_Camioneta" layoutX="521.0" layoutY="392.0" mnemonicParsing="false" styleClass="checkbox" text="Camioneta" />
+                        <CheckBox fx:id="CB_Camion" layoutX="678.0" layoutY="392.0" mnemonicParsing="false" styleClass="checkbox" text="Camion" />
+                        <CheckBox fx:id="CB_Maquinaria" layoutX="807.0" layoutY="392.0" mnemonicParsing="false" styleClass="checkbox" text="Maquinaria" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Coche">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="562.0" prefWidth="1264.0">
+                     <children>
+                        <TextField fx:id="TxtF_Coche_Marca" layoutX="133.0" layoutY="46.0" prefHeight="52.0" prefWidth="262.0" promptText="Marca" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Coche_Modelo" layoutX="501.0" layoutY="46.0" prefHeight="52.0" promptText="Modelo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Coche_CVMinimo" layoutX="283.0" layoutY="366.0" prefHeight="52.0" prefWidth="164.0" promptText="CV Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Coche_AnioMinimo" layoutX="835.0" layoutY="360.0" prefHeight="52.0" prefWidth="164.0" promptText="Año Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Coche_KMMinimo" layoutX="133.0" layoutY="147.0" prefHeight="52.0" promptText="Kilometraje Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Coche_CantMarchas" layoutX="856.0" layoutY="46.0" prefHeight="52.0" promptText="Cantidad de Marchas" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Coche_NPuertas" layoutX="856.0" layoutY="147.0" prefHeight="52.0" promptText="Número de Puertas" styleClass="inputs" />
+                        <Button fx:id="Btn_Buscar_Coche" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnBuscarCocheAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Buscar">
+                           <effect>
+                              <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+                                 <color>
+                                    <Color opacity="0.4000000059604645" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Button>
+                        <ChoiceBox fx:id="CB_Coche_Transmision" layoutX="501.0" layoutY="360.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
+                        <ChoiceBox fx:id="CB_Coche_TipoCombustible" layoutX="501.0" layoutY="255.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
+                        <TextField fx:id="TxtF_Coche_CVMaximo" layoutX="67.0" layoutY="366.0" prefHeight="52.0" prefWidth="164.0" promptText="CV Máximo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Coche_AnioMaximo" layoutX="1047.0" layoutY="360.0" prefHeight="52.0" prefWidth="164.0" promptText="Año Máximo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Coche_KMMaximo" layoutX="501.0" layoutY="147.0" prefHeight="52.0" promptText="Kilometraje Máximo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Coche_Provincia" layoutX="133.0" layoutY="255.0" prefHeight="52.0" promptText="Provincia" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Coche_Ciudad" layoutX="856.0" layoutY="255.0" prefHeight="52.0" promptText="Ciudad" styleClass="inputs" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Moto">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                     <children>
+                        <TextField fx:id="TxtF_Moto_Marca" layoutX="133.0" layoutY="46.0" prefHeight="52.0" prefWidth="262.0" promptText="Marca" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Moto_Modelo" layoutX="501.0" layoutY="46.0" prefHeight="52.0" promptText="Modelo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Moto_CVMinimo" layoutX="501.0" layoutY="255.0" prefHeight="52.0" promptText="Cilindrada Mínima" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Moto_AnioMinimo" layoutX="501.0" layoutY="360.0" prefHeight="52.0" promptText="Año Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Moto_KMMinimo" layoutX="133.0" layoutY="147.0" prefHeight="52.0" promptText="Kilometraje Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Moto_CantMarchas" layoutX="856.0" layoutY="46.0" prefHeight="52.0" promptText="Cantidad de Marchas" styleClass="inputs" />
+                        <ChoiceBox fx:id="CB_Moto_TipoCombustible" layoutX="133.0" layoutY="360.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
+                        <Button fx:id="Btn_Buscar_Moto" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnBuscarMotoAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Buscar">
+                           <effect>
+                              <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+                                 <color>
+                                    <Color opacity="0.4000000059604645" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Button>
+                        <TextField fx:id="TxtF_Moto_Provincia" layoutX="856.0" layoutY="147.0" prefHeight="52.0" promptText="Provincia" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Moto_Ciudad" layoutX="133.0" layoutY="255.0" prefHeight="52.0" promptText="Ciudad" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Moto_CVMaximo" layoutX="856.0" layoutY="255.0" prefHeight="52.0" promptText="Cilindrada Máxima" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Moto_KMMaximo" layoutX="501.0" layoutY="147.0" prefHeight="52.0" promptText="Kilometraje Máximo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Moto_AnioMaximo" layoutX="856.0" layoutY="360.0" prefHeight="52.0" promptText="Año Máximo" styleClass="inputs" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Camioneta">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="562.0" prefWidth="1264.0">
+                     <children>
+                        <TextField fx:id="TxtF_Camioneta_Marca" layoutX="133.0" layoutY="46.0" prefHeight="52.0" prefWidth="262.0" promptText="Marca" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camioneta_Modelo" layoutX="501.0" layoutY="46.0" prefHeight="52.0" promptText="Modelo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camioneta_CVMaximo" layoutX="283.0" layoutY="366.0" prefHeight="52.0" prefWidth="164.0" promptText="CV Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camioneta_AnioMinimo" layoutX="835.0" layoutY="360.0" prefHeight="52.0" prefWidth="164.0" promptText="Año Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camioneta_KMMinimo" layoutX="133.0" layoutY="147.0" prefHeight="52.0" promptText="Kilometraje Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camioneta_CantMarchas" layoutX="856.0" layoutY="46.0" prefHeight="52.0" promptText="Cantidad de Marchas" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camioneta_NPuertas" layoutX="856.0" layoutY="147.0" prefHeight="52.0" promptText="Número de Puertas" styleClass="inputs" />
+                        <Button fx:id="Btn_Buscar_Camioneta" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnBuscarCamionetaAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Buscar">
+                           <effect>
+                              <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+                                 <color>
+                                    <Color opacity="0.4000000059604645" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Button>
+                        <ChoiceBox fx:id="CB_Camioneta_TipoTraccion" layoutX="501.0" layoutY="255.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
+                        <ChoiceBox fx:id="CB_Camioneta_TipoCombustible" layoutX="501.0" layoutY="360.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
+                        <TextField fx:id="TxtF_Camioneta_Provincia" layoutX="133.0" layoutY="255.0" prefHeight="52.0" promptText="Provincia" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camioneta_Ciudad" layoutX="856.0" layoutY="255.0" prefHeight="52.0" promptText="Ciudad" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camioneta_AnioMaximo" layoutX="1047.0" layoutY="360.0" prefHeight="52.0" prefWidth="164.0" promptText="Año Máximo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camioneta_CVMinimo" layoutX="67.0" layoutY="366.0" prefHeight="52.0" prefWidth="164.0" promptText="CV Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camioneta_KMMaximo" layoutX="501.0" layoutY="147.0" prefHeight="52.0" promptText="Kilometraje Máximo" styleClass="inputs" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Camion">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="562.0" prefWidth="1264.0">
+                     <children>
+                        <TextField fx:id="TxtF_Camion_Marca" layoutX="133.0" layoutY="46.0" prefHeight="52.0" prefWidth="262.0" promptText="Marca" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camion_Modelo" layoutX="501.0" layoutY="46.0" prefHeight="52.0" promptText="Modelo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camion_CVMinimo" layoutX="133.0" layoutY="255.0" prefHeight="52.0" promptText="CV Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camion_AnioMinimo" layoutX="133.0" layoutY="147.0" prefHeight="52.0" promptText="Año Mínimo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camion_KMMinimo" layoutX="133.0" layoutY="352.0" prefHeight="52.0" promptText="Kilometraje Mínimo" styleClass="inputs" />
+                        <Button fx:id="Btn_Buscar_Camion" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnBuscarCamionAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Buscar">
+                           <effect>
+                              <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+                                 <color>
+                                    <Color opacity="0.4000000059604645" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Button>
+                        <ChoiceBox fx:id="CB_Camion_TipoCombustible" layoutX="856.0" layoutY="147.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
+                        <TextField fx:id="TxtF_Camion_CantMarchas" layoutX="856.0" layoutY="46.0" prefHeight="52.0" promptText="Cantidad de Marchas" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camion_CVMaximo" layoutX="501.0" layoutY="255.0" prefHeight="52.0" promptText="CV Máximo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camion_AnioMaximo" layoutX="501.0" layoutY="147.0" prefHeight="52.0" promptText="Año Máximo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camion_KMMinimo" layoutX="501.0" layoutY="352.0" prefHeight="52.0" promptText="Kilometraje Máximo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camion_Provincia" layoutX="856.0" layoutY="255.0" prefHeight="52.0" promptText="Provincia" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camion_Ciudad" layoutX="856.0" layoutY="352.0" prefHeight="52.0" promptText="Ciudad" styleClass="inputs" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+            <Tab text="Maquinaria">
+               <content>
+                  <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="562.0" prefWidth="1264.0">
+                     <children>
+                        <TextField fx:id="TxtF_Maquinaria_Marca" layoutX="133.0" layoutY="46.0" prefHeight="52.0" prefWidth="262.0" promptText="Marca" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Maquinaria_Modelo" layoutX="501.0" layoutY="46.0" prefHeight="52.0" promptText="Modelo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Maquinaria_AnioMinimo" layoutX="133.0" layoutY="147.0" prefHeight="52.0" promptText="Año Mínimo" styleClass="inputs" />
+                        <ChoiceBox fx:id="CB_Maquinaria_TipoCombustible" layoutX="856.0" layoutY="46.0" prefHeight="52.0" prefWidth="262.0" styleClass="desplegable" />
+                        <Button fx:id="Btn_Buscar_Maquinaria" layoutX="507.0" layoutY="453.0" mnemonicParsing="false" onMouseClicked="#handleBtnBuscarMaquinariaAction" prefHeight="70.0" prefWidth="250.0" styleClass="botonNegro" text="Buscar">
+                           <effect>
+                              <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+                                 <color>
+                                    <Color opacity="0.4000000059604645" />
+                                 </color>
+                              </DropShadow>
+                           </effect>
+                        </Button>
+                        <TextField fx:id="TxtF_Maquinaria_Provincia" layoutX="856.0" layoutY="147.0" prefHeight="52.0" promptText="Provincia" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Maquinaria_Ciudad" layoutX="501.0" layoutY="255.0" prefHeight="52.0" promptText="Ciudad" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Maquinaria_AnioMaximo" layoutX="501.0" layoutY="147.0" prefHeight="52.0" promptText="Año Máximo" styleClass="inputs" />
+                     </children>
+                  </AnchorPane>
+               </content>
+            </Tab>
+         </tabs>
+      </TabPane>
    </children>
    <stylesheets>
       <URL value="@../styles/EstiloGeneral.css" />

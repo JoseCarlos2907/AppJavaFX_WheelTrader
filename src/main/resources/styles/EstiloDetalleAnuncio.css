@@ -12,3 +12,8 @@
 .radiusIzquierda{
     -fx-background-radius: 0px 18px 18px 0px;
 }
+
+.scrollPane .viewport, .scrollPane{
+    -fx-background-color: rgb(0,0,0,0.5);
+    -fx-background-radius: 20px;
+}
