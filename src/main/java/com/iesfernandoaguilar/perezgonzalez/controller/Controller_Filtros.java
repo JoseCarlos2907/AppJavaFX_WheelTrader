@@ -6,9 +6,13 @@ import java.util.ResourceBundle;
 
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IFiltro;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroCamion;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroCamioneta;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroCoche;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroMaquinaria;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroMoto;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroTodo;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -143,18 +147,22 @@ public class Controller_Filtros implements IApp, Initializable{
             filtro.addTipoVehiculo("Coche");
         }
 
+        String marca = new String(this.TxtF_Todo_Marca.getText());
+        String modelo = new String(this.TxtF_Todo_Modelo.getText());
         String anioMax = new String(this.TxtF_Todo_AnioMax.getText());
         String anioMin = new String(this.TxtF_Todo_AnioMin.getText());
+        String provincia = new String(this.TxtF_Todo_Provincia.getText());
+        String ciudad = new String(this.TxtF_Todo_Ciudad.getText());
         String precioMin = new String(this.TxtF_Todo_PrecioMin.getText());
         String precioMax = new String(this.TxtF_Todo_PrecioMax.getText());
 
 
-        filtro.setMarca(new String(this.TxtF_Todo_Marca.getText()));
-        filtro.setModelo(new String(this.TxtF_Todo_Modelo.getText()));
-        filtro.setAnioMaximo(anioMax.isEmpty() ? 2025 : Integer.valueOf(anioMax));
+        filtro.setMarca(marca.isEmpty() ? null : marca);
+        filtro.setModelo(modelo.isEmpty() ? null : modelo);
         filtro.setAnioMinimo(anioMin.isEmpty() ? 1950 : Integer.valueOf(anioMin));
-        filtro.setProvincia(new String(this.TxtF_Todo_Provincia.getText()));
-        filtro.setCiudad(new String(this.TxtF_Todo_Ciudad.getText()));
+        filtro.setAnioMaximo(anioMax.isEmpty() ? 2025 : Integer.valueOf(anioMax));
+        filtro.setProvincia(provincia.isEmpty() ? null : provincia);
+        filtro.setCiudad(ciudad.isEmpty() ? null : ciudad);
         filtro.setPrecioMinimo(precioMin.isEmpty() ? 0 : Integer.valueOf(precioMin));
         filtro.setPrecioMaximo(precioMax.isEmpty() ? Double.MAX_VALUE : Integer.valueOf(precioMax));
         filtro.setPagina(0);
@@ -210,8 +218,43 @@ public class Controller_Filtros implements IApp, Initializable{
     private Button Btn_Buscar_Coche;
 
     @FXML
-    void handleBtnBuscarCocheAction(MouseEvent event) {
+    void handleBtnBuscarCocheAction(MouseEvent event) throws IOException {
+        FiltroCoche filtro = new FiltroCoche();
 
+        String tipoCombustible = new String(this.CB_Coche_TipoCombustible.getValue());
+        String transmision = new String(this.CB_Coche_Transmision.getValue());
+        String marca = new String(this.TxtF_Coche_Marca.getText());
+        String modelo = new String(this.TxtF_Coche_Modelo.getText());
+        String provincia = new String(this.TxtF_Coche_Provincia.getText());
+        String ciudad = new String(this.TxtF_Coche_Ciudad.getText());
+        String anioMinimo = new String(this.TxtF_Coche_AnioMinimo.getText());
+        String anioMaximo = new String(this.TxtF_Coche_AnioMaximo.getText());
+        String cvMinimo = new String(this.TxtF_Coche_CVMinimo.getText());
+        String cvMaximo = new String(this.TxtF_Coche_CVMaximo.getText());
+        String cantMarchas = new String(this.TxtF_Coche_CantMarchas.getText());
+        String kmMinimo = new String(this.TxtF_Coche_KMMinimo.getText());
+        String kmMaximo = new String(this.TxtF_Coche_KMMaximo.getText());
+        String nPuertas = new String(this.TxtF_Coche_NPuertas.getText());
+
+        filtro.setTipoCombustible("Tipo Combustible".equals(tipoCombustible) ? null : tipoCombustible);
+        filtro.setTransmision("Transmision".equals(transmision) ? null : transmision);
+        filtro.setMarca(marca.isEmpty() ? null : marca);
+        filtro.setModelo(modelo.isEmpty() ? null : modelo);
+        filtro.setProvincia(provincia.isEmpty() ? null : provincia);
+        filtro.setCiudad(ciudad.isEmpty() ? null : ciudad);
+        filtro.setAnioMinimo(anioMinimo.isEmpty() ? 1950 : Integer.valueOf(anioMinimo));
+        filtro.setAnioMaximo(anioMaximo.isEmpty() ? 2025 : Integer.valueOf(anioMaximo));
+        filtro.setCantMarchas(cantMarchas.isEmpty() ? 0 : Integer.valueOf(cantMarchas));
+        filtro.setnPuertas(nPuertas.isEmpty() ? 0 : Integer.valueOf(nPuertas));
+        filtro.setCvMinimo(cvMinimo.isEmpty() ? 40 : Integer.valueOf(cvMinimo));
+        filtro.setCvMaximo(cvMaximo.isEmpty() ? 1500 : Integer.valueOf(cvMaximo));
+        filtro.setKmMinimo(kmMinimo.isEmpty() ? 0 : Integer.valueOf(kmMinimo));
+        filtro.setKmMaximo(kmMaximo.isEmpty() ? 2000000 : Integer.valueOf(kmMaximo));
+        filtro.setnPuertas(nPuertas.isEmpty() ? 0 : Integer.valueOf(nPuertas));
+        filtro.setPagina(0);
+        filtro.setCantidadPorPagina(10);
+
+        this.buscar(filtro);
     }
 
 
@@ -255,8 +298,38 @@ public class Controller_Filtros implements IApp, Initializable{
     private Button Btn_Buscar_Moto;
 
     @FXML
-    void handleBtnBuscarMotoAction(MouseEvent event) {
+    void handleBtnBuscarMotoAction(MouseEvent event) throws IOException {
+        FiltroMoto filtro = new FiltroMoto();
 
+        String tipoCombustible = new String(this.CB_Moto_TipoCombustible.getValue());
+        String anioMinimo = new String(this.TxtF_Moto_AnioMinimo.getText());
+        String anioMaximo = new String(this.TxtF_Moto_AnioMaximo.getText());
+        String cvMinimo = new String(this.TxtF_Moto_CVMinimo.getText());
+        String cvMaximo = new String(this.TxtF_Moto_CVMaximo.getText());
+        String cantMarchas = new String(this.TxtF_Moto_CantMarchas.getText());
+        String ciudad = new String(this.TxtF_Moto_Ciudad.getText());
+        String kmMinimo = new String(this.TxtF_Moto_KMMinimo.getText());
+        String kmMaximo = new String(this.TxtF_Moto_KMMaximo.getText());
+        String marca = new String(this.TxtF_Moto_Marca.getText());
+        String modelo = new String(this.TxtF_Moto_Modelo.getText());
+        String provincia = new String(this.TxtF_Moto_Provincia.getText());
+
+        filtro.setTipoCombustible("Tipo Combustible".equals(tipoCombustible) ? null : tipoCombustible);
+        filtro.setAnioMinimo(anioMinimo.isEmpty() ? 1950 : Integer.parseInt(anioMinimo));
+        filtro.setAnioMaximo(anioMaximo.isEmpty() ? 2025 : Integer.parseInt(anioMaximo));
+        filtro.setCvMinimo(cvMinimo.isEmpty() ? 50 : Integer.parseInt(cvMinimo));
+        filtro.setCvMaximo(cvMaximo.isEmpty() ? 2000 : Integer.parseInt(cvMaximo));
+        filtro.setCantMarchas(cantMarchas.isEmpty() ? 0 : Integer.parseInt(cantMarchas));
+        filtro.setCiudad(ciudad.isEmpty() ? null : ciudad);
+        filtro.setKmMinimo(kmMinimo.isEmpty() ? 0 : Integer.parseInt(kmMinimo));
+        filtro.setKmMaximo(kmMaximo.isEmpty() ? 1000000 : Integer.parseInt(kmMaximo));
+        filtro.setMarca(marca.isEmpty() ? null : marca);
+        filtro.setModelo(modelo.isEmpty() ? null : modelo);
+        filtro.setProvincia(provincia.isEmpty() ? null : provincia);
+        filtro.setPagina(0);
+        filtro.setCantidadPorPagina(10);
+        
+        this.buscar(filtro);
     }
 
 
@@ -306,8 +379,42 @@ public class Controller_Filtros implements IApp, Initializable{
     private Button Btn_Buscar_Camioneta;
 
     @FXML
-    void handleBtnBuscarCamionetaAction(MouseEvent event) {
+    void handleBtnBuscarCamionetaAction(MouseEvent event) throws IOException {
+        FiltroCamioneta filtro = new FiltroCamioneta();
 
+        String tipoCombustible = new String(this.CB_Camioneta_TipoCombustible.getValue());
+        String traccion = new String(this.CB_Camioneta_TipoTraccion.getValue());
+        String anioMinimo = new String(this.TxtF_Camioneta_AnioMinimo.getText());
+        String anioMaximo = new String(this.TxtF_Camioneta_AnioMaximo.getText());
+        String cvMinimo = new String(this.TxtF_Camioneta_CVMinimo.getText());
+        String cvMaximo = new String(this.TxtF_Camioneta_CVMaximo.getText());
+        String cantMarchas = new String(this.TxtF_Camioneta_CantMarchas.getText());
+        String ciudad = new String(this.TxtF_Camioneta_Ciudad.getText());
+        String kmMinimo = new String(this.TxtF_Camioneta_KMMinimo.getText());
+        String kmMaximo = new String(this.TxtF_Camioneta_KMMaximo.getText());
+        String marca = new String(this.TxtF_Camioneta_Marca.getText());
+        String modelo = new String(this.TxtF_Camioneta_Modelo.getText());
+        String nPuertas = new String(this.TxtF_Camioneta_NPuertas.getText());
+        String provincia = new String(this.TxtF_Camioneta_Provincia.getText());
+
+        filtro.setTipoCombustible("Tipo Combustible".equals(tipoCombustible) ? null : tipoCombustible);
+        filtro.setTraccion("Traccion".equals(traccion) ? null : traccion);
+        filtro.setAnioMinimo(anioMinimo.isEmpty() ? 1950 : Integer.parseInt(anioMinimo));
+        filtro.setAnioMaximo(anioMaximo.isEmpty() ? 2025 : Integer.parseInt(anioMaximo));
+        filtro.setCvMinimo(cvMinimo.isEmpty() ? 50 : Integer.parseInt(cvMinimo));
+        filtro.setCvMaximo(cvMaximo.isEmpty() ? 400 : Integer.parseInt(cvMaximo));
+        filtro.setCantMarchas(cantMarchas.isEmpty() ? 0 : Integer.parseInt(cantMarchas));
+        filtro.setCiudad(ciudad.isEmpty() ? null : ciudad);
+        filtro.setKmMinimo(kmMinimo.isEmpty() ? 0 : Integer.parseInt(kmMinimo));
+        filtro.setKmMaximo(kmMaximo.isEmpty() ? 1500000 : Integer.parseInt(kmMaximo));
+        filtro.setMarca(marca.isEmpty() ? null : marca);
+        filtro.setModelo(modelo.isEmpty() ? null : modelo);
+        filtro.setnPuertas(nPuertas.isEmpty() ? 0 : Integer.valueOf(nPuertas));
+        filtro.setProvincia(provincia.isEmpty() ? null : provincia);
+        filtro.setPagina(0);
+        filtro.setCantidadPorPagina(10);
+
+        this.buscar(filtro);
     }
 
 
@@ -334,6 +441,9 @@ public class Controller_Filtros implements IApp, Initializable{
     
     @FXML
     private TextField TxtF_Camion_KMMinimo;
+
+    @FXML
+    private TextField TxtF_Camion_KMMaximo;
     
     @FXML
     private TextField TxtF_Camion_Marca;
@@ -348,8 +458,36 @@ public class Controller_Filtros implements IApp, Initializable{
     private Button Btn_Buscar_Camion;
 
     @FXML
-    void handleBtnBuscarCamionAction(MouseEvent event) {
+    void handleBtnBuscarCamionAction(MouseEvent event) throws IOException {
+        FiltroCamion filtro = new FiltroCamion();
 
+        String tipoCombustible = new String(this.CB_Camion_TipoCombustible.getValue());
+        String marca = new String(this.TxtF_Camion_Marca.getText());
+        String modelo = new String(this.TxtF_Camion_Modelo.getText());
+        String anioMaximo = new String(this.TxtF_Camion_AnioMaximo.getText());
+        String anioMinimo = new String(this.TxtF_Camion_AnioMinimo.getText());
+        String cvMinimo = new String(this.TxtF_Camion_CVMinimo.getText());
+        String cvMaximo = new String(this.TxtF_Camion_CVMaximo.getText());
+        String cantMarchas = new String(this.TxtF_Camion_CantMarchas.getText());
+        String provincia = new String(this.TxtF_Camion_Provincia.getText());
+        String ciudad = new String(this.TxtF_Camion_Ciudad.getText());
+        String kmMinimo = new String(this.TxtF_Camion_KMMinimo.getText());
+        String kmMaximo = new String(this.TxtF_Camion_KMMaximo.getText());
+
+        filtro.setTipoCombustible("Tipo Combustible".equals(tipoCombustible) ? null : tipoCombustible);
+        filtro.setMarca(marca.isEmpty() ? null : marca);
+        filtro.setModelo(modelo.isEmpty() ? null : modelo);
+        filtro.setAnioMinimo(anioMinimo.isEmpty() ? 1950 : Integer.valueOf(anioMinimo));
+        filtro.setAnioMaximo(anioMaximo.isEmpty() ? 2025 : Integer.valueOf(anioMaximo));
+        filtro.setCvMinimo(cvMinimo.isEmpty() ? 100 : Integer.valueOf(cvMinimo));
+        filtro.setCvMaximo(cvMaximo.isEmpty() ? 800 : Integer.valueOf(cvMaximo));
+        filtro.setCantMarchas(cantMarchas.isEmpty() ? 0 : Integer.parseInt(cantMarchas));
+        filtro.setProvincia(provincia.isEmpty() ? null : provincia);
+        filtro.setCiudad(ciudad.isEmpty() ? null : ciudad);
+        filtro.setKmMinimo(kmMinimo.isEmpty() ? 0 : Integer.parseInt(kmMinimo));
+        filtro.setKmMaximo(kmMaximo.isEmpty() ? 2000000 : Integer.parseInt(kmMaximo));
+
+        this.buscar(filtro);
     }
 
 
@@ -378,8 +516,28 @@ public class Controller_Filtros implements IApp, Initializable{
     private Button Btn_Buscar_Maquinaria;
 
     @FXML
-    void handleBtnBuscarMaquinariaAction(MouseEvent event) {
+    void handleBtnBuscarMaquinariaAction(MouseEvent event) throws IOException {
+        FiltroMaquinaria filtro = new FiltroMaquinaria();
 
+        String tipoCombustible = new String(this.CB_Maquinaria_TipoCombustible.getValue());
+        String anioMinimo = new String(this.TxtF_Maquinaria_AnioMinimo.getText());
+        String anioMaximo = new String(this.TxtF_Maquinaria_AnioMaximo.getText());
+        String ciudad = new String(this.TxtF_Maquinaria_Ciudad.getText());
+        String marca = new String(this.TxtF_Maquinaria_Marca.getText());
+        String modelo = new String(this.TxtF_Maquinaria_Modelo.getText());
+        String provincia = new String(this.TxtF_Maquinaria_Provincia.getText());
+
+        filtro.setTipoCombustible("Tipo Combustible".equals(tipoCombustible) ? null : tipoCombustible);
+        filtro.setAnioMinimo(anioMinimo.isEmpty() ? 1950 : Integer.parseInt(anioMinimo));
+        filtro.setAnioMaximo(anioMaximo.isEmpty() ? 1950 : Integer.parseInt(anioMaximo));
+        filtro.setCiudad(ciudad.isEmpty() ? null : ciudad);
+        filtro.setMarca(marca.isEmpty() ? null : marca);
+        filtro.setModelo(modelo.isEmpty() ? null : modelo);
+        filtro.setProvincia(provincia.isEmpty() ? null : provincia);
+        filtro.setPagina(0);
+        filtro.setCantidadPorPagina(10);
+
+        this.buscar(filtro);
     }
 
 

@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import org.kordamp.bootstrapfx.BootstrapFX;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -19,7 +18,6 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IFiltro;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
-import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroTodo;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
@@ -43,7 +41,6 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
     private DataOutputStream dos;
 
     private List<Anuncio> anuncios;
-    private List<byte[]> imagenes;
     private IFiltro filtro;
 
     @FXML
@@ -101,7 +98,6 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
         //     Stage stage = (Stage) Btn_Filtros.getScene().getWindow();
     
         //     Scene scene = new Scene(nuevaVista);
-        //     scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
     
         //     stage.setScene(scene);
         //     stage.show();

@@ -177,7 +177,7 @@
                         <TextField fx:id="TxtF_Camion_CantMarchas" layoutX="856.0" layoutY="46.0" prefHeight="52.0" promptText="Cantidad de Marchas" styleClass="inputs" />
                         <TextField fx:id="TxtF_Camion_CVMaximo" layoutX="501.0" layoutY="255.0" prefHeight="52.0" promptText="CV Máximo" styleClass="inputs" />
                         <TextField fx:id="TxtF_Camion_AnioMaximo" layoutX="501.0" layoutY="147.0" prefHeight="52.0" promptText="Año Máximo" styleClass="inputs" />
-                        <TextField fx:id="TxtF_Camion_KMMinimo" layoutX="501.0" layoutY="352.0" prefHeight="52.0" promptText="Kilometraje Máximo" styleClass="inputs" />
+                        <TextField fx:id="TxtF_Camion_KMMaximo" layoutX="501.0" layoutY="352.0" prefHeight="52.0" promptText="Kilometraje Máximo" styleClass="inputs" />
                         <TextField fx:id="TxtF_Camion_Provincia" layoutX="856.0" layoutY="255.0" prefHeight="52.0" promptText="Provincia" styleClass="inputs" />
                         <TextField fx:id="TxtF_Camion_Ciudad" layoutX="856.0" layoutY="352.0" prefHeight="52.0" promptText="Ciudad" styleClass="inputs" />
                      </children>
