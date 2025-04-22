@@ -163,8 +163,8 @@ public class Controller_Filtros implements IApp, Initializable{
         filtro.setAnioMaximo(anioMax.isEmpty() ? 2025 : Integer.valueOf(anioMax));
         filtro.setProvincia(provincia.isEmpty() ? null : provincia);
         filtro.setCiudad(ciudad.isEmpty() ? null : ciudad);
-        filtro.setPrecioMinimo(precioMin.isEmpty() ? 0 : Integer.valueOf(precioMin));
-        filtro.setPrecioMaximo(precioMax.isEmpty() ? Double.MAX_VALUE : Integer.valueOf(precioMax));
+        filtro.setPrecioMinimo(precioMin.isEmpty() ? 0 : Double.valueOf(precioMin));
+        filtro.setPrecioMaximo(precioMax.isEmpty() ? Double.MAX_VALUE : Double.valueOf(precioMax));
         filtro.setPagina(0);
         filtro.setCantidadPorPagina(10);
 

@@ -16,15 +16,18 @@
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroTodo.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_CompraComprador.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_ConfUsuario.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroMoto.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_Anuncio.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_CompraVendedor.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/util/Session.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_Compra.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Revision.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisGuardados.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCoche.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisCompras.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Valoracion.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/interfaces/ILogin.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCamion.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificacion.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_PublicarAnuncio2.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/threads/Lector_App.java
@@ -33,6 +36,7 @@
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Usuario.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/recuperarContrasenia/Controller_RecuperarContrasenia3.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_Home.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCamioneta.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_Reportes.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Reporte.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/interfaces/IListaAnuncios.java
@@ -59,4 +63,5 @@
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/TipoVehiculo_Caracteristica.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_ListaAnuncios.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Notificacion.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroMaquinaria.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Anuncio.java
