@@ -10,6 +10,7 @@ import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 public class Session {
     private static Socket socket = null;
     private static Usuario usuario = null;
+    private static boolean hiloAppCreado = false;
 
     public static void iniciarSession(Usuario usuarioIni) {
         usuario = usuarioIni;
@@ -42,5 +43,13 @@ public class Session {
 
     public static InputStream getInputStream() throws IOException{
         return socket.getInputStream();
+    }
+
+    public static void setHiloCreado(){
+        hiloAppCreado = true;
+    }
+
+    public static boolean isHiloCreado(){
+        return hiloAppCreado;
     }
 }

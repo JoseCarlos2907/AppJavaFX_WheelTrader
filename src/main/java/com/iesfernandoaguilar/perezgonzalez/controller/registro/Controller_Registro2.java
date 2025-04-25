@@ -48,9 +48,9 @@ public class Controller_Registro2 implements ILogin, Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         usuario = Controller_Registro1.usuario;
-        this.TxtF_NombreUsuario.setText(usuario.getNombreUsuario().length() < 1 ? "" : new String(usuario.getNombreUsuario()));
-        this.TxtF_Correo.setText(usuario.getCorreo().length() < 1 ? "" : new String(usuario.getCorreo()));
-        this.TxtF_CorreoPP.setText(usuario.getCorreoPP().length() < 1 ? "" : new String(usuario.getCorreoPP()));
+        this.TxtF_NombreUsuario.setText(usuario.getNombreUsuario() == null ? "" : new String(usuario.getNombreUsuario()));
+        this.TxtF_Correo.setText(usuario.getCorreo() == null ? "" : new String(usuario.getCorreo()));
+        this.TxtF_CorreoPP.setText(usuario.getCorreoPP() == null ? "" : new String(usuario.getCorreoPP()));
 
         try {
             this.dos = new DataOutputStream(Session.getOutputStream());

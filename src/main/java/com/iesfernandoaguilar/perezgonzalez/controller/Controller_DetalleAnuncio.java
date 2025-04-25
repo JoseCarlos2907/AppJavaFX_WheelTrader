@@ -5,8 +5,6 @@ import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import org.kordamp.bootstrapfx.BootstrapFX;
-
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IFiltro;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
@@ -114,7 +112,6 @@ public class Controller_DetalleAnuncio implements Initializable {
         Stage stage = (Stage) Btn_Volver.getScene().getWindow();
 
         Scene scene = new Scene(nuevaVista);
-        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
 
         stage.setScene(scene);
         stage.show();

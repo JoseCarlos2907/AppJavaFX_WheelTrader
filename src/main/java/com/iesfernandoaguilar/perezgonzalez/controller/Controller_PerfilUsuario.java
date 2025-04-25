@@ -6,8 +6,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import org.kordamp.bootstrapfx.BootstrapFX;
-
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Valoracion;
@@ -151,7 +149,6 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
         Stage stage = (Stage) Btn_Menu.getScene().getWindow();
 
         Scene scene = new Scene(nuevaVista);
-        scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
 
         stage.setScene(scene);
         stage.show();

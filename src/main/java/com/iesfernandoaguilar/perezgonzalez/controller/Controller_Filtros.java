@@ -1,9 +1,12 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IFiltro;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroCamion;
@@ -13,6 +16,9 @@ import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroMaquinaria;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroMoto;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroTodo;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
+import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -28,6 +34,10 @@ import javafx.stage.Stage;
 
 public class Controller_Filtros implements IApp, Initializable{
     private Lector_App hiloLector;
+
+    private DataOutputStream dos;
+
+    private IFiltro filtro;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -51,6 +61,12 @@ public class Controller_Filtros implements IApp, Initializable{
 
         this.CB_Maquinaria_TipoCombustible.getItems().addAll("Diesel","Gasolina","Electrico","GLP");
         this.CB_Maquinaria_TipoCombustible.setValue("Tipo Combustible");
+
+        try {
+            this.dos = new DataOutputStream(Session.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -144,7 +160,7 @@ public class Controller_Filtros implements IApp, Initializable{
             filtro.addTipoVehiculo("Moto");
             filtro.addTipoVehiculo("Camioneta");
             filtro.addTipoVehiculo("Camion");
-            filtro.addTipoVehiculo("Coche");
+            filtro.addTipoVehiculo("Maquinaria");
         }
 
         String marca = new String(this.TxtF_Todo_Marca.getText());
@@ -546,6 +562,23 @@ public class Controller_Filtros implements IApp, Initializable{
     }
 
     public void buscar(IFiltro filtro) throws IOException{
+        this.filtro = filtro;
+
+        Mensaje msg = new Mensaje();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String filtroJSON = mapper.writeValueAsString(this.filtro);
+
+        msg.setTipo("OBTENER_ANUNCIOS");
+        msg.addParam(filtroJSON);
+        msg.addParam(this.filtro.getTipoFiltro());
+        msg.addParam("si");
+
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
+    }
+
+    public void irListaPublicados(String anunciosJSON, List<byte[]> imagenes) throws IOException{
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_ListaAnuncios.fxml"));
         Parent parent = loader.load();
@@ -554,8 +587,9 @@ public class Controller_Filtros implements IApp, Initializable{
 
         Controller_ListaAnuncios controller = loader.getController();
         controller.setHiloLector(hiloLector);
+        controller.aniadirAnuncios(anunciosJSON, imagenes, true);
+        controller.setFiltro(this.filtro);
         this.hiloLector.setController(controller);
-        controller.setFiltro(filtro);
 
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
         stage2.close();

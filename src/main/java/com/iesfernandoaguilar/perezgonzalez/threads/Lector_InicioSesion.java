@@ -167,6 +167,7 @@ public class Lector_InicioSesion extends Thread{
                 }
             });
         }
+        System.out.println("Inicia sesión");
     }
 
     public void setController(ILogin controller){

@@ -165,7 +165,6 @@ public class Controller_PublicarAnuncio2 implements IApp, Initializable{
 
             ObjectMapper mapper = new ObjectMapper();
             String anuncioJSON = mapper.writeValueAsString(this.anuncio);
-            System.out.println(anuncioJSON);
 
             Mensaje msg = new Mensaje();
             msg.setTipo("PUBLICAR_ANUNCIO");
@@ -173,10 +172,12 @@ public class Controller_PublicarAnuncio2 implements IApp, Initializable{
             msg.addParam(String.valueOf(this.imagenes.size()));
 
             this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
 
             for (Imagen imagen : this.imagenes) {
                 this.dos.writeInt(imagen.getImagen().length);
                 this.dos.write(imagen.getImagen());
+                this.dos.flush();
             }
         }
     }

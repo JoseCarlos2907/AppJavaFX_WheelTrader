@@ -16,7 +16,7 @@
 
 <Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios">
    <children>
-      <TextField fx:id="TxtF_BarraBusqueda" layoutX="332.0" layoutY="52.0" prefHeight="65.0" prefWidth="604.0" promptText="Escribe algo para buscar" styleClass="barraBusqueda">
+      <TextField fx:id="TxtF_BarraBusqueda" editable="false" layoutX="332.0" layoutY="52.0" prefHeight="65.0" prefWidth="604.0" promptText="Escribe algo para buscar" styleClass="barraBusqueda">
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>

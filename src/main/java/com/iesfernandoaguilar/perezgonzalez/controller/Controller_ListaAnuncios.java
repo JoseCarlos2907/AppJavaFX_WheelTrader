@@ -60,6 +60,14 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        this.anuncios = new ArrayList<>();
+
+        try {
+            this.dos = new DataOutputStream(Session.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         // TODO: Hacer el listener de cuando el scroll llega casi al final
     }
 
@@ -113,15 +121,6 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
 
     public void setFiltro(IFiltro filtro){
         this.filtro = filtro;
-
-        this.anuncios = new ArrayList<>();
-
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-            this.pedirAnuncios();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void pedirAnuncios() throws IOException{
@@ -135,9 +134,10 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
         msg.addParam(this.filtro.getTipoFiltro());
 
         this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
     }
 
-    public void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas) throws JsonMappingException, JsonProcessingException{
+    public void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas, boolean primeraCarga) throws JsonMappingException, JsonProcessingException{
         ObjectMapper mapper = new ObjectMapper();
         List<Anuncio> anunciosNuevos = mapper.readValue(anunciosJSON, new TypeReference<List<Anuncio>>(){});
 
@@ -182,6 +182,8 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
             }
         }
 
-        this.filtro.siguientePagina();
+        if (!primeraCarga) {
+            this.filtro.siguientePagina();
+        }
     }
 }

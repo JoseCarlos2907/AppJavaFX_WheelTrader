@@ -43,19 +43,9 @@
     </dependency>
     <!-- https://mvnrepository.com/artifact/io.github.palexdev/materialfx -->
     <dependency>
-      <groupId>io.github.palexdev</groupId>
-      <artifactId>materialfx</artifactId>
-      <version>11.17.0</version>
-    </dependency>
-    <dependency>
       <groupId>com.fasterxml.jackson.core</groupId>
       <artifactId>jackson-databind</artifactId>
       <version>2.18.3</version>
-    </dependency>
-    <dependency>
-      <groupId>org.kordamp.bootstrapfx</groupId>
-      <artifactId>bootstrapfx-core</artifactId>
-      <version>0.4.0</version>
     </dependency>
     <dependency>
       <groupId>org.apache.pdfbox</groupId>

@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
-import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Home;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Filtros;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio2;
@@ -27,7 +27,6 @@ public class Lector_App extends Thread{
         this.cierraSesion = false;
     }
 
-
     public void setController(IApp controller){
         this.controller = controller;
     }
@@ -38,18 +37,18 @@ public class Lector_App extends Thread{
 
     @Override
     public void run() {
+
+        
+        String linea = "";
         try {
             DataInputStream dis = new DataInputStream(Session.getInputStream());
             while (!this.cierraSesion) {
                 
-                String linea = dis.readUTF();
+                linea = dis.readUTF();
+                // System.out.println(linea);
                 Mensaje msgServidor = Serializador.decodificarMensaje(linea);
 
                 switch (msgServidor.getTipo()) {
-                    case "BIENVENIDO":
-                        ((Controller_Home) this.controller).bienvenida();
-                        break;
-                    
                     case "DATOS_VALIDOS":
                         Platform.runLater(() -> {
                             try {
@@ -64,40 +63,51 @@ public class Lector_App extends Thread{
                         });
                         break;
 
-                        case "ANUNCIO_PUBLICADO":
-                            Platform.runLater(() -> {
-                                try {
-                                    ((Controller_PublicarAnuncio2) this.controller).anuncioPublicado();
-                                } catch (IOException e) {
-                                    e.printStackTrace();
-                                }
-                            });
-                            break;
-                        
-                        case "ENVIA_ANUNCIOS":
-                            List<byte[]> imagenes = new ArrayList<>();
-                            int cantAnuncios = Integer.valueOf(msgServidor.getParams().get(1));
-                            for (int i = 0; i < cantAnuncios; i++) {
-                                int bytes = dis.readInt();
-                                byte[] imagen = new byte[bytes];
-                                dis.readFully(imagen);
-                                imagenes.add(imagen);
+                    case "ANUNCIO_PUBLICADO":
+                        Platform.runLater(() -> {
+                            try {
+                                ((Controller_PublicarAnuncio2) this.controller).anuncioPublicado();
+                            } catch (IOException e) {
+                                e.printStackTrace();
                             }
-                            Platform.runLater(() -> {
-                                try {
-                                    ((Controller_ListaAnuncios) this.controller).aniadirAnuncios(msgServidor.getParams().get(0), imagenes);
-                                } catch (JsonMappingException e) {
-                                    e.printStackTrace();
-                                } catch (JsonProcessingException e) {
-                                    e.printStackTrace();
+                        });
+                        break;
+                        
+
+                    case "ENVIA_ANUNCIOS":
+                        List<byte[]> imagenes = new ArrayList<>();
+                        int cantAnuncios = Integer.valueOf(msgServidor.getParams().get(1));
+                        System.out.println("Cantidad de anuncios traidos: " + cantAnuncios);
+                        for (int i = 0; i < cantAnuncios; i++) {
+                            int bytes = dis.readInt();
+                            byte[] imagen = new byte[bytes];
+                            dis.readFully(imagen);
+                            imagenes.add(imagen);
+                        }
+
+                        Platform.runLater(() -> {
+                            try {
+                                if("si".equals(msgServidor.getParams().get(2))){
+                                    ((Controller_Filtros) this.controller).irListaPublicados(msgServidor.getParams().get(0), imagenes);
+                                }else if("no".equals(msgServidor.getParams().get(2))){
+                                    ((Controller_ListaAnuncios) this.controller).aniadirAnuncios(msgServidor.getParams().get(0), imagenes, false);
                                 }
-                            });
-                            break;
+                            } catch (JsonMappingException e) {
+                                e.printStackTrace();
+                            } catch (JsonProcessingException e) {
+                                e.printStackTrace();
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
+                    default:
+                        System.out.println("Problemas de lectura del flujo");
+                        break;
                 }
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }

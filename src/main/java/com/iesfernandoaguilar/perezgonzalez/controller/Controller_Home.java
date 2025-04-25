@@ -60,10 +60,12 @@ public class Controller_Home implements IApp, Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         
         try {
-            if(this.hiloLector == null){
+            if(!Session.isHiloCreado()){
                 this.hiloLector = new Lector_App();
                 this.hiloLector.setController(this);
                 this.hiloLector.start();
+                Session.setHiloCreado();
+                System.out.println("entra en el if");
             }
 
             this.dos = new DataOutputStream(Session.getOutputStream());
@@ -121,9 +123,5 @@ public class Controller_Home implements IApp, Initializable {
     
     public void setHiloLector(Lector_App hiloLector){
         this.hiloLector = hiloLector;
-    }
-
-    public void bienvenida(){
-        System.out.println("Bienvenido, " + Session.getUsuario().getNombreUsuario());
     }
 }
