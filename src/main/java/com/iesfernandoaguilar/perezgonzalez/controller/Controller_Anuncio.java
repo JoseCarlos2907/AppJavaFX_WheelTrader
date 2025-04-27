@@ -1,6 +1,7 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
@@ -54,6 +55,18 @@ public class Controller_Anuncio {
     @FXML
     void handleGuardarAction(MouseEvent event){
         // TODO: Guardar o quitar de guardado, depende de lo que tenga el usuario
+    }
+
+    public void setGuardado(boolean guardado){
+        Image imagen;
+        
+        if(guardado){
+            imagen = new Image(getClass().getResourceAsStream("/img/IconoGuardado.png"));
+        }else{
+            imagen = new Image(getClass().getResourceAsStream("/img/IconoGuardar.png"));
+        }
+
+        this.ImgView_Guardado.setImage(imagen);
     }
 
     public void setAnuncio(Anuncio anuncio){

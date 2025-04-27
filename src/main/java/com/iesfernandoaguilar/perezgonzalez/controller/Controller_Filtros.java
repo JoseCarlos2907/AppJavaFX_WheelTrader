@@ -573,6 +573,7 @@ public class Controller_Filtros implements IApp, Initializable{
         msg.addParam(filtroJSON);
         msg.addParam(this.filtro.getTipoFiltro());
         msg.addParam("si");
+        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
 
         this.dos.writeUTF(Serializador.codificarMensaje(msg));
         this.dos.flush();

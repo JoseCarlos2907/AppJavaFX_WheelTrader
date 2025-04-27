@@ -31,7 +31,7 @@ public class Anuncio {
     // *-- Relaciones --* //
     private Usuario vendedor;
 
-    private Set<Usuario> usuariosGuardan;
+    private boolean guardado;
 
     private String tipoVehiculo;
 
@@ -46,7 +46,7 @@ public class Anuncio {
 
     // *-- Constructores --* //
     public Anuncio() {
-        this.usuariosGuardan = new HashSet<>();
+        this.guardado = false;
         this.imagenes = new ArrayList<>();
         this.reuniones = new ArrayList<>();
         this.valoresCaracteristicas = new ArrayList<>();
@@ -142,16 +142,16 @@ public class Anuncio {
         this.vendedor = vendedor;
     }
 
-    public Set<Usuario> getUsuariosGuardan() {
-        return usuariosGuardan;
+    public boolean isGuardado() {
+        return this.guardado;
     }
 
-    public void setUsuariosGuardan(Set<Usuario> usuariosGuardan) {
-        this.usuariosGuardan = usuariosGuardan;
+    public void guardar() {
+        this.guardado = true;
     }
 
-    public void addUsuarioGuarda(Usuario usuario) {
-        this.usuariosGuardan.add(usuario);
+    public void eliminarGuardado(){
+        this.guardado = false;
     }
 
     public String getTipoVehiculo() {
@@ -216,9 +216,9 @@ public class Anuncio {
         this.estado = anuncio.getEstado();
         this.provincia = anuncio.getProvincia();
         this.ciudad = anuncio.getCiudad();
+        this.guardado = false;
 
         this.vendedor = null;
-        this.usuariosGuardan = null;
         this.tipoVehiculo = null;
         this.imagenes = null;
         this.venta = null;
