@@ -12,8 +12,8 @@ public class FiltroCamioneta implements IFiltro{
     private String tipoCombustible;
     private int cvMinimo;
     private int cvMaximo;
-    private int cantMarchas;
-    private int nPuertas;
+    private Integer cantMarchas;
+    private Integer nPuertas;
     private String provincia;
     private String ciudad;
     private String traccion;
@@ -94,19 +94,19 @@ public class FiltroCamioneta implements IFiltro{
         this.cvMaximo = cvMaximo;
     }
 
-    public int getCantMarchas() {
+    public Integer getCantMarchas() {
         return cantMarchas;
     }
 
-    public void setCantMarchas(int cantMarchas) {
+    public void setCantMarchas(Integer cantMarchas) {
         this.cantMarchas = cantMarchas;
     }
 
-    public int getnPuertas() {
+    public Integer getnPuertas() {
         return nPuertas;
     }
 
-    public void setnPuertas(int nPuertas) {
+    public void setnPuertas(Integer nPuertas) {
         this.nPuertas = nPuertas;
     }
 

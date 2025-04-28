@@ -177,6 +177,7 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
                 controller.setUbicacion(anuncio.getProvincia(), anuncio.getCiudad());
                 controller.setUsuario(anuncio.getVendedor().getNombreUsuario());
                 controller.setImagen(imagenesNuevas.get(i));
+                controller.setGuardado(anuncio.isGuardado());
                 controller.setController(this);
 
                 this.VBox_Anuncios.getChildren().add(componente);

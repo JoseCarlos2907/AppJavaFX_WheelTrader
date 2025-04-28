@@ -12,7 +12,7 @@ public class FiltroCamion implements IFiltro{
     private String tipoCombustible;
     private int cvMinimo;
     private int cvMaximo;
-    private int cantMarchas;
+    private Integer cantMarchas;
     private String provincia;
     private String ciudad;
     private int pagina;
@@ -92,11 +92,11 @@ public class FiltroCamion implements IFiltro{
         this.cvMaximo = cvMaximo;
     }
 
-    public int getCantMarchas() {
+    public Integer getCantMarchas() {
         return cantMarchas;
     }
 
-    public void setCantMarchas(int cantMarchas) {
+    public void setCantMarchas(Integer cantMarchas) {
         this.cantMarchas = cantMarchas;
     }
 

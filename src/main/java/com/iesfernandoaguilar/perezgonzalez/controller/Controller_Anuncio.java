@@ -55,6 +55,7 @@ public class Controller_Anuncio {
     @FXML
     void handleGuardarAction(MouseEvent event){
         // TODO: Guardar o quitar de guardado, depende de lo que tenga el usuario
+        System.out.println("Guardado");
     }
 
     public void setGuardado(boolean guardado){
@@ -82,7 +83,11 @@ public class Controller_Anuncio {
     }
 
     public void setDatos(String tipo, String anio, String km){
-        this.Lbl_Datos.setText(tipo + " - " + anio + " - " + km);
+        if(km.isEmpty()){
+            this.Lbl_Datos.setText(tipo + " - " + anio);
+        }else{
+            this.Lbl_Datos.setText(tipo + " - " + anio + " - " + km);
+        }
     }
 
     public void setUbicacion(String provincia, String ciudad){

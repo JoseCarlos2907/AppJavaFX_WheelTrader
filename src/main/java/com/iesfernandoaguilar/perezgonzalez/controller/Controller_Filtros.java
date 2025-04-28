@@ -414,18 +414,18 @@ public class Controller_Filtros implements IApp, Initializable{
         String provincia = new String(this.TxtF_Camioneta_Provincia.getText());
 
         filtro.setTipoCombustible("Tipo Combustible".equals(tipoCombustible) ? null : tipoCombustible);
-        filtro.setTraccion("Traccion".equals(traccion) ? null : traccion);
+        filtro.setTraccion("Tipo Traccion".equals(traccion) ? null : traccion);
         filtro.setAnioMinimo(anioMinimo.isEmpty() ? 1950 : Integer.parseInt(anioMinimo));
         filtro.setAnioMaximo(anioMaximo.isEmpty() ? 2025 : Integer.parseInt(anioMaximo));
         filtro.setCvMinimo(cvMinimo.isEmpty() ? 50 : Integer.parseInt(cvMinimo));
-        filtro.setCvMaximo(cvMaximo.isEmpty() ? 400 : Integer.parseInt(cvMaximo));
-        filtro.setCantMarchas(cantMarchas.isEmpty() ? 0 : Integer.parseInt(cantMarchas));
+        filtro.setCvMaximo(cvMaximo.isEmpty() ? 2000 : Integer.parseInt(cvMaximo));
+        filtro.setCantMarchas(cantMarchas.isEmpty() ? null : Integer.parseInt(cantMarchas));
         filtro.setCiudad(ciudad.isEmpty() ? null : ciudad);
         filtro.setKmMinimo(kmMinimo.isEmpty() ? 0 : Integer.parseInt(kmMinimo));
         filtro.setKmMaximo(kmMaximo.isEmpty() ? 1500000 : Integer.parseInt(kmMaximo));
         filtro.setMarca(marca.isEmpty() ? null : marca);
         filtro.setModelo(modelo.isEmpty() ? null : modelo);
-        filtro.setnPuertas(nPuertas.isEmpty() ? 0 : Integer.valueOf(nPuertas));
+        filtro.setnPuertas(nPuertas.isEmpty() ? null : Integer.valueOf(nPuertas));
         filtro.setProvincia(provincia.isEmpty() ? null : provincia);
         filtro.setPagina(0);
         filtro.setCantidadPorPagina(10);
@@ -497,11 +497,13 @@ public class Controller_Filtros implements IApp, Initializable{
         filtro.setAnioMaximo(anioMaximo.isEmpty() ? 2025 : Integer.valueOf(anioMaximo));
         filtro.setCvMinimo(cvMinimo.isEmpty() ? 100 : Integer.valueOf(cvMinimo));
         filtro.setCvMaximo(cvMaximo.isEmpty() ? 800 : Integer.valueOf(cvMaximo));
-        filtro.setCantMarchas(cantMarchas.isEmpty() ? 0 : Integer.parseInt(cantMarchas));
+        filtro.setCantMarchas(cantMarchas.isEmpty() ? null : Integer.parseInt(cantMarchas));
         filtro.setProvincia(provincia.isEmpty() ? null : provincia);
         filtro.setCiudad(ciudad.isEmpty() ? null : ciudad);
         filtro.setKmMinimo(kmMinimo.isEmpty() ? 0 : Integer.parseInt(kmMinimo));
         filtro.setKmMaximo(kmMaximo.isEmpty() ? 2000000 : Integer.parseInt(kmMaximo));
+        filtro.setPagina(0);
+        filtro.setCantidadPorPagina(10);
 
         this.buscar(filtro);
     }
@@ -545,7 +547,7 @@ public class Controller_Filtros implements IApp, Initializable{
 
         filtro.setTipoCombustible("Tipo Combustible".equals(tipoCombustible) ? null : tipoCombustible);
         filtro.setAnioMinimo(anioMinimo.isEmpty() ? 1950 : Integer.parseInt(anioMinimo));
-        filtro.setAnioMaximo(anioMaximo.isEmpty() ? 1950 : Integer.parseInt(anioMaximo));
+        filtro.setAnioMaximo(anioMaximo.isEmpty() ? 2025 : Integer.parseInt(anioMaximo));
         filtro.setCiudad(ciudad.isEmpty() ? null : ciudad);
         filtro.setMarca(marca.isEmpty() ? null : marca);
         filtro.setModelo(modelo.isEmpty() ? null : modelo);
