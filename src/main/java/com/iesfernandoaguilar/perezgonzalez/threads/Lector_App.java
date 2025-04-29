@@ -7,8 +7,10 @@ import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ConfUsuario;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Filtros;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_MisGuardados;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio2;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
@@ -76,7 +78,7 @@ public class Lector_App extends Thread{
 
                     case "ENVIA_ANUNCIOS":
                         List<byte[]> imagenes = new ArrayList<>();
-                        int cantAnuncios = Integer.valueOf(msgServidor.getParams().get(1));
+                        int cantAnuncios = Integer.valueOf(msgServidor.getParams().get(2));
                         System.out.println("Cantidad de anuncios traidos: " + cantAnuncios);
                         for (int i = 0; i < cantAnuncios; i++) {
                             int bytes = dis.readInt();
@@ -85,12 +87,22 @@ public class Lector_App extends Thread{
                             imagenes.add(imagen);
                         }
 
+                        String anunciosJSON = msgServidor.getParams().get(1);
+
                         Platform.runLater(() -> {
                             try {
-                                if("si".equals(msgServidor.getParams().get(2))){
-                                    ((Controller_Filtros) this.controller).irListaPublicados(msgServidor.getParams().get(0), imagenes);
-                                }else if("no".equals(msgServidor.getParams().get(2))){
-                                    ((Controller_ListaAnuncios) this.controller).aniadirAnuncios(msgServidor.getParams().get(0), imagenes, false);
+                                if("si".equals(msgServidor.getParams().get(3))){
+                                    if("Guardados".equals(msgServidor.getParams().get(0))){
+                                        ((Controller_ConfUsuario) this.controller).irListaGuardados(anunciosJSON, imagenes);
+                                    }else{
+                                        ((Controller_Filtros) this.controller).irListaPublicados(anunciosJSON, imagenes);
+                                    }
+                                }else if("no".equals(msgServidor.getParams().get(3))){
+                                    if("Guardados".equals(msgServidor.getParams().get(0))){
+                                        ((Controller_MisGuardados) this.controller).aniadirAnuncios(anunciosJSON, imagenes, false);
+                                    }else{
+                                        ((Controller_ListaAnuncios) this.controller).aniadirAnuncios(anunciosJSON, imagenes, false);
+                                    }
                                 }
                             } catch (JsonMappingException e) {
                                 e.printStackTrace();

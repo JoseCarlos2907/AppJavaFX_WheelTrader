@@ -32,9 +32,11 @@ com/iesfernandoaguilar/perezgonzalez/util/SecureUtils.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Home.class
 com/iesfernandoaguilar/perezgonzalez/interfaces/IApp.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCamioneta.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisGuardados$1.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_PublicarAnuncio.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Usuario.class
 com/iesfernandoaguilar/perezgonzalez/util/Serializador.class
+com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroGuardados.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ListaAnuncios$1.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCoche.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroMaquinaria.class

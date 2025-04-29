@@ -3,11 +3,16 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroGuardados;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -25,6 +30,8 @@ public class Controller_ConfUsuario implements IApp, Initializable{
     private Lector_App hiloLector;
 
     private DataOutputStream dos;
+
+    private FiltroGuardados filtroGuardados;
 
     @FXML
     private Button Btn_CambiarContrasenia;
@@ -131,8 +138,22 @@ public class Controller_ConfUsuario implements IApp, Initializable{
     }
 
     @FXML
-    void handleBtnMisGuardadosAction(MouseEvent event) {
+    void handleBtnMisGuardadosAction(MouseEvent event) throws IOException {
+        filtroGuardados = new FiltroGuardados(Session.getUsuario().getNombreUsuario(), 1, 10);
 
+        Mensaje msg = new Mensaje();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String filtroJSON = mapper.writeValueAsString(filtroGuardados);
+
+        msg.setTipo("OBTENER_ANUNCIOS");
+        msg.addParam(filtroJSON);
+        msg.addParam(filtroGuardados.getTipoFiltro());
+        msg.addParam("si");
+        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
+
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
     }
 
     @FXML
@@ -168,5 +189,22 @@ public class Controller_ConfUsuario implements IApp, Initializable{
 
     public void setHiloLector(Lector_App hiloLector){
         this.hiloLector = hiloLector;
+    }
+
+    public void irListaGuardados(String anunciosJSON, List<byte[]> imagenes) throws IOException{
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_MisGuardados.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_MisGuardados controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        controller.aniadirAnuncios(anunciosJSON, imagenes, true);
+        controller.setFiltro(filtroGuardados);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
     }
 }

@@ -134,7 +134,7 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
         msg.addParam(filtroJSON);
         msg.addParam(this.filtro.getTipoFiltro());
         msg.addParam("no");
-        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
+        msg.addParam(String.valueOf(Session.getUsuario().getNombreUsuario()));
         
 
         this.dos.writeUTF(Serializador.codificarMensaje(msg));

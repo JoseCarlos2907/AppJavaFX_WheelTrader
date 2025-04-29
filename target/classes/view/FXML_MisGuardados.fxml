@@ -5,36 +5,15 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
 <Pane id="backgroundPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1400.0" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_MisGuardados">
    <children>
-      <Button fx:id="Btn_Filtros" graphicTextGap="5.0" layoutX="1112.0" layoutY="53.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="177.0" styleClass="botonNegro" text="Filtros">
-         <font>
-            <Font size="33.0" />
-         </font>
-         <effect>
-            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
-               <color>
-                  <Color opacity="0.4000000059604645" />
-               </color>
-            </DropShadow>
-         </effect>
-         <graphic>
-            <ImageView fitHeight="35.0" fitWidth="40.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../img/IconoFiltroBlanco.png" />
-               </image>
-            </ImageView>
-         </graphic>
-      </Button>
       <Line endX="1137.6666259765625" layoutX="181.0" layoutY="171.0" startX="-115.66666412353516" stroke="#84aedd" strokeWidth="3.0" />
       <ScrollPane layoutX="64.0" layoutY="216.0" prefHeight="582.0" prefWidth="1256.0" styleClass="scrollPane">
          <content>
