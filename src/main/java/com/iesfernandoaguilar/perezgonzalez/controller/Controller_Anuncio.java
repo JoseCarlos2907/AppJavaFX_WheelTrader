@@ -1,13 +1,20 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
 import java.io.ByteArrayInputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
 
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
+import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -15,7 +22,14 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
-public class Controller_Anuncio {
+public class Controller_Anuncio implements Initializable{
+    private IListaAnuncios controller;
+
+    private DataOutputStream dos;
+
+    private Anuncio anuncio;
+    private byte[] imagen;
+
     @FXML
     private ImageView ImgView_Guardado;
 
@@ -43,9 +57,14 @@ public class Controller_Anuncio {
     @FXML
     private Rectangle Rectangle_Fondo;
 
-    private IListaAnuncios controller;
-    private Anuncio anuncio;
-    private byte[] imagen;
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        try {
+            this.dos = new DataOutputStream(Session.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     @FXML
     void handlePaneAnuncioAction(MouseEvent event) throws IOException {
@@ -53,9 +72,23 @@ public class Controller_Anuncio {
     }
 
     @FXML
-    void handleGuardarAction(MouseEvent event){
-        // TODO: Guardar o quitar de guardado, depende de lo que tenga el usuario
-        System.out.println("Guardado");
+    void handleGuardarAction(MouseEvent event) throws IOException{
+        Mensaje msg = new Mensaje();
+        if(anuncio.isGuardado()){
+            msg.setTipo("ELIMINAR_ANUNCIO_GUARDADOS");
+            anuncio.eliminarGuardado();
+            this.setGuardado(false);
+        }else{
+            msg.setTipo("GUARDAR_ANUNCIO");
+            anuncio.guardar();
+            this.setGuardado(true);
+        }
+
+        msg.addParam(String.valueOf(this.anuncio.getIdAnuncio()));
+        msg.addParam(String.valueOf(Session.getUsuario().getNombreUsuario()));
+
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
     }
 
     public void setGuardado(boolean guardado){

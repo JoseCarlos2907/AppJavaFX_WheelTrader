@@ -49,6 +49,10 @@ public class Session {
         hiloAppCreado = true;
     }
 
+    public static void setHiloNoCreado(){
+        hiloAppCreado = false;
+    }
+
     public static boolean isHiloCreado(){
         return hiloAppCreado;
     }

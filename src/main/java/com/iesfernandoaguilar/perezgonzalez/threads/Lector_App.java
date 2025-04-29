@@ -101,6 +101,19 @@ public class Lector_App extends Thread{
                             }
                         });
                         break;
+
+                    case "ANUNCIO_GUARDADO":
+                        Platform.runLater(() -> {
+                            ((Controller_ListaAnuncios) this.controller).avisoGuardado(true);
+                        });
+                        break;
+
+                    case "ANUNCIO_ELIMINADO_GUARDADOS":
+                        Platform.runLater(() -> {
+                            ((Controller_ListaAnuncios) this.controller).avisoGuardado(false);
+                        });
+                        break;
+
                     default:
                         System.out.println("Problemas de lectura del flujo");
                         break;

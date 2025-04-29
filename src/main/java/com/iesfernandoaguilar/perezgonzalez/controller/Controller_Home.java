@@ -96,8 +96,19 @@ public class Controller_Home implements IApp, Initializable {
     }
 
     @FXML
-    void handleBtnConfCuentaAction(MouseEvent event) {
+    void handleBtnConfCuentaAction(MouseEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_ConfUsuario.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
 
+        Controller_ConfUsuario controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_ConfCuenta.getScene().getWindow();
+        stage2.close();
     }
 
     @FXML

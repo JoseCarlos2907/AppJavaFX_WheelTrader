@@ -3,7 +3,6 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -28,6 +27,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -189,5 +190,21 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
         if (!primeraCarga) {
             this.filtro.siguientePagina();
         }
+    }
+
+    public void avisoGuardado(boolean guardado){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        if(guardado){
+            alert.setTitle("Anuncio guardado");
+            alert.setContentText("El anuncio se ha guardado correctamente en 'Mis Guardados'");
+        }else{
+            alert.setTitle("Anuncio eliminado");
+            alert.setContentText("El anuncio se ha eliminado correctamente en 'Mis Guardados'");
+        }
+
+        alert.setHeaderText(null);
+        // alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+        // alert.getDialogPane().getStyleClass().add("alert-error");
+        alert.showAndWait();
     }
 }

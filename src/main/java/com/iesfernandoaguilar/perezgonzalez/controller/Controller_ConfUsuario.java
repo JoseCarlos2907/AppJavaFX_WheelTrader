@@ -1,12 +1,31 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
+import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
+import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.Session;
+
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
 
-public class Controller_ConfUsuario {
+public class Controller_ConfUsuario implements IApp, Initializable{
+    private Lector_App hiloLector;
+
+    private DataOutputStream dos;
+
     @FXML
     private Button Btn_CambiarContrasenia;
 
@@ -61,14 +80,44 @@ public class Controller_ConfUsuario {
     @FXML
     private PasswordField TxtF_Contra;
 
+    @Override
+    public void initialize(URL location, ResourceBundle resources) {
+        Usuario usuario = Session.getUsuario();
+
+        this.Lbl_Nombre.setText("Nombre: " + usuario.getNombre());
+        this.Lbl_Apellidos.setText("Apellidos: " + usuario.getApellidos());
+        this.Lbl_DNI.setText("DNI: " + usuario.getDni());
+        this.Lbl_Direccion.setText("Dirección: " + usuario.getDireccion());
+
+        this.Lbl_NombreUsuario.setText("Nombre de Usuario: " + usuario.getNombreUsuario());
+        this.Lbl_Correo.setText("Correo: " + usuario.getCorreo());
+        this.Lbl_CorreoPP.setText("Correo de PayPal" + usuario.getCorreoPP());
+
+        try {
+            this.dos = new DataOutputStream(Session.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
     @FXML
     void handleBtnCambiarContraseniaAction(MouseEvent event) {
 
     }
 
     @FXML
-    void handleBtnCerrarSesionAction(MouseEvent event) {
+    void handleBtnCerrarSesionAction(MouseEvent event) throws IOException {
+        Session.setHiloNoCreado();
+        Session.cerrarSession();
 
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_InicioSesion.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
     }
 
     @FXML
@@ -102,7 +151,22 @@ public class Controller_ConfUsuario {
     }
 
     @FXML
-    void handleBtnVolverAction(MouseEvent event) {
+    void handleBtnVolverAction(MouseEvent event) throws IOException {
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
 
+        Controller_Home controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
+    }
+
+    public void setHiloLector(Lector_App hiloLector){
+        this.hiloLector = hiloLector;
     }
 }
