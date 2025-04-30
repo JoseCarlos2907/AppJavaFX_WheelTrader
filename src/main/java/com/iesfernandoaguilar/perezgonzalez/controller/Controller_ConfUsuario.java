@@ -10,6 +10,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroGuardados;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPublicados;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
@@ -32,6 +33,7 @@ public class Controller_ConfUsuario implements IApp, Initializable{
     private DataOutputStream dos;
 
     private FiltroGuardados filtroGuardados;
+    private FiltroPublicados filtroPublicados;
 
     @FXML
     private Button Btn_CambiarContrasenia;
@@ -128,13 +130,27 @@ public class Controller_ConfUsuario implements IApp, Initializable{
     }
 
     @FXML
-    void handleBtnMisAnunciosAction(MouseEvent event) {
+    void handleBtnMisAnunciosAction(MouseEvent event) throws IOException {
+        filtroPublicados = new FiltroPublicados(Session.getUsuario().getNombreUsuario(), 1, 10);
 
+        Mensaje msg = new Mensaje();
+
+        ObjectMapper mapper = new ObjectMapper();
+        String filtroJSON = mapper.writeValueAsString(filtroPublicados);
+
+        msg.setTipo("OBTENER_ANUNCIOS");
+        msg.addParam(filtroJSON);
+        msg.addParam(filtroPublicados.getTipoFiltro());
+        msg.addParam("si");
+        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
+
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
     }
 
     @FXML
     void handleBtnMisComprasAction(MouseEvent event) {
-
+        // TODO: Funcionalidad mis compras
     }
 
     @FXML
@@ -158,17 +174,17 @@ public class Controller_ConfUsuario implements IApp, Initializable{
 
     @FXML
     void handleBtnMisPagosAction(MouseEvent event) {
-
+        // TODO: Funcionalidad mis pagos
     }
 
     @FXML
     void handleBtnMisReunionesAction(MouseEvent event) {
-
+        // TODO: Funcionalidad mis reuniones
     }
 
     @FXML
     void handleBtnMisValoracionesAction(MouseEvent event) {
-
+        // TODO: Funcionalidad mis valoraciones
     }
 
     @FXML
@@ -202,6 +218,23 @@ public class Controller_ConfUsuario implements IApp, Initializable{
         controller.setHiloLector(hiloLector);
         controller.aniadirAnuncios(anunciosJSON, imagenes, true);
         controller.setFiltro(filtroGuardados);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
+    }
+
+    public void irListaPublicados(String anunciosJSON, List<byte[]> imagenes) throws IOException{
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_MisAnuncios.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_MisAnuncios controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        controller.aniadirAnuncios(anunciosJSON, imagenes, true);
+        controller.setFiltro(filtroPublicados);
         this.hiloLector.setController(controller);
 
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();

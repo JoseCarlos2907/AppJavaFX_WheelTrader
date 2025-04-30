@@ -8,12 +8,15 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ConfUsuario;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_DetalleAnuncio;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Filtros;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_MisAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_MisGuardados;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio2;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
+import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
@@ -79,7 +82,6 @@ public class Lector_App extends Thread{
                     case "ENVIA_ANUNCIOS":
                         List<byte[]> imagenes = new ArrayList<>();
                         int cantAnuncios = Integer.valueOf(msgServidor.getParams().get(2));
-                        System.out.println("Cantidad de anuncios traidos: " + cantAnuncios);
                         for (int i = 0; i < cantAnuncios; i++) {
                             int bytes = dis.readInt();
                             byte[] imagen = new byte[bytes];
@@ -94,15 +96,21 @@ public class Lector_App extends Thread{
                                 if("si".equals(msgServidor.getParams().get(3))){
                                     if("Guardados".equals(msgServidor.getParams().get(0))){
                                         ((Controller_ConfUsuario) this.controller).irListaGuardados(anunciosJSON, imagenes);
+                                    }else if("Publicados".equals(msgServidor.getParams().get(0))){
+                                        ((Controller_ConfUsuario) this.controller).irListaPublicados(anunciosJSON, imagenes);
                                     }else{
-                                        ((Controller_Filtros) this.controller).irListaPublicados(anunciosJSON, imagenes);
+                                        ((Controller_Filtros) this.controller).irListaAnuncios(anunciosJSON, imagenes);
                                     }
                                 }else if("no".equals(msgServidor.getParams().get(3))){
-                                    if("Guardados".equals(msgServidor.getParams().get(0))){
-                                        ((Controller_MisGuardados) this.controller).aniadirAnuncios(anunciosJSON, imagenes, false);
-                                    }else{
-                                        ((Controller_ListaAnuncios) this.controller).aniadirAnuncios(anunciosJSON, imagenes, false);
-                                    }
+                                    IListaAnuncios controllerAux = (IListaAnuncios) this.controller;
+                                    controllerAux.aniadirAnuncios(anunciosJSON, imagenes, cierraSesion);
+                                    // if("Guardados".equals(msgServidor.getParams().get(0))){
+                                    //     ((Controller_MisGuardados) this.controller).aniadirAnuncios(anunciosJSON, imagenes, false);
+                                    // }else if("Publicados".equals(msgServidor.getParams().get(0))){
+                                    //     ((Controller_MisAnuncios) this.controller).aniadirAnuncios(anunciosJSON, imagenes, false);
+                                    // }else{
+                                    //     ((Controller_ListaAnuncios) this.controller).aniadirAnuncios(anunciosJSON, imagenes, false);
+                                    // }
                                 }
                             } catch (JsonMappingException e) {
                                 e.printStackTrace();
@@ -123,6 +131,25 @@ public class Lector_App extends Thread{
                     case "ANUNCIO_ELIMINADO_GUARDADOS":
                         Platform.runLater(() -> {
                             ((Controller_ListaAnuncios) this.controller).avisoGuardado(false);
+                        });
+                        break;
+
+                    case "ENVIA_IMAGENES":
+                        List<byte[]> imagenesAnuncio = new ArrayList<>();
+                        int cantImagenes = Integer.valueOf(msgServidor.getParams().get(0));
+                        for (int i = 0; i < cantImagenes; i++) {
+                            int bytes = dis.readInt();
+                            byte[] imagen = new byte[bytes];
+                            dis.readFully(imagen);
+                            imagenesAnuncio.add(imagen);
+                        }
+
+                        Platform.runLater(() -> {
+                            try {
+                                ((Controller_MisAnuncios) this.controller).irDetalleAnuncio(imagenesAnuncio);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
                         });
                         break;
 

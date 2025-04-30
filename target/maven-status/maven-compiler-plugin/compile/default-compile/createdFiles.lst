@@ -14,6 +14,7 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_RegistrarIncidencia.c
 com/iesfernandoaguilar/perezgonzalez/model/Venta.class
 com/iesfernandoaguilar/perezgonzalez/model/Valoracion.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ListaAnuncios.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisAnuncios$1.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisGuardados.class
 com/iesfernandoaguilar/perezgonzalez/controller/recuperarContrasenia/Controller_RecuperarContrasenia3.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Anuncio.class
@@ -34,6 +35,7 @@ com/iesfernandoaguilar/perezgonzalez/interfaces/IApp.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCamioneta.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisGuardados$1.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_PublicarAnuncio.class
+com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroPublicados.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Usuario.class
 com/iesfernandoaguilar/perezgonzalez/util/Serializador.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroGuardados.class

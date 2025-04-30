@@ -6,10 +6,13 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaUsuarios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
+import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -174,6 +177,16 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
 
     @Override
     public void abrirPerfilUsuario(Usuario usuario) {
+        
+    }
+
+    @Override
+    public void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas, boolean primeraCarga) throws JsonMappingException, JsonProcessingException {
+        
+    }
+
+    @Override
+    public void setHiloLector(Lector_App hiloLector) {
         
     }
 }

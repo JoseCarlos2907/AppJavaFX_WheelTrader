@@ -581,7 +581,7 @@ public class Controller_Filtros implements IApp, Initializable{
         this.dos.flush();
     }
 
-    public void irListaPublicados(String anunciosJSON, List<byte[]> imagenes) throws IOException{
+    public void irListaAnuncios(String anunciosJSON, List<byte[]> imagenes) throws IOException{
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_ListaAnuncios.fxml"));
         Parent parent = loader.load();

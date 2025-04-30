@@ -76,7 +76,7 @@ public class Controller_MisGuardados implements IApp, Initializable, IListaAnunc
         stage2.close();
     }
 
-    public void pedirAnuncios(int nPagina) throws IOException{
+    public void pedirAnuncios() throws IOException{
         Mensaje msg = new Mensaje();
         msg.setTipo("OBTENER_ANUNCIOS");
 

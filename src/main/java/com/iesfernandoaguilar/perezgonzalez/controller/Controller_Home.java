@@ -69,6 +69,7 @@ public class Controller_Home implements IApp, Initializable {
             }
 
             this.dos = new DataOutputStream(Session.getOutputStream());
+            this.Btn_ConfCuenta.setText(Session.getUsuario().getNombreUsuario());
         } catch (IOException e) {
             e.printStackTrace();
         }
