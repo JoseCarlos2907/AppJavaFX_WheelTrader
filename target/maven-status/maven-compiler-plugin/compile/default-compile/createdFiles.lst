@@ -47,6 +47,7 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_ListaAnuncios$1.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCoche.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroMaquinaria.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Filtros.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_HomeModerador$2.class
 com/iesfernandoaguilar/perezgonzalez/model/TipoVehiculo_Caracteristica.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro3.class
 com/iesfernandoaguilar/perezgonzalez/interfaces/IListaUsuarios.class

@@ -97,6 +97,8 @@ public class Lector_App extends Thread{
                                         ((Controller_ConfUsuario) this.controller).irListaGuardados(anunciosJSON, imagenes);
                                     }else if("Publicados".equals(msgServidor.getParams().get(0))){
                                         ((Controller_ConfUsuario) this.controller).irListaPublicados(anunciosJSON, imagenes);
+                                    }else if ("Moderador".equals(msgServidor.getParams().get(0))){
+                                        ((Controller_HomeModerador) this.controller).aniadirAnuncios(anunciosJSON, imagenes, true);
                                     }else{
                                         ((Controller_Filtros) this.controller).irListaAnuncios(anunciosJSON, imagenes);
                                     }

@@ -132,7 +132,12 @@ public class Controller_DetalleAnuncio implements Initializable {
 
         Stage stage = new Stage();
 
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
+        FXMLLoader loader = null;
+        if(this.controller instanceof Controller_HomeModerador){
+            loader = new FXMLLoader(getClass().getResource("/view/FXML_HomeModerador.fxml"));
+        }else{
+            loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
+        }
         // FXMLLoader loader = null;
         // if(this.controller instanceof Controller_ListaAnuncios){
         //     loader = new FXMLLoader(getClass().getResource("/view/FXML_ListaAnuncios.fxml"));
