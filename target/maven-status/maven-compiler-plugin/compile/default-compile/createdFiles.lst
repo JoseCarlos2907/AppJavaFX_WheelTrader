@@ -24,13 +24,17 @@ com/iesfernandoaguilar/perezgonzalez/interfaces/IListaAnuncios.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ConfUsuario.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroMoto.class
 com/iesfernandoaguilar/perezgonzalez/model/ValorCaracteristica.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_Reportes$1.class
 com/iesfernandoaguilar/perezgonzalez/App.class
 com/iesfernandoaguilar/perezgonzalez/model/TipoVehiculo.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Reporte.class
 com/iesfernandoaguilar/perezgonzalez/model/Anuncio.class
+com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroReportes.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ImagenAnuncio.class
 com/iesfernandoaguilar/perezgonzalez/util/SecureUtils.class
+com/iesfernandoaguilar/perezgonzalez/model/Auxiliares/UsuarioReportadosModDTO.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Home.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_HomeModerador$1.class
 com/iesfernandoaguilar/perezgonzalez/interfaces/IApp.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCamioneta.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisGuardados$1.class
@@ -69,4 +73,5 @@ com/iesfernandoaguilar/perezgonzalez/model/Revision.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCamion.class
 com/iesfernandoaguilar/perezgonzalez/threads/Lector_InicioSesion.class
 com/iesfernandoaguilar/perezgonzalez/controller/recuperarContrasenia/Controller_RecuperarContrasenia1.class
+com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroUsuariosConReportes.class
 com/iesfernandoaguilar/perezgonzalez/model/Cuestionario.class

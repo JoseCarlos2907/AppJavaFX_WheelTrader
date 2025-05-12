@@ -1,5 +1,6 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDateTime;
@@ -8,10 +9,14 @@ import java.util.ResourceBundle;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Valoracion;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
+import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,6 +31,9 @@ import javafx.stage.Stage;
 
 public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     private String nombreUsuario;
+    private Anuncio anuncioSeleccionado;
+
+    private DataOutputStream dos;
 
     @FXML
     private Button Btn_Menu;
@@ -47,6 +55,12 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
         // this.setNombreUsuario("Juan");
         this.cargarValoraciones();
         // this.cargarAnuncios();
+
+        try {
+            this.dos = new DataOutputStream(Session.getOutputStream());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void cargarValoraciones(){
@@ -116,31 +130,19 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
 
     @Override
     public void abrirAnuncio(Anuncio anuncio) {
-        // try {
-        //     FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_DetalleAnuncio.fxml"));
-        //     Parent nuevaVista;
-        //     nuevaVista = loader.load();
-            
-        //     Controller_DetalleAnuncio controller = loader.getController();
-        //     controller.setUsuario(nombreUsuario);
-        //     controller.setAnuncio(anuncio);
-        //     controller.setController(this);
-        //     controller.setMarcaModelo(anuncio.getMarca(), anuncio.getModelo());
-        //     controller.setCategoria(anuncio.getCategoria());
-        //     controller.setDescripcion(anuncio.getDescripcion());
-        //     controller.setPrecio(anuncio.getPrecioAlContado(), anuncio.getPrecioMensual());
-        //     controller.setDatos(anuncio.getCv(), anuncio.getColor(), anuncio.getPuertas(), anuncio.getAnio(), anuncio.getTipoMarchas(), anuncio.getCantMarchas(), anuncio.getKilometraje(), anuncio.getCombustible());
+        this.anuncioSeleccionado = anuncio;
+
+        Mensaje msg = new Mensaje();
     
-        //     Stage stage = (Stage) Btn_Menu.getScene().getWindow();
-    
-        //     Scene scene = new Scene(nuevaVista);
-        //     scene.getStylesheets().addAll(BootstrapFX.bootstrapFXStylesheet());
-    
-        //     stage.setScene(scene);
-        //     stage.show();
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
+        msg.setTipo("OBTENER_IMAGENES");
+        msg.addParam(String.valueOf(this.anuncioSeleccionado.getIdAnuncio()));
+
+        try {
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @FXML
@@ -170,5 +172,10 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     @Override
     public void setHiloLector(Lector_App hiloLector) {
         
+    }
+
+    @Override
+    public void irDetalleAnuncio(List<byte[]> bytesImagenes) throws IOException {
+        // TODO: Ir detalle anuncio
     }
 }

@@ -161,7 +161,12 @@ public class Lector_InicioSesion extends Thread{
                     ObjectMapper mapper = new ObjectMapper();
                     Usuario usuario = mapper.readValue(usuarioJSON, Usuario.class);
                     Session.iniciarSession(usuario);
-                    this.controller.siguientePaso();
+
+                    if("MODERADOR".equals(usuario.getRol())){
+                        ((Controller_InicioSesion) this.controller).irHomeModerador();
+                    }else{
+                        this.controller.siguientePaso();
+                    }
                 } catch (IOException e) {
                     System.err.println(e.getMessage());
                 }

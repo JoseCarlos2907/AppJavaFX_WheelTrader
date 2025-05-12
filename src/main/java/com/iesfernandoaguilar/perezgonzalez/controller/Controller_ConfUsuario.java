@@ -131,7 +131,7 @@ public class Controller_ConfUsuario implements IApp, Initializable{
 
     @FXML
     void handleBtnMisAnunciosAction(MouseEvent event) throws IOException {
-        filtroPublicados = new FiltroPublicados(Session.getUsuario().getNombreUsuario(), 1, 10);
+        filtroPublicados = new FiltroPublicados(Session.getUsuario().getNombreUsuario(), 0, 10);
 
         Mensaje msg = new Mensaje();
 
@@ -155,7 +155,7 @@ public class Controller_ConfUsuario implements IApp, Initializable{
 
     @FXML
     void handleBtnMisGuardadosAction(MouseEvent event) throws IOException {
-        filtroGuardados = new FiltroGuardados(Session.getUsuario().getNombreUsuario(), 1, 10);
+        filtroGuardados = new FiltroGuardados(Session.getUsuario().getNombreUsuario(), 0, 10);
 
         Mensaje msg = new Mensaje();
 

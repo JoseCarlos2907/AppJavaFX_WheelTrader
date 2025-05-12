@@ -43,6 +43,7 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
 
     private List<Anuncio> anuncios;
     private IFiltro filtro;
+    private Anuncio anuncioSeleccionado;
 
     @FXML
     private Button Btn_Volver;
@@ -89,31 +90,42 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
     }
 
     public void abrirAnuncio(Anuncio anuncio){
-        // try {
-        //     FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_DetalleAnuncio.fxml"));
-        //     Parent nuevaVista;
-        //     nuevaVista = loader.load();
+        this.anuncioSeleccionado = anuncio;
+
+        Mensaje msg = new Mensaje();
+    
+        msg.setTipo("OBTENER_IMAGENES");
+        msg.addParam(String.valueOf(this.anuncioSeleccionado.getIdAnuncio()));
+
+        try {
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void irDetalleAnuncio(List<byte[]> bytesImagenes) throws IOException{
+        try {
+            Stage stage = new Stage();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_DetalleAnuncio.fxml"));
+            Parent parent = loader.load();
+            stage.setScene(new Scene(parent));
+            stage.show();
             
-        //     Controller_DetalleAnuncio controller = loader.getController();
-        //     controller.setAnuncio(anuncio);
-        //     controller.setController(this);
-        //     controller.setMarcaModelo(anuncio.getMarca(), anuncio.getModelo());
-        //     controller.setCategoria(anuncio.getCategoria());
-        //     controller.setDescripcion(anuncio.getDescripcion());
-        //     controller.setPrecio(anuncio.getPrecioAlContado(), anuncio.getPrecioMensual());
-        //     controller.setDatos(anuncio.getCv(), anuncio.getColor(), anuncio.getPuertas(), anuncio.getAnio(), anuncio.getTipoMarchas(), anuncio.getCantMarchas(), anuncio.getKilometraje(), anuncio.getCombustible());
-        //     controller.setFiltro(this.filtro);
+            Controller_DetalleAnuncio controller = loader.getController();
+            controller.setAnuncio(this.anuncioSeleccionado);
+            controller.setImagenes(bytesImagenes);
+            controller.setFiltro(this.filtro);
+            controller.setHiloLector(this.hiloLector);
+            controller.setController(this);
+            this.hiloLector.setController(this);
 
-        //     Stage stage = (Stage) Btn_Filtros.getScene().getWindow();
-    
-        //     Scene scene = new Scene(nuevaVista);
-    
-        //     stage.setScene(scene);
-        //     stage.show();
-        // } catch (IOException e) {
-        //     e.printStackTrace();
-        // }
-
+            Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+            stage2.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setHiloLector(Lector_App hiloLector){
@@ -203,8 +215,6 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
         }
 
         alert.setHeaderText(null);
-        // alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-        // alert.getDialogPane().getStyleClass().add("alert-error");
         alert.showAndWait();
     }
 }

@@ -28,7 +28,7 @@ public class Controller_Usuario {
         this.controller.abrirPerfilUsuario(usuario);
     }
 
-    public void setCantReportes(int cantReportes){
+    public void setCantReportes(long cantReportes){
         this.Lbl_CantReportes.setText(String.valueOf(cantReportes));
     }
 

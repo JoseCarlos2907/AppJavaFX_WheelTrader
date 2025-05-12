@@ -5,6 +5,7 @@
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_PublicarAnuncio.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro4.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/threads/Lector_InicioSesion.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroReportes.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/app/LanzarVentanaCliente.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Pago.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisValoraciones.java
@@ -38,6 +39,7 @@
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_Home.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCamioneta.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_Reportes.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroUsuariosConReportes.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Reporte.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/interfaces/IListaAnuncios.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro1.java
@@ -63,6 +65,7 @@
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/interfaces/IApp.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisAnuncios.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/TipoVehiculo_Caracteristica.java
+/home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Auxiliares/UsuarioReportadosModDTO.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/controller/Controller_ListaAnuncios.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Notificacion.java
 /home/josecarlos/MisArchivos/Githubs/AppJavaFX_WheelTrader/src/main/java/com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroMaquinaria.java

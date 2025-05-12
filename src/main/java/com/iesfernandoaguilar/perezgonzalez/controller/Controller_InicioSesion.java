@@ -175,6 +175,19 @@ public class Controller_InicioSesion implements ILogin, Initializable {
         stage.centerOnScreen();
     }
 
+    public void irHomeModerador() throws IOException{
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_HomeModerador.fxml"));
+        Parent nuevaVista = loader.load();
+
+        Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
+
+        Scene scene = new Scene(nuevaVista);
+
+        stage.setScene(scene);
+        stage.show();
+        stage.centerOnScreen();
+    }
+
     public String getNombreUsuarioCorreo() {
         return this.TxtF_Correo_NomUsu.getText();
     }

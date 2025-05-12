@@ -8,13 +8,12 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ConfUsuario;
-import com.iesfernandoaguilar.perezgonzalez.controller.Controller_DetalleAnuncio;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Filtros;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_HomeModerador;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios;
-import com.iesfernandoaguilar.perezgonzalez.controller.Controller_MisAnuncios;
-import com.iesfernandoaguilar.perezgonzalez.controller.Controller_MisGuardados;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio2;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Reportes;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
@@ -146,7 +145,28 @@ public class Lector_App extends Thread{
 
                         Platform.runLater(() -> {
                             try {
-                                ((Controller_MisAnuncios) this.controller).irDetalleAnuncio(imagenesAnuncio);
+                                ((IListaAnuncios)this.controller).irDetalleAnuncio(imagenesAnuncio);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
+
+                    case "ENVIA_REPORTES_MOD":
+                        // System.out.println("ENVIA_REPORTES_MOD");
+                        Platform.runLater(() -> {
+                            try {
+                                ((Controller_HomeModerador) this.controller).aniadirUsuario(msgServidor.getParams().get(0));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
+
+                    case "ENVIA_ULTIMOS_REPORTES_MOD":
+                        Platform.runLater(() -> {
+                            try {
+                                ((Controller_Reportes) this.controller).aniadirReportes(msgServidor.getParams().get(0));
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

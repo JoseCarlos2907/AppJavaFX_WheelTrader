@@ -1,18 +1,26 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaUsuarios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
+import com.iesfernandoaguilar.perezgonzalez.model.Auxiliares.UsuarioReportadosModDTO;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroUsuariosConReportes;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
+import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,6 +35,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios, Initializable{
+
+    private List<UsuarioReportadosModDTO> usuariosReportados;
+    private FiltroUsuariosConReportes filtro;
+
+    private Lector_App hiloLector;
+
+    private DataOutputStream dos;
+
     @FXML
     private Button Btn_CerrarSesion;
 
@@ -47,8 +63,31 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.cargarUsuarios();
-        this.cargarAnuncios();
+        this.filtro = new FiltroUsuariosConReportes();
+        this.usuariosReportados = new ArrayList<>();
+
+        if(!Session.isHiloCreado()){
+            this.hiloLector = new Lector_App();
+            this.hiloLector.setController(this);
+            this.hiloLector.start();
+            Session.setHiloCreado();
+            System.out.println("entra en el if");
+        }
+        
+        try {
+            this.dos = new DataOutputStream(Session.getOutputStream());
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        try {
+            this.cargarUsuarios("", true);
+            // this.cargarAnuncios();
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+
+        // TODO: Scroll infinito con la primera carga a false
     }
 
     @FXML
@@ -59,44 +98,41 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
     }
 
     @FXML
-    void onBusquedaUsuarioKeyPressed(KeyEvent event) {
+    void onBusquedaUsuarioKeyPressed(KeyEvent event) throws JsonProcessingException {
         if (event.getCode().toString().equals("ENTER")) {
             String cadenaBusqueda = this.TxtF_BusquedaUsuario.getText();
+            this.cargarUsuarios(cadenaBusqueda, true);
         }
     }
 
-    public void cargarAnuncios(){
-        // List<Anuncio> anuncios = List.of(
-        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
-        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
-        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
-        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
-        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL"),
-        //     new Anuncio(LocalDateTime.now(), LocalDateTime.now().plusDays(10), "Descripción", 99999, 999, "Cádiz", "Medina-Sidonia", "ACTIVO", "1234DDX", "Opel", "Corsa", 69, 2005, 5, 5, "MANUAL", 5, "COCHE", "1HGCM82633A004352", 170000, "Blanco", "DIESEL")
-        // );
+    public void cargarUsuarios(String cadena, boolean primeraCarga) throws JsonProcessingException{
+        if(primeraCarga){
+            this.filtro = new FiltroUsuariosConReportes();
+            this.usuariosReportados.clear();
+            this.VBox_Usuarios.getChildren().clear();
+        }
 
-        // for (Anuncio anuncio : anuncios) {
-        //     try {
-        //         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Anuncio.fxml"));
-        //         Parent componente = loader.load();
+        Mensaje msg = new Mensaje();
 
-        //         Controller_Anuncio controller = loader.getController();
-        //         controller.setAnuncio(anuncio);
-        //         controller.setDatos(anuncio.getCategoria(), anuncio.getAnio(), anuncio.getKilometraje());
-        //         controller.setMarcaModelo(anuncio.getMarca(), anuncio.getModelo());
-        //         controller.setPrecio(anuncio.getPrecioAlContado());
-        //         controller.setUbicacion(anuncio.getProvincia(), anuncio.getCiudad());
-        //         controller.setUsuario("JoseCarlos2907");
-        //         controller.setController(this);
-                
-        //         this.VBox_Anuncios.getChildren().add(componente);
-        //     } catch (IOException e) {
-        //         e.printStackTrace();
-        //     }
-        // }
+        this.filtro.setCadena(cadena);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String filtroJSON = mapper.writeValueAsString(this.filtro);
+    
+        msg.setTipo("OBTENER_REPORTES_MOD");
+        msg.addParam(filtroJSON);
+
+        try {
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        this.filtro.siguientePagina();
     }
 
-    public void cargarUsuarios(){
+    public void cargarAnuncios(String cadena, boolean primeraCarga){
         // List<Usuario> usuarios = List.of(
         //     new Usuario("José Carlos", "Pérez González", "12345678A", "c/ Mi Casa n9", "JoseCarlos2907", "hash", "correo", "correPP", "salt", false),
         //     new Usuario("José Carlos", "Pérez González", "12345678A", "c/ Mi Casa n9", "JoseCarlos2907", "hash", "correo", "correPP", "salt", false),
@@ -126,9 +162,43 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
         // }
     }
 
-    @FXML
-    void handleBtnCerrarSesionAction(MouseEvent event) {
+    public void aniadirUsuario(String usuariosMod) throws JsonMappingException, JsonProcessingException{
+        ObjectMapper mapper = new ObjectMapper();
+        List<UsuarioReportadosModDTO> usuariosRecogidos = mapper.readValue(usuariosMod, new TypeReference<List<UsuarioReportadosModDTO>>(){});
 
+        this.usuariosReportados.addAll(usuariosRecogidos);
+        for (UsuarioReportadosModDTO usuarioRecogido : usuariosRecogidos) {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Usuario.fxml"));
+                Parent componente = loader.load();
+
+                Controller_Usuario controller = loader.getController();
+                controller.setNombreUsuario(usuarioRecogido.getUsuario().getNombreUsuario());
+                controller.setValoracionMedia(usuarioRecogido.getMediaValoraciones());
+                controller.setCantReportes(usuarioRecogido.getCantReportes());
+                controller.setUsuario(usuarioRecogido.getUsuario());
+                controller.setController(this);
+                
+                this.VBox_Usuarios.getChildren().add(componente);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @FXML
+    void handleBtnCerrarSesionAction(MouseEvent event) throws IOException {
+        Session.setHiloNoCreado();
+        Session.cerrarSession();
+
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_InicioSesion.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Stage stage2 = (Stage) Btn_CerrarSesion.getScene().getWindow();
+        stage2.close();
     }
 
     @FXML
@@ -138,6 +208,8 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
 
         Controller_Reportes controller = loader.getController();
         controller.setTitulo("Últimos reportes");
+        controller.setHiloLector(this.hiloLector);
+        this.hiloLector.setController(controller);
 
         Stage stage = (Stage) Btn_CerrarSesion.getScene().getWindow();
 
@@ -187,6 +259,11 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
 
     @Override
     public void setHiloLector(Lector_App hiloLector) {
+        this.hiloLector = hiloLector;
+    }
+
+    @Override
+    public void irDetalleAnuncio(List<byte[]> bytesImagenes) throws IOException {
         
     }
 }
