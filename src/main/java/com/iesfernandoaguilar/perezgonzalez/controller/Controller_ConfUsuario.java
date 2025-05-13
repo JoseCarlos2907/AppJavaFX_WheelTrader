@@ -216,7 +216,7 @@ public class Controller_ConfUsuario implements IApp, Initializable{
 
         Controller_MisGuardados controller = loader.getController();
         controller.setHiloLector(hiloLector);
-        controller.aniadirAnuncios(anunciosJSON, imagenes, true);
+        controller.aniadirAnuncios(anunciosJSON, imagenes);
         controller.setFiltro(filtroGuardados);
         this.hiloLector.setController(controller);
 
@@ -233,7 +233,7 @@ public class Controller_ConfUsuario implements IApp, Initializable{
 
         Controller_MisAnuncios controller = loader.getController();
         controller.setHiloLector(hiloLector);
-        controller.aniadirAnuncios(anunciosJSON, imagenes, true);
+        controller.aniadirAnuncios(anunciosJSON, imagenes);
         controller.setFiltro(filtroPublicados);
         this.hiloLector.setController(controller);
 

@@ -590,7 +590,7 @@ public class Controller_Filtros implements IApp, Initializable{
 
         Controller_ListaAnuncios controller = loader.getController();
         controller.setHiloLector(hiloLector);
-        controller.aniadirAnuncios(anunciosJSON, imagenes, true);
+        controller.aniadirAnuncios(anunciosJSON, imagenes);
         controller.setFiltro(this.filtro);
         this.hiloLector.setController(controller);
 

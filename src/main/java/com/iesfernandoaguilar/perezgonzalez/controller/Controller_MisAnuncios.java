@@ -11,7 +11,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
@@ -27,12 +26,13 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class Controller_MisAnuncios implements IApp, Initializable, IListaAnuncios{
+public class Controller_MisAnuncios implements Initializable, IListaAnuncios{
     private Lector_App hiloLector;
 
     private DataOutputStream dos;
@@ -40,6 +40,7 @@ public class Controller_MisAnuncios implements IApp, Initializable, IListaAnunci
     private List<Anuncio> anuncios;
     private FiltroPublicados filtro;
     private Anuncio anuncioSeleccionado;
+    private boolean cargando;
 
 
     @FXML
@@ -51,6 +52,9 @@ public class Controller_MisAnuncios implements IApp, Initializable, IListaAnunci
     @FXML
     private VBox VBox_Anuncios;
 
+    @FXML
+    private ScrollPane ScrollPane_Anuncios;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.anuncios = new ArrayList<>();
@@ -60,6 +64,17 @@ public class Controller_MisAnuncios implements IApp, Initializable, IListaAnunci
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        this.ScrollPane_Anuncios.vvalueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.doubleValue() >= 0.8 && !cargando) {
+                cargando = true;
+                try {
+                    this.pedirAnuncios();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @FXML
@@ -117,7 +132,31 @@ public class Controller_MisAnuncios implements IApp, Initializable, IListaAnunci
         }
     }
 
-    public void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas, boolean primeraCarga) throws JsonMappingException, JsonProcessingException{
+    public void pedirAnuncios() throws IOException{
+        this.filtro.siguientePagina();
+
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_ANUNCIOS");
+
+        ObjectMapper mapper = new ObjectMapper();
+        String filtroJSON = mapper.writeValueAsString(this.filtro);
+
+        msg.addParam(filtroJSON);
+        msg.addParam(this.filtro.getTipoFiltro());
+        msg.addParam("no");
+        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
+        
+
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
+    }
+
+    public void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas) throws JsonMappingException, JsonProcessingException{
+        if(imagenesNuevas.size() < 1) {
+            cargando = true;
+            return;
+        }   
+        
         ObjectMapper mapper = new ObjectMapper();
         List<Anuncio> anunciosNuevos = mapper.readValue(anunciosJSON, new TypeReference<List<Anuncio>>(){});
 
@@ -164,9 +203,7 @@ public class Controller_MisAnuncios implements IApp, Initializable, IListaAnunci
             }
         }
 
-        if (!primeraCarga) {
-            this.filtro.siguientePagina();
-        }
+        this.cargando = false;
     }
 
     public void setHiloLector(Lector_App hiloLector){

@@ -24,6 +24,7 @@ com/iesfernandoaguilar/perezgonzalez/interfaces/IListaAnuncios.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ConfUsuario.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroMoto.class
 com/iesfernandoaguilar/perezgonzalez/model/ValorCaracteristica.class
+com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroBarraBusqueda.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Reportes$1.class
 com/iesfernandoaguilar/perezgonzalez/App.class
 com/iesfernandoaguilar/perezgonzalez/model/TipoVehiculo.class

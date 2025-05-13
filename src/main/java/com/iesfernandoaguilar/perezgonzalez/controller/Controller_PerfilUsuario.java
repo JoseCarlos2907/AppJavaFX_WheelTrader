@@ -165,7 +165,7 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     }
 
     @Override
-    public void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas, boolean primeraCarga) throws JsonMappingException, JsonProcessingException {
+    public void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas) throws JsonMappingException, JsonProcessingException {
         
     }
 

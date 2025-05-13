@@ -3,6 +3,7 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 
 import javafx.fxml.FXML;
@@ -17,14 +18,20 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroBarraBusqueda;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 public class Controller_Home implements IApp, Initializable {
     private DataOutputStream dos;
 
     private Lector_App hiloLector;
+
+    private FiltroBarraBusqueda filtro;
 
     @FXML
     private Button Btn_Buscar;
@@ -92,8 +99,50 @@ public class Controller_Home implements IApp, Initializable {
     }
 
     @FXML
-    void handleBtnBuscarAction(MouseEvent event) {
-        
+    void handleBtnBuscarAction(MouseEvent event) throws IOException {
+        String cadena = new String(this.TxtF_BarraBusqueda.getText());
+
+        this.filtro = new FiltroBarraBusqueda();
+        this.filtro.setTiposVehiculo(List.of("Coche", "Moto", "Camioneta", "Camion", "Maquinaria"));
+        this.filtro.setAnioMinimo(1950);
+        this.filtro.setAnioMaximo(2025);
+        this.filtro.setProvincia(null);
+        this.filtro.setCiudad(null);
+        this.filtro.setPrecioMinimo(0);
+        this.filtro.setPrecioMaximo(Double.MAX_VALUE);
+        this.filtro.setCadena(cadena);
+        this.filtro.setEsModerador(false);
+
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_ANUNCIOS");
+
+        ObjectMapper mapper = new ObjectMapper();
+        String filtroJSON = mapper.writeValueAsString(this.filtro);
+
+        msg.addParam(filtroJSON);
+        msg.addParam(this.filtro.getTipoFiltro());
+        msg.addParam("si");
+        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
+
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
+    }
+
+    public void irListaAnuncios(String anunciosJSON, List<byte[]> imagenes) throws IOException{
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_ListaAnuncios.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_ListaAnuncios controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        controller.aniadirAnuncios(anunciosJSON, imagenes);
+        controller.setFiltro(this.filtro);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_ConfCuenta.getScene().getWindow();
+        stage2.close();
     }
 
     @FXML

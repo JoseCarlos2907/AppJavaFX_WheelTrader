@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ConfUsuario;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Filtros;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Home;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_HomeModerador;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio;
@@ -79,6 +80,7 @@ public class Lector_App extends Thread{
                         
 
                     case "ENVIA_ANUNCIOS":
+                        // System.out.println("ENVIA_ANUNCIOS");
                         List<byte[]> imagenes = new ArrayList<>();
                         int cantAnuncios = Integer.valueOf(msgServidor.getParams().get(2));
                         for (int i = 0; i < cantAnuncios; i++) {
@@ -97,21 +99,16 @@ public class Lector_App extends Thread{
                                         ((Controller_ConfUsuario) this.controller).irListaGuardados(anunciosJSON, imagenes);
                                     }else if("Publicados".equals(msgServidor.getParams().get(0))){
                                         ((Controller_ConfUsuario) this.controller).irListaPublicados(anunciosJSON, imagenes);
-                                    }else if ("Moderador".equals(msgServidor.getParams().get(0))){
-                                        ((Controller_HomeModerador) this.controller).aniadirAnuncios(anunciosJSON, imagenes, true);
+                                    }else if ("BarraBusquedaMod".equals(msgServidor.getParams().get(0))){
+                                        ((Controller_HomeModerador) this.controller).aniadirAnuncios(anunciosJSON, imagenes);
+                                    }else if ("BarraBusqueda".equals(msgServidor.getParams().get(0))){
+                                        ((Controller_Home) this.controller).irListaAnuncios(anunciosJSON, imagenes);
                                     }else{
                                         ((Controller_Filtros) this.controller).irListaAnuncios(anunciosJSON, imagenes);
                                     }
                                 }else if("no".equals(msgServidor.getParams().get(3))){
                                     IListaAnuncios controllerAux = (IListaAnuncios) this.controller;
-                                    controllerAux.aniadirAnuncios(anunciosJSON, imagenes, cierraSesion);
-                                    // if("Guardados".equals(msgServidor.getParams().get(0))){
-                                    //     ((Controller_MisGuardados) this.controller).aniadirAnuncios(anunciosJSON, imagenes, false);
-                                    // }else if("Publicados".equals(msgServidor.getParams().get(0))){
-                                    //     ((Controller_MisAnuncios) this.controller).aniadirAnuncios(anunciosJSON, imagenes, false);
-                                    // }else{
-                                    //     ((Controller_ListaAnuncios) this.controller).aniadirAnuncios(anunciosJSON, imagenes, false);
-                                    // }
+                                    controllerAux.aniadirAnuncios(anunciosJSON, imagenes);
                                 }
                             } catch (JsonMappingException e) {
                                 e.printStackTrace();

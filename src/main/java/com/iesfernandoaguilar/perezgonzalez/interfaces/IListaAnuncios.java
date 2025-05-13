@@ -12,5 +12,5 @@ public interface IListaAnuncios extends IApp{
 
     void irDetalleAnuncio(List<byte[]> bytesImagenes) throws IOException;
 
-    void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas, boolean primeraCarga) throws JsonMappingException, JsonProcessingException;
+    void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas) throws JsonMappingException, JsonProcessingException;
 }

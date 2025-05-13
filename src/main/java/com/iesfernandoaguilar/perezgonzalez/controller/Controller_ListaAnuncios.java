@@ -30,6 +30,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -44,6 +45,7 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
     private List<Anuncio> anuncios;
     private IFiltro filtro;
     private Anuncio anuncioSeleccionado;
+    private boolean cargando;
 
     @FXML
     private Button Btn_Volver;
@@ -60,6 +62,9 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
     @FXML
     private VBox VBox_Anuncios;
 
+    @FXML
+    private ScrollPane ScrollPane_Anuncios;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.anuncios = new ArrayList<>();
@@ -70,7 +75,16 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
             e.printStackTrace();
         }
 
-        // TODO: Hacer el listener de cuando el scroll llega casi al final
+        this.ScrollPane_Anuncios.vvalueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.doubleValue() >= 0.8 && !cargando) {
+                cargando = true;
+                try {
+                    this.pedirAnuncios();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @FXML
@@ -137,6 +151,8 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
     }
 
     public void pedirAnuncios() throws IOException{
+        this.filtro.siguientePagina();
+
         Mensaje msg = new Mensaje();
         msg.setTipo("OBTENER_ANUNCIOS");
 
@@ -146,14 +162,18 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
         msg.addParam(filtroJSON);
         msg.addParam(this.filtro.getTipoFiltro());
         msg.addParam("no");
-        msg.addParam(String.valueOf(Session.getUsuario().getNombreUsuario()));
+        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
         
-
         this.dos.writeUTF(Serializador.codificarMensaje(msg));
         this.dos.flush();
     }
 
-    public void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas, boolean primeraCarga) throws JsonMappingException, JsonProcessingException{
+    public void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas) throws JsonMappingException, JsonProcessingException{
+        if(imagenesNuevas.size() < 1) {
+            cargando = true;
+            return;
+        }
+        
         ObjectMapper mapper = new ObjectMapper();
         List<Anuncio> anunciosNuevos = mapper.readValue(anunciosJSON, new TypeReference<List<Anuncio>>(){});
 
@@ -198,10 +218,7 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
                 e.printStackTrace();
             }
         }
-
-        if (!primeraCarga) {
-            this.filtro.siguientePagina();
-        }
+        this.cargando = false;
     }
 
     public void avisoGuardado(boolean guardado){
