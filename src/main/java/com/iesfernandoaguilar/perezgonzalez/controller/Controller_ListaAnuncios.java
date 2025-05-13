@@ -16,6 +16,7 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IFiltro;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
+import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
@@ -96,6 +97,22 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
         stage.show();
 
         Controller_Home controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
+    }
+
+    public void abrirPerfilUsuario(Usuario usuario) throws IOException{
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PerfilUsuario.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_PerfilUsuario controller = loader.getController();
+        controller.setUsuario(usuario);
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 

@@ -9,6 +9,7 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ConfUsuario;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Filtros;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_FormularioReporte;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Home;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_HomeModerador;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios;
@@ -166,6 +167,23 @@ public class Lector_App extends Thread{
                         Platform.runLater(() -> {
                             try {
                                 ((Controller_Reportes) this.controller).aniadirReportes(msgServidor.getParams().get(0));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
+
+                    case "":
+                        break;
+
+                    case "REPORTE_REALIZADO":
+                        Platform.runLater(() -> {
+                            try {
+                                if("si".equals(msgServidor.getParams().get(0))){
+                                    ((Controller_FormularioReporte) this.controller).reporteRealizado();
+                                }else if("no".equals(msgServidor.getParams().get(0))){
+                                    ((Controller_FormularioReporte) this.controller).reporteYaRealizado();
+                                }
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

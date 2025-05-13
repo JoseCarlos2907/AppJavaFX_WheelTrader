@@ -13,6 +13,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
+import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPublicados;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
@@ -212,5 +213,10 @@ public class Controller_MisAnuncios implements Initializable, IListaAnuncios{
 
     public void setFiltro(FiltroPublicados filtro){
         this.filtro = filtro;
+    }
+
+    @Override
+    public void abrirPerfilUsuario(Usuario usuario) throws IOException {
+        
     }
 }

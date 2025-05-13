@@ -15,7 +15,7 @@
          <font>
             <Font size="44.0" />
          </font></Label>
-      <Label fx:id="Lbl_Usuario" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="848.0" layoutY="291.0" prefHeight="40.0" prefWidth="351.0" styleClass="usuario" text="De JoseCarlos2907" textAlignment="RIGHT" textFill="#84aedd">
+      <Label fx:id="Lbl_Usuario" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="848.0" layoutY="291.0" onMouseClicked="#handleLblUsuarioAction" prefHeight="40.0" prefWidth="351.0" styleClass="usuario" text="De JoseCarlos2907" textAlignment="RIGHT" textFill="#84aedd">
          <font>
             <Font size="30.0" />
          </font></Label>

@@ -14,13 +14,17 @@ import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.Stage;
 
 public class Controller_Anuncio implements Initializable{
     private IListaAnuncios controller;
@@ -28,7 +32,6 @@ public class Controller_Anuncio implements Initializable{
     private DataOutputStream dos;
 
     private Anuncio anuncio;
-    private byte[] imagen;
 
     @FXML
     private ImageView ImgView_Guardado;
@@ -64,6 +67,11 @@ public class Controller_Anuncio implements Initializable{
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @FXML
+    void handleLblUsuarioAction(MouseEvent event) throws IOException {
+        this.controller.abrirPerfilUsuario(this.anuncio.getVendedor());
     }
 
     @FXML
@@ -132,7 +140,6 @@ public class Controller_Anuncio implements Initializable{
     }
 
     public void setImagen(byte[] imagen){
-        this.imagen = imagen;
         ByteArrayInputStream is = new ByteArrayInputStream(imagen);
         this.ImgView_Vehiculo.setImage(new Image(is));
     }

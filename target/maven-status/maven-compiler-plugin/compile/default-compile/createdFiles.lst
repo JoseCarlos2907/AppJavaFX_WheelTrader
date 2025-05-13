@@ -56,6 +56,7 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_PerfilUsuario.class
 com/iesfernandoaguilar/perezgonzalez/model/Reunion.class
 com/iesfernandoaguilar/perezgonzalez/util/Mensaje.class
 com/iesfernandoaguilar/perezgonzalez/model/Reporte.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_FormularioReporte.class
 com/iesfernandoaguilar/perezgonzalez/model/Usuario.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisCompras.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_DetalleAnuncio.class

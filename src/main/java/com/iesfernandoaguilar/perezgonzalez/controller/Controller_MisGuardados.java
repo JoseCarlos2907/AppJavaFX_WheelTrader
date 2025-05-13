@@ -14,6 +14,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
+import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroGuardados;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
@@ -212,5 +213,10 @@ public class Controller_MisGuardados implements IApp, Initializable, IListaAnunc
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void abrirPerfilUsuario(Usuario usuario) throws IOException {
+        
     }
 }
