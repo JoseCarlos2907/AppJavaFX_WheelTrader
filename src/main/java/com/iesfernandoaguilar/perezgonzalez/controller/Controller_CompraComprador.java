@@ -1,30 +1,60 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
 import java.awt.image.BufferedImage;
+import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+
+import javax.imageio.ImageIO;
 
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
+import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
+import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
+import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
+import com.iesfernandoaguilar.perezgonzalez.util.Session;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.pdf.AcroFields;
+import com.itextpdf.text.pdf.PdfAcroForm;
+import com.itextpdf.text.pdf.PdfContentByte;
+import com.itextpdf.text.pdf.PdfDocument;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
+
 import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.stage.Stage;
 
-public class Controller_CompraComprador implements Initializable{
+public class Controller_CompraComprador implements IApp, Initializable{
 
     @FXML
     private Button Btn_OfrecerAcuerdo;
@@ -63,12 +93,16 @@ public class Controller_CompraComprador implements Initializable{
     private List<ImageView> imagenesPaginas;
     private double zoom;
 
+    private Anuncio anuncio;
+    
+    private DataOutputStream dos;
+    private Lector_App hiloLector;
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         zoom = 1;
         imagenesPaginas = new ArrayList<>();
         this.Btn_ZoomOut.setDisable(true);
-        // this.setPrecios(99999);
 
         // Preparar el Canvas para poder dibujar en él
         GraphicsContext context = Canvas_Firma.getGraphicsContext2D();
@@ -84,9 +118,9 @@ public class Controller_CompraComprador implements Initializable{
             lastY = event.getY();
         });
 
-        // /home/josecarlos/Descargas/prueba_Python_27_02_25.pdf
         try {
-            File archivoPDF = new File("/home/josecarlos/Descargas/prueba_Python_27_02_25.pdf");
+            // File archivoPDF = new File("/home/josecarlos/Descargas/prueba_Python_27_02_25.pdf");
+            File archivoPDF = new File("temp/Temp.pdf");
             pddDocument = Loader.loadPDF(archivoPDF);
             PDFRenderer renderer = new PDFRenderer(pddDocument);
 
@@ -104,6 +138,7 @@ public class Controller_CompraComprador implements Initializable{
             }
 
             pddDocument.close();
+            this.dos = new DataOutputStream(Session.getOutputStream());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -144,13 +179,58 @@ public class Controller_CompraComprador implements Initializable{
     }
     
     @FXML
-    void handleBtnOfrecerAcuerdoAction(MouseEvent event) {
+    void handleBtnOfrecerAcuerdoAction(MouseEvent event) throws IOException, DocumentException {
+        // TODO: Seguro que desea proceder con la compra de este vehiculo? Una vez hecha la oferta, 
+        // TODO: el dinero se le descontará automáticamente de su cuenta de PayPal una vez el vendedor acepte la oferta
+
+        // Capturo el Canvas y obtengo una imagen del contenido
+        WritableImage wrImage = new WritableImage(
+            (int) Canvas_Firma.getWidth(),
+            (int) Canvas_Firma.getHeight()
+        );
+        SnapshotParameters params = new SnapshotParameters();
+        params.setFill(Color.TRANSPARENT);
+
+        Image imagen = Canvas_Firma.snapshot(params, wrImage);
+        BufferedImage bImagen = SwingFXUtils.fromFXImage(imagen, null);
+
+        // Una vez tengo la imagen del canvas, la plasmo en el campo imagen de la zona de firmas del PDF en base a la id del mismo campo
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        ImageIO.write(bImagen, "PNG", baos);
         
+        PdfReader reader = new PdfReader("temp/Temp.pdf");
+        PdfStamper stamper = new PdfStamper(reader, baos);
+
+        PdfContentByte pdfCanvas = stamper.getOverContent(2);
+        com.itextpdf.text.Image imagenPdf = com.itextpdf.text.Image.getInstance(bImagen, null);
+
+        imagenPdf.scaleToFit(200, 100);
+        imagenPdf.setAbsolutePosition(55, 400);
+        pdfCanvas.addImage(imagenPdf);
+
+        stamper.close();
+        reader.close();
+
+        Files.write(Paths.get("temp/Temp.pdf"), baos.toByteArray());
     }
 
     @FXML
-    void handleBtnVolverAction(MouseEvent event) {
+    void handleBtnVolverAction(MouseEvent event) throws IOException {
+        File pdf = new File("temp/Temp.pdf");
+        pdf.delete();
 
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_Home controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
     }
 
     public void setPrecios(double precio){
@@ -161,5 +241,15 @@ public class Controller_CompraComprador implements Initializable{
 
         double total = precio + comision;
         this.Lbl_Total.setText(String.format("%.2f€",total));
+    }
+
+    @Override
+    public void setHiloLector(Lector_App hiloLector) {
+        this.hiloLector = hiloLector;
+    }
+
+    public void setAnuncio(Anuncio anuncio){
+        this.anuncio = anuncio;
+        this.setPrecios(anuncio.getPrecio());
     }
 }

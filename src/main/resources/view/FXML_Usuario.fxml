@@ -15,30 +15,17 @@
          <font>
             <Font size="44.0" />
          </font></Label>
-      <Label fx:id="Lbl_CantReportes" alignment="CENTER_RIGHT" layoutX="591.0" layoutY="43.0" prefHeight="44.0" prefWidth="107.0" styleClass="cantReportes" text="0" textFill="#84aedd">
+      <Label fx:id="Lbl_CantReportes" alignment="CENTER_RIGHT" layoutX="1041.0" layoutY="47.0" prefHeight="44.0" prefWidth="107.0" styleClass="cantReportes" text="0" textFill="#84aedd">
          <font>
             <Font size="44.0" />
          </font>
       </Label>
-      <Label fx:id="Lbl_ValoracionMedia" alignment="CENTER_RIGHT" layoutX="1048.0" layoutY="44.0" prefHeight="44.0" prefWidth="97.0" styleClass="valMedia" text="4.5" textFill="#84aedd">
-         <font>
-            <Font size="44.0" />
-         </font>
-      </Label>
-      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="711.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1161.0" layoutY="40.0" pickOnBounds="true" preserveRatio="true">
          <image>
             <Image url="@../img/IconoReporte.png" />
          </image>
          <cursor>
             <Cursor fx:constant="HAND" />
-         </cursor>
-      </ImageView>
-      <ImageView fitHeight="50.0" fitWidth="50.0" layoutX="1154.0" layoutY="37.0" pickOnBounds="true" preserveRatio="true">
-         <image>
-            <Image url="@../img/IconoEstrella.png" />
-         </image>
-         <cursor>
-            <Cursor fx:constant="DEFAULT" />
          </cursor>
       </ImageView>
    </children>

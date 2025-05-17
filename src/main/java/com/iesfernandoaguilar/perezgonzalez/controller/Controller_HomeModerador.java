@@ -222,7 +222,6 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
 
                 Controller_Usuario controller = loader.getController();
                 controller.setNombreUsuario(usuarioRecogido.getUsuario().getNombreUsuario());
-                controller.setValoracionMedia(usuarioRecogido.getMediaValoraciones());
                 controller.setCantReportes(usuarioRecogido.getCantReportes());
                 controller.setUsuario(usuarioRecogido.getUsuario());
                 controller.setController(this);

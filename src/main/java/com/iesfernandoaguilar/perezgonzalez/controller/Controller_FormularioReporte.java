@@ -8,7 +8,6 @@ import java.util.ResourceBundle;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
-import com.iesfernandoaguilar.perezgonzalez.model.Notificacion;
 import com.iesfernandoaguilar.perezgonzalez.model.Reporte;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
@@ -86,6 +85,7 @@ public class Controller_FormularioReporte implements IApp, Initializable {
         Parent parent = loader.load();
 
         Controller_PerfilUsuario controller = loader.getController();
+        controller.setUsuario(usuario);
         controller.setHiloLector(this.hiloLector);
         this.hiloLector.setController(controller);
 

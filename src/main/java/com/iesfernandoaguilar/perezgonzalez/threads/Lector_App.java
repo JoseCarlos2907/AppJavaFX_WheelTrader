@@ -8,6 +8,7 @@ import java.util.List;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ConfUsuario;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_DetalleAnuncio;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Filtros;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_FormularioReporte;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Home;
@@ -173,9 +174,6 @@ public class Lector_App extends Thread{
                         });
                         break;
 
-                    case "":
-                        break;
-
                     case "REPORTE_REALIZADO":
                         Platform.runLater(() -> {
                             try {
@@ -188,6 +186,23 @@ public class Lector_App extends Thread{
                                 e.printStackTrace();
                             }
                         });
+                        break;
+
+                    case "ENVIA_PDF_ACUERDO":
+                        int longitudDocumento = Integer.valueOf(msgServidor.getParams().get(0));
+                        byte[] bytesDocumento = new byte[longitudDocumento];
+                        dis.readFully(bytesDocumento);
+
+                        Platform.runLater(() ->{
+                            try {
+                                ((Controller_DetalleAnuncio) this.controller).irCompraComprador(bytesDocumento);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
+
+                    case "":
                         break;
 
                     default:

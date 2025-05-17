@@ -50,56 +50,15 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     private VBox VBox_Anuncios;
 
     @FXML
-    private VBox VBox_Comentarios;
-
-    @FXML
     private ImageView Btn_Reportar;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // this.setNombreUsuario("Juan");
-        this.cargarValoraciones();
-        // this.cargarAnuncios();
-
         try {
             this.dos = new DataOutputStream(Session.getOutputStream());
         } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public void cargarValoraciones(){
-        int cantValoraciones = 7;   // Cantidad total de valoraciones
-        int total = 31;   // Suma total de las valoraciones
-
-        List<Valoracion> valoraciones = List.of(
-            new Valoracion(4, "Pedazo de comentario primo"),
-            new Valoracion(5, "Pedazo de comentario primo"),
-            new Valoracion(4, "Pedazo de comentario primo"),
-            new Valoracion(5, "Pedazo de comentario primo"),
-            new Valoracion(4, "Pedazo de comentario primo"),
-            new Valoracion(5, "Pedazo de comentario primo"),
-            new Valoracion(4, "Pedazo de comentario primo")
-        );
-
-        for (Valoracion valoracion : valoraciones) {
-            try {
-                FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Valoracion.fxml"));
-                Parent componente = loader.load();
-
-                Controller_Valoracion controller = loader.getController();
-                controller.setComentario(valoracion.getComentario());
-                controller.setValoracion(valoracion.getValoracion());
-                controller.setUsuario("JoseCarlos2908");    // En base al idValorador
-
-                this.VBox_Comentarios.getChildren().add(componente);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        }
-
-        double valoracionMedia = total / (double) cantValoraciones;
-        this.Lbl_ValoracionMedia.setText(String.format("%.2f", valoracionMedia));
     }
 
     public void cargarAnuncios(){

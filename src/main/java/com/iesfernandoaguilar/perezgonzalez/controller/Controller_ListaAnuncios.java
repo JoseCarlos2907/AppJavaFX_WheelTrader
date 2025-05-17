@@ -38,7 +38,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
-public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnuncios{
+public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
     private Lector_App hiloLector;
 
     private DataOutputStream dos;
@@ -150,7 +150,7 @@ public class Controller_ListaAnuncios implements IApp, Initializable, IListaAnun
             controller.setFiltro(this.filtro);
             controller.setHiloLector(this.hiloLector);
             controller.setController(this);
-            this.hiloLector.setController(this);
+            this.hiloLector.setController(controller);
 
             Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
             stage2.close();

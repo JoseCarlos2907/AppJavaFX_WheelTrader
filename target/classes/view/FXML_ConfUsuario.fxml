@@ -45,15 +45,6 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button fx:id="Btn_MisValoraciones" layoutX="738.0" layoutY="204.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisValoracionesAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Valoraciones" textAlignment="CENTER">
-         <effect>
-            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
-               <color>
-                  <Color opacity="0.4000000059604645" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Button>
       <Accordion layoutX="103.0" layoutY="169.0" prefHeight="514.0" prefWidth="501.0" style="" styleClass="acordeon">
         <panes>
           <TitledPane animated="false" styleClass="titledPane" text="Datos Personales" textFill="WHITE">
@@ -245,7 +236,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button fx:id="Btn_MisGuardados" layoutX="1070.0" layoutY="509.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisGuardadosAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Guardados" textAlignment="CENTER">
+      <Button fx:id="Btn_MisGuardados" layoutX="738.0" layoutY="203.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisGuardadosAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Guardados" textAlignment="CENTER">
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>

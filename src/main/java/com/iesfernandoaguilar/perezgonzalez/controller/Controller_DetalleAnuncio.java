@@ -2,8 +2,12 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 
 import java.io.ByteArrayInputStream;
 import java.io.DataOutputStream;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Files;
+import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -13,6 +17,8 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -29,15 +35,12 @@ import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
-public class Controller_DetalleAnuncio implements Initializable {
+public class Controller_DetalleAnuncio implements IApp, Initializable {
     @FXML
     private Button Btn_AnteriorImg;
 
     @FXML
     private Button Btn_Comprar;
-
-    @FXML
-    private Button Btn_Reunirse;
 
     @FXML
     private Button Btn_SiguienteImg;
@@ -119,12 +122,47 @@ public class Controller_DetalleAnuncio implements Initializable {
 
     @FXML
     void handleBtnComprarAction(MouseEvent event) {
-        // TODO: Funcionalidad de comprar
+        Mensaje msg = new Mensaje();
+    
+        msg.setTipo("OBTENER_PDF_ACUERDO");
+        msg.addParam(Session.getUsuario().getIdUsuario().toString());
+        msg.addParam(String.valueOf(this.anuncio.getIdAnuncio()));
+        msg.addParam(anuncio.getTipoVehiculo());
+
+        try {
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
-    @FXML
-    void handleBtnReunirseAction(MouseEvent event) {
-        // TODO: Funcionalidad de reuniones
+    public void irCompraComprador(byte[] documento) throws IOException{
+        File temp = new File("temp");
+        if(!temp.exists()) temp.mkdir();
+
+        File pdf = new File("temp/Temp.pdf");
+        if(pdf.exists()) pdf.delete();
+        pdf.createNewFile();
+
+        try (FileOutputStream fos = new FileOutputStream("temp/Temp.pdf")) {
+            fos.write(documento);
+        }
+
+        Stage stage = new Stage();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_CompraComprador.fxml"));
+
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_CompraComprador controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
     }
 
     @FXML
@@ -162,8 +200,6 @@ public class Controller_DetalleAnuncio implements Initializable {
 
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
         stage2.close();
-
-
     }
 
     public void setController(IListaAnuncios controller){
@@ -179,7 +215,6 @@ public class Controller_DetalleAnuncio implements Initializable {
         String nombreCar = "";
         for (ValorCaracteristica vc : this.anuncio.getValoresCaracteristicas()) {
             nombreCar = vc.getNombreCaracteristica();
-            // TODO: Añadir cada valor de caracteristica al VBox
             if(nombreCar.contains("Marca_")){
                 marca = vc.getValor();
             }else if(nombreCar.contains("Modelo_")){
@@ -226,7 +261,8 @@ public class Controller_DetalleAnuncio implements Initializable {
         this.Lbl_Categoria.setText(anuncio.getTipoVehiculo());
         this.Lbl_Descripcion.setText(anuncio.getDescripcion());
         this.nombreUsuario = anuncio.getVendedor().getNombreUsuario();
-        this.Lbl_Categoria.setText(this.nombreUsuario);
+        this.Lbl_Usuario.setText(this.nombreUsuario);
+        this.Lbl_Categoria.setText(this.anuncio.getTipoVehiculo());
     }
 
     public void setFiltro(IFiltro filtro){
