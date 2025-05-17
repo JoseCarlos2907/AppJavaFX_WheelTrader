@@ -159,6 +159,7 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
 
         Controller_CompraComprador controller = loader.getController();
         controller.setHiloLector(hiloLector);
+        controller.setAnuncio(anuncio);
         this.hiloLector.setController(controller);
 
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();

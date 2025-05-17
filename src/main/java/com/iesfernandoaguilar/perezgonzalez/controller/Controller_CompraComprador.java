@@ -4,6 +4,7 @@ import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
@@ -12,6 +13,7 @@ import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 import javax.imageio.ImageIO;
@@ -43,9 +45,12 @@ import javafx.scene.Scene;
 import javafx.scene.SnapshotParameters;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.WritableImage;
@@ -180,9 +185,14 @@ public class Controller_CompraComprador implements IApp, Initializable{
     
     @FXML
     void handleBtnOfrecerAcuerdoAction(MouseEvent event) throws IOException, DocumentException {
-        // TODO: Seguro que desea proceder con la compra de este vehiculo? Una vez hecha la oferta, 
-        // TODO: el dinero se le descontará automáticamente de su cuenta de PayPal una vez el vendedor acepte la oferta
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de oferta");
+        alert.setHeaderText("¿Seguro que desea proceder con la compra de este vehículo?");
+        alert.setContentText("Una vez hecha la oferta, el dinero se le descontará automáticamente de su cuenta de PayPal una vez el vendedor acepte la oferta.");
 
+        Optional<ButtonType> res = alert.showAndWait();
+
+        if(!res.isPresent() || res.isPresent() && res.get() != ButtonType.OK) return;
         // Capturo el Canvas y obtengo una imagen del contenido
         WritableImage wrImage = new WritableImage(
             (int) Canvas_Firma.getWidth(),
@@ -194,24 +204,59 @@ public class Controller_CompraComprador implements IApp, Initializable{
         Image imagen = Canvas_Firma.snapshot(params, wrImage);
         BufferedImage bImagen = SwingFXUtils.fromFXImage(imagen, null);
 
-        // Una vez tengo la imagen del canvas, la plasmo en el campo imagen de la zona de firmas del PDF en base a la id del mismo campo
-        ByteArrayOutputStream baos = new ByteArrayOutputStream();
-        ImageIO.write(bImagen, "PNG", baos);
-        
         PdfReader reader = new PdfReader("temp/Temp.pdf");
-        PdfStamper stamper = new PdfStamper(reader, baos);
-
+        ByteArrayOutputStream pdfOut = new ByteArrayOutputStream();
+        PdfStamper stamper = new PdfStamper(reader, pdfOut);
+        
+        // Una vez tengo la imagen del canvas, la plasmo en el campo imagen de la zona de firmas del PDF en base a la id del mismo campo
         PdfContentByte pdfCanvas = stamper.getOverContent(2);
         com.itextpdf.text.Image imagenPdf = com.itextpdf.text.Image.getInstance(bImagen, null);
-
         imagenPdf.scaleToFit(200, 100);
         imagenPdf.setAbsolutePosition(55, 400);
         pdfCanvas.addImage(imagenPdf);
-
+        
         stamper.close();
         reader.close();
+        
+        // Guardar el PDF corregido
+        Files.write(Paths.get("temp/Temp.pdf"), pdfOut.toByteArray());
 
-        Files.write(Paths.get("temp/Temp.pdf"), baos.toByteArray());
+        byte[] bytesPdf = Files.readAllBytes(Paths.get("temp/Temp.pdf"));
+
+        Mensaje msg = new Mensaje();
+        msg.setTipo("COMPRADOR_OFRECE_COMPRA");
+        msg.addParam(String.valueOf(bytesPdf.length));
+        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
+        msg.addParam(String.valueOf(anuncio.getIdAnuncio()));
+        msg.addParam(String.valueOf(anuncio.getVendedor().getIdUsuario()));
+
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
+
+        this.dos.write(bytesPdf);
+        this.dos.flush();
+
+        File pdf = new File("temp/Temp.pdf");
+        pdf.delete();
+
+        Alert infoAlert = new Alert(AlertType.INFORMATION);
+        infoAlert.setTitle("Oferta enviada");
+        infoAlert.setHeaderText(null);
+        infoAlert.setContentText("La oferta ha sido enviada al vendedor, cuando acepte la oferta le llegará una notificación");
+        infoAlert.showAndWait();
+
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_Home controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
     }
 
     @FXML
