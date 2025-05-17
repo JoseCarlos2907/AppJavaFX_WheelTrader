@@ -10,7 +10,7 @@ public class LanzarVentanaCliente extends Application {
     @Override
     public void start(Stage primStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("/view/FXML_InicioSesion.fxml"));
-        // Parent root = FXMLLoader.load(getClass().getResource("/view/FXML_DetalleAnuncio.fxml"));
+        // Parent root = FXMLLoader.load(getClass().getResource("/view/FXML_CompraVendedor.fxml"));
         primStage.setTitle("Wheel Trader");
 
         Scene scene = new Scene(root);

@@ -21,6 +21,7 @@ import javafx.stage.Stage;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroBarraBusqueda;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroNotificaciones;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
@@ -32,6 +33,7 @@ public class Controller_Home implements IApp, Initializable {
     private Lector_App hiloLector;
 
     private FiltroBarraBusqueda filtro;
+    private FiltroNotificaciones filtroNotis;
 
     @FXML
     private Button Btn_Buscar;
@@ -47,19 +49,7 @@ public class Controller_Home implements IApp, Initializable {
 
     @FXML
     private Button Btn_PublicarAnuncio;
-
-    @FXML
-    private ImageView ImgView_Coche1;
-
-    @FXML
-    private ImageView ImgView_Coche2;
-
-    @FXML
-    private Label Label_Coche1;
-
-    @FXML
-    private Label Label_Coche2;
-
+    
     @FXML
     private TextField TxtF_BarraBusqueda;
 
@@ -162,8 +152,38 @@ public class Controller_Home implements IApp, Initializable {
     }
 
     @FXML
-    void handleBtnNotificacionAction(MouseEvent event) {
-        
+    void handleBtnNotificacionesAction(MouseEvent event) throws IOException {
+        this.filtroNotis = new FiltroNotificaciones();
+        this.filtroNotis.setIdUsuario(Session.getUsuario().getIdUsuario());
+
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_NOTIFICACIONES");
+
+        ObjectMapper mapper = new ObjectMapper();
+        String filtroJSON = mapper.writeValueAsString(this.filtroNotis);
+
+        msg.addParam(filtroJSON);
+        msg.addParam("si");
+
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
+    }
+
+    public void irListaNotificaciones(String notisJSON) throws IOException{
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Notificaciones.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_Notificaciones controller = loader.getController();
+        controller.setFiltro(filtroNotis);
+        controller.setHiloLector(hiloLector);
+        controller.aniadirNotificaciones(notisJSON);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_ConfCuenta.getScene().getWindow();
+        stage2.close();
     }
 
     @FXML

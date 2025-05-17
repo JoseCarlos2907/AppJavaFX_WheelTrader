@@ -1,16 +1,11 @@
 .titulo{
     -fx-text-fill: #84aedd;
-    -fx-font-size: 40px;
-}
-
-.asunto{
-    -fx-text-fill: white;
-    -fx-font-size: 26px;
+    -fx-font-size: 28px;
 }
 
 .mensaje{
     -fx-text-fill: white;
-    -fx-font-size: 18px;
+    -fx-font-size: 14px;
 }
 
 .seleccionada{

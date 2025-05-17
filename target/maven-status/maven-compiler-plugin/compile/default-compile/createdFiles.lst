@@ -1,3 +1,4 @@
+com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroNotificaciones.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_HomeModerador.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisAnuncios.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_CompraVendedor.class
@@ -63,6 +64,7 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_DetalleAnuncio.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro2.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroTodo.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_InicioSesion.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificaciones$1.class
 com/iesfernandoaguilar/perezgonzalez/app/LanzarVentanaCliente.class
 com/iesfernandoaguilar/perezgonzalez/threads/Lector_App.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro1.class

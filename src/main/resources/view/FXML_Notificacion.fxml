@@ -1,20 +1,47 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.net.URL?>
 <?import javafx.scene.Cursor?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
+<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.text.Font?>
 
-<Pane fx:id="Pane_Notificacion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onMouseClicked="#handlePaneNotificacionAction" prefHeight="142.0" prefWidth="371.0" styleClass="fondoTransparente" stylesheets="@../styles/Notificaciones.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Notificacion">
+<Pane fx:id="Pane_Notificacion" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="249.0" prefWidth="736.0" styleClass="fondoTransparente" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Notificacion">
    <children>
-      <Rectangle fx:id="Rectangle_Fondo" arcHeight="50.0" arcWidth="50.0" fill="#282828" height="138.0" layoutX="1.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="368.0" />
+      <Rectangle fx:id="Rectangle_Fondo" arcHeight="50.0" arcWidth="50.0" fill="#282828" height="246.0" layoutX="1.0" layoutY="1.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="733.0" />
       <ImageView fx:id="ImgView_Icono" fitHeight="97.0" fitWidth="107.0" layoutX="20.0" layoutY="23.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="Lbl_Titulo" layoutX="137.0" layoutY="27.0" text="Titulo" textFill="#84aedd" />
-      <Label fx:id="Lbl_Usuario" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="234.0" layoutY="112.0" text="De JoseCarlos2907" textAlignment="RIGHT" textFill="WHITE" />
-      <ImageView fx:id="ImgView_Icono2" fitHeight="24.0" fitWidth="28.0" layoutX="326.0" layoutY="13.0" pickOnBounds="true" preserveRatio="true" />
+      <Label fx:id="Lbl_Titulo" alignment="TOP_LEFT" layoutX="139.0" layoutY="23.0" prefHeight="47.0" prefWidth="533.0" styleClass="titulo" text="Titulo" textFill="#84aedd">
+         <font>
+            <Font size="28.0" />
+         </font></Label>
+      <Label fx:id="Lbl_Mensaje" alignment="TOP_LEFT" contentDisplay="TOP" layoutX="139.0" layoutY="72.0" prefHeight="97.0" prefWidth="533.0" styleClass="mensaje" text="De JoseCarlos2907" textFill="WHITE" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font></Label>
+      <ImageView fx:id="ImgView_Icono2" fitHeight="47.0" fitWidth="49.0" layoutX="673.0" layoutY="11.0" onMouseClicked="#handleIcono2Action" pickOnBounds="true" preserveRatio="true">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor></ImageView>
+      <Button fx:id="Btn_VerOferta" layoutX="474.0" layoutY="182.0" mnemonicParsing="false" onMouseClicked="#handleBtnVerOfertaAction" prefHeight="53.0" prefWidth="199.0" styleClass="botonAzul" text="Ver Oferta">
+         <effect>
+            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
+               <color>
+                  <Color opacity="0.4000000059604645" />
+               </color>
+            </DropShadow>
+         </effect>
+      </Button>
    </children>
    <cursor>
-      <Cursor fx:constant="HAND" />
+      <Cursor fx:constant="DEFAULT" />
    </cursor>
+   <stylesheets>
+      <URL value="@../styles/Notificaciones.css" />
+      <URL value="@../styles/EstiloGeneral.css" />
+   </stylesheets>
 </Pane>

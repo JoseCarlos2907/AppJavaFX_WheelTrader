@@ -18,6 +18,8 @@ public class Notificacion {
 
     private Usuario usuarioRecibe;
 
+    private Anuncio anuncio;
+
 
     // *-- Constructores --* //
     public Notificacion() {}
@@ -86,6 +88,13 @@ public class Notificacion {
         this.usuarioRecibe = usuarioRecibe;
     }
 
+    public Anuncio getAnuncio() {
+        return anuncio;
+    }
+
+    public void setAnuncio(Anuncio anuncio) {
+        this.anuncio = anuncio;
+    }
 
     // *-- Métodos --* //
     public void parse(Notificacion notificacion) {
@@ -97,5 +106,6 @@ public class Notificacion {
 
         this.usuarioEnvia = null;
         this.usuarioRecibe = null;
+        this.anuncio = null;
     }
 }

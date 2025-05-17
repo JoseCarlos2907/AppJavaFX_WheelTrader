@@ -77,6 +77,18 @@
             </DropShadow>
          </effect>
       </Button>
+      <Button fx:id="Btn_Notificaciones" graphicTextGap="25.0" layoutX="998.0" layoutY="32.0" mnemonicParsing="false" nodeOrientation="LEFT_TO_RIGHT" onMouseClicked="#handleBtnNotificacionesAction" prefHeight="78.0" prefWidth="342.0" styleClass="botonTransparente" text="Notificaciones">
+         <font>
+            <Font size="24.0" />
+         </font>
+         <graphic>
+            <ImageView fitHeight="52.0" fitWidth="57.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../img/IconoCampana.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </Button>
    </children>
    <stylesheets>
       <URL value="@../styles/EstiloGeneral.css" />

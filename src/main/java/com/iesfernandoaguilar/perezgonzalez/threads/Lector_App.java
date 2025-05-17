@@ -14,6 +14,7 @@ import com.iesfernandoaguilar.perezgonzalez.controller.Controller_FormularioRepo
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Home;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_HomeModerador;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Notificaciones;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio2;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Reportes;
@@ -196,6 +197,36 @@ public class Lector_App extends Thread{
                         Platform.runLater(() ->{
                             try {
                                 ((Controller_DetalleAnuncio) this.controller).irCompraComprador(bytesDocumento);
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
+
+                    case "ENVIA_NOTIFICACIONES":
+                        // System.out.println("ENVIA_NOTIFICACIONES");
+                        String notificacionesJSON = msgServidor.getParams().get(0);
+                        Platform.runLater(() -> {
+                            try {
+                            if("si".equals(msgServidor.getParams().get(1))){
+                                    ((Controller_Home) this.controller).irListaNotificaciones(notificacionesJSON);
+                                }else if("no".equals(msgServidor.getParams().get(1))){
+                                    ((Controller_Notificaciones) this.controller).aniadirNotificaciones(notificacionesJSON);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
+
+                    case "ENVIA_PDF_ACUERDO_VENDEDOR":
+                        int longitudDocumentoVendedor = Integer.valueOf(msgServidor.getParams().get(0));
+                        byte[] bytesDocumentoVendedor = new byte[longitudDocumentoVendedor];
+                        dis.readFully(bytesDocumentoVendedor);
+
+                        Platform.runLater(() ->{
+                            try {
+                                ((Controller_Notificaciones) this.controller).irCompraVendedor(bytesDocumentoVendedor);
                             } catch (IOException e) {
                                 e.printStackTrace();
                             }

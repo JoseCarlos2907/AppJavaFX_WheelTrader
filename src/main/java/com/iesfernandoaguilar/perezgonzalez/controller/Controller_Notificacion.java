@@ -1,8 +1,12 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
+import java.io.IOException;
+
 import com.iesfernandoaguilar.perezgonzalez.model.Notificacion;
+import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -10,7 +14,11 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
-public class Controller_Notificacion {
+public class Controller_Notificacion{
+
+    @FXML
+    private Button Btn_VerOferta;
+
     @FXML
     private ImageView ImgView_Icono;
 
@@ -21,7 +29,7 @@ public class Controller_Notificacion {
     private Label Lbl_Titulo;
 
     @FXML
-    private Label Lbl_Usuario;
+    private Label Lbl_Mensaje;
 
     @FXML
     private Pane Pane_Notificacion;
@@ -33,48 +41,55 @@ public class Controller_Notificacion {
     private Notificacion notificacion;
 
     @FXML
-    void handlePaneNotificacionAction(MouseEvent event) {
-        this.controller.setDatosNotificacionActiva(Pane_Notificacion, notificacion);
+    void handleBtnVerOfertaAction(MouseEvent event) {
+        this.controller.abrirCompraVendedor(notificacion);
+    }
+
+    @FXML
+    void handleIcono2Action(MouseEvent event) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("CAMBIAR_ESTADO_NOTIFICACION");
+        msg.addParam(String.valueOf(notificacion.getIdNotificacion()));
+        if("NO_LEIDO".equals(notificacion.getEstado())){
+            this.ImgView_Icono2.setImage(new Image(getClass().getResourceAsStream("/img/IconoLeido.png")));
+            notificacion.setEstado("LEIDO");
+            msg.addParam("LEIDO");
+        }else if("LEIDO".equals(notificacion.getEstado())){
+            this.ImgView_Icono2.setImage(new Image(getClass().getResourceAsStream("/img/IconoNoLeido.png")));
+            notificacion.setEstado("NO_LEIDO");
+            msg.addParam("NO_LEIDO");
+        }
+
+        if(!"RESPONDIDO".equals(notificacion.getEstado())){
+            this.controller.cambiarEstadoNotificacion(msg);
+        }
     }
 
     public void setIconoPrincipal(String tipo){
         switch (tipo) {
-            case "INFORMACION":
+            case "OFERTA_ANUNCIO":
                 this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
                 break;
-            case "INCIDENCIA":
-                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoIncidencia.png")));
+            case "OFERTA_ACEPTADA":
+                this.Btn_VerOferta.setDisable(true);
+                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
                 break;
-            case "RESPUESTA_INCIDENCIA":
-                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoRespuestaIncidencia.png")));
-                break;
-            case "VALORACION":
-                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoVaoracion.png")));
-                break;
-            case "CONCRETAR_REUNION":
-                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoConcretarReunion.png")));
-                break;
-            case "REUNION_RECHAZADA":
-                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoRespuestaRechazada.png")));                
-                break;
-            case "REUNION_CONCRETADA":
-                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoRespuestaConcretada.png")));
-                break;
-            case "CUESTIONARIO_REUNION":
-                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoCuestionarioReunion.png")));
+            default:
+                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
                 break;
         }
     }
 
-    public void setIconoLeido(String estaLeido){
-        switch (estaLeido) {
-            case "LEIDO":
-                this.ImgView_Icono2.setImage(new Image(getClass().getResourceAsStream("/img/IconoNoLeido.png")));
-                break;
-
-            case "NO-LEIDO":
+    public void setEstado(String estado){
+        switch (estado) {
             case "RESPONDIDO":
+                this.Btn_VerOferta.setDisable(true);
+            case "LEIDO":
                 this.ImgView_Icono2.setImage(new Image(getClass().getResourceAsStream("/img/IconoLeido.png")));
+                break;
+            
+            case "NO_LEIDO":
+                this.ImgView_Icono2.setImage(new Image(getClass().getResourceAsStream("/img/IconoNoLeido.png")));
                 break;
         }
     }
@@ -87,8 +102,8 @@ public class Controller_Notificacion {
         this.Lbl_Titulo.setText(titulo);
     }
 
-    public void setUsuario(String usuario){
-        this.Lbl_Usuario.setText("De " + usuario);
+    public void setMensaje(String mensaje){
+        this.Lbl_Mensaje.setText(mensaje);
     }
 
     public void setController(Controller_Notificaciones controller){
@@ -97,15 +112,5 @@ public class Controller_Notificacion {
 
     public Pane getPane(){
         return this.Pane_Notificacion;
-    }
-
-    public void setSeleccionada(boolean seleccionada){
-        if (seleccionada) {
-            this.Rectangle_Fondo.getStyleClass().clear();
-            this.Rectangle_Fondo.getStyleClass().setAll("seleccionada");
-        }else{
-            this.Rectangle_Fondo.getStyleClass().clear();
-            this.Rectangle_Fondo.getStyleClass().setAll("noSeleccionada");
-        }
     }
 }

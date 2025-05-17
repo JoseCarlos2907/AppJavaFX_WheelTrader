@@ -26,6 +26,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -122,18 +124,29 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
 
     @FXML
     void handleBtnComprarAction(MouseEvent event) {
-        Mensaje msg = new Mensaje();
+        if(anuncio.getVendedor().getIdUsuario() == Session.getUsuario().getIdUsuario()){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Compra incorrecta");
+            alert.setHeaderText(null);
+            alert.setContentText("No puedes comprar un vehículo que has publicado tu.");
+            alert.getDialogPane().getStylesheets()
+                    .add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+            alert.getDialogPane().getStyleClass().add("alert-error");
+            alert.showAndWait();
+        }else{
+            Mensaje msg = new Mensaje();
+        
+            msg.setTipo("OBTENER_PDF_ACUERDO");
+            msg.addParam(Session.getUsuario().getIdUsuario().toString());
+            msg.addParam(String.valueOf(this.anuncio.getIdAnuncio()));
+            msg.addParam(anuncio.getTipoVehiculo());
     
-        msg.setTipo("OBTENER_PDF_ACUERDO");
-        msg.addParam(Session.getUsuario().getIdUsuario().toString());
-        msg.addParam(String.valueOf(this.anuncio.getIdAnuncio()));
-        msg.addParam(anuncio.getTipoVehiculo());
-
-        try {
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
+            try {
+                this.dos.writeUTF(Serializador.codificarMensaje(msg));
+                this.dos.flush();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
