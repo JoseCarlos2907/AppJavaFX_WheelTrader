@@ -22,6 +22,7 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_Anuncio.class
 com/iesfernandoaguilar/perezgonzalez/model/Notificacion.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisValoraciones.class
 com/iesfernandoaguilar/perezgonzalez/interfaces/IListaAnuncios.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_PagoPayPal$1.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ConfUsuario.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroMoto.class
 com/iesfernandoaguilar/perezgonzalez/model/ValorCaracteristica.class

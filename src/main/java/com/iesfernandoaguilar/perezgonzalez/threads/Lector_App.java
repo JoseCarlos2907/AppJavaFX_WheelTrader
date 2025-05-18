@@ -15,6 +15,7 @@ import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Home;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_HomeModerador;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Notificaciones;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PagoPayPal;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio2;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Reportes;
@@ -53,7 +54,7 @@ public class Lector_App extends Thread{
             while (!this.cierraSesion) {
                 
                 linea = dis.readUTF();
-                // System.out.println(linea);
+                System.out.println(linea);
                 Mensaje msgServidor = Serializador.decodificarMensaje(linea);
 
                 switch (msgServidor.getTipo()) {
@@ -234,16 +235,27 @@ public class Lector_App extends Thread{
                         break;
 
                     case "ENVIA_URL_PAGO":
-                    Platform.runLater(() ->{
-                        try {
-                            ((Controller_Notificaciones) this.controller).irPagoPayPal(msgServidor.getParams().get(0));
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                    });
+                        Platform.runLater(() ->{
+                            try {
+                                ((Controller_Notificaciones) this.controller).irPagoPayPal(msgServidor.getParams().get(0));
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
                         break;
 
-                    case "":
+                    case "ENVIA_ESTADO_PAGO":
+                        Platform.runLater(() -> {
+                            try {
+                                if("si".equals(msgServidor.getParams().get(0))){
+                                    ((Controller_PagoPayPal) this.controller).irHome();
+                                }else if("error".equals(msgServidor.getParams().get(0))){
+                                    ((Controller_PagoPayPal) this.controller).error();
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
                         break;
 
                     default:

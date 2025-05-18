@@ -225,7 +225,7 @@ public class Controller_Notificaciones implements IApp, Initializable {
         stage.show();
 
         Controller_PagoPayPal controller = loader.getController();
-        controller.setIdVendedor(this.notificacionSeleccionada.getUsuarioEnvia().getIdUsuario());
+        controller.setNotificacion(notificacionSeleccionada);
         controller.setUrl(url);
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
