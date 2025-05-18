@@ -195,6 +195,45 @@ public class Controller_Notificaciones implements IApp, Initializable {
         stage2.close();
     }
 
+    public void abrirPagoPayPal(Notificacion notificacion){
+        this.notificacionSeleccionada = notificacion;
+
+        Mensaje msg = new Mensaje();
+        
+        msg.setTipo("USUARIO_PAGA");
+        msg.addParam(Session.getUsuario().getIdUsuario().toString());
+        msg.addParam(String.valueOf(notificacion.getUsuarioEnvia().getIdUsuario()));
+
+        double precio = notificacion.getAnuncio().getPrecio() + ((notificacion.getAnuncio().getPrecio()*5)/100);
+        msg.addParam(String.valueOf(precio));
+
+        try {
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void irPagoPayPal(String url) throws IOException{
+        Stage stage = new Stage();
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PagoPayPal.fxml"));
+
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_PagoPayPal controller = loader.getController();
+        controller.setIdVendedor(this.notificacionSeleccionada.getUsuarioEnvia().getIdUsuario());
+        controller.setUrl(url);
+        controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
+    }
+
     public void cambiarEstadoNotificacion(Mensaje msg) throws IOException{
         this.dos.writeUTF(Serializador.codificarMensaje(msg));
         this.dos.flush();

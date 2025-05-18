@@ -42,7 +42,11 @@ public class Controller_Notificacion{
 
     @FXML
     void handleBtnVerOfertaAction(MouseEvent event) {
-        this.controller.abrirCompraVendedor(notificacion);
+        if("Pagar".equals(this.Btn_VerOferta.getText())){
+            this.controller.abrirPagoPayPal(notificacion);
+        }else{
+            this.controller.abrirCompraVendedor(notificacion);
+        }
     }
 
     @FXML
@@ -71,7 +75,7 @@ public class Controller_Notificacion{
                 this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
                 break;
             case "OFERTA_ACEPTADA":
-                this.Btn_VerOferta.setDisable(true);
+                this.Btn_VerOferta.setText("Pagar");
                 this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
                 break;
             default:

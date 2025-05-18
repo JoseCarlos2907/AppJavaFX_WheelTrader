@@ -78,5 +78,6 @@ com/iesfernandoaguilar/perezgonzalez/model/Revision.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCamion.class
 com/iesfernandoaguilar/perezgonzalez/threads/Lector_InicioSesion.class
 com/iesfernandoaguilar/perezgonzalez/controller/recuperarContrasenia/Controller_RecuperarContrasenia1.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_PagoPayPal.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroUsuariosConReportes.class
 com/iesfernandoaguilar/perezgonzalez/model/Cuestionario.class

@@ -233,6 +233,16 @@ public class Lector_App extends Thread{
                         });
                         break;
 
+                    case "ENVIA_URL_PAGO":
+                    Platform.runLater(() ->{
+                        try {
+                            ((Controller_Notificaciones) this.controller).irPagoPayPal(msgServidor.getParams().get(0));
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    });
+                        break;
+
                     case "":
                         break;
 
