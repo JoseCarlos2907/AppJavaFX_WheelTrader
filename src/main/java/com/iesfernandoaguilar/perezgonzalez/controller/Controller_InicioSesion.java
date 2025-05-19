@@ -162,6 +162,17 @@ public class Controller_InicioSesion implements ILogin, Initializable {
         alert.showAndWait();
     }
 
+    public void usuarioBaneado() {
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Usuario baneado");
+        alert.setHeaderText(null);
+        alert.setContentText("El usuario con el que intenta iniciar sesión ha sido baneado, si cree que se le ha baneado por error contacte con el correo wheeltraderapp@gmail.com");
+        alert.getDialogPane().getStylesheets()
+                .add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+        alert.getDialogPane().getStyleClass().add("alert-error");
+        alert.showAndWait();
+    }
+
     public void siguientePaso() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent nuevaVista = loader.load();

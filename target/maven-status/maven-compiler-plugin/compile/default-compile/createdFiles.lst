@@ -40,12 +40,11 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_Home.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_HomeModerador$1.class
 com/iesfernandoaguilar/perezgonzalez/interfaces/IApp.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCamioneta.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_PerfilUsuario$1.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisGuardados$1.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_PublicarAnuncio.class
-com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroPublicados.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Usuario.class
 com/iesfernandoaguilar/perezgonzalez/util/Serializador.class
-com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroGuardados.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ListaAnuncios$1.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroCoche.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroMaquinaria.class
@@ -66,6 +65,7 @@ com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro2.cl
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroTodo.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_InicioSesion.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Notificaciones$1.class
+com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroPorNombreUsuario.class
 com/iesfernandoaguilar/perezgonzalez/app/LanzarVentanaCliente.class
 com/iesfernandoaguilar/perezgonzalez/threads/Lector_App.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro1.class

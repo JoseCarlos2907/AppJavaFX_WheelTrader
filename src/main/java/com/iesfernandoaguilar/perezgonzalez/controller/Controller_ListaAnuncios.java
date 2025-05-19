@@ -18,6 +18,7 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
@@ -45,8 +46,10 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
 
     private List<Anuncio> anuncios;
     private IFiltro filtro;
+    private FiltroPorNombreUsuario filtroNU;
     private Anuncio anuncioSeleccionado;
     private boolean cargando;
+    private Usuario usuarioSeleccionado;
 
     @FXML
     private Button Btn_Volver;
@@ -105,6 +108,31 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
     }
 
     public void abrirPerfilUsuario(Usuario usuario) throws IOException{
+        this.usuarioSeleccionado = usuario;
+
+        Mensaje msg = new Mensaje();
+
+        this.filtroNU = new FiltroPorNombreUsuario(this.usuarioSeleccionado.getNombreUsuario(), 0, 10);
+        this.filtroNU.setTipoFiltro("PerfilUsuario");
+
+        ObjectMapper mapper = new ObjectMapper();
+        String filtroJSON = mapper.writeValueAsString(this.filtroNU);
+    
+        msg.setTipo("OBTENER_ANUNCIOS");
+        msg.addParam(filtroJSON);
+        msg.addParam(this.filtroNU.getTipoFiltro());
+        msg.addParam( "si");
+        msg.addParam(Session.getUsuario().getIdUsuario().toString());
+
+        try {
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void irPerfilUsuario(String anunciosJSON, List<byte[]> imagenes) throws IOException{
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PerfilUsuario.fxml"));
         Parent parent = loader.load();
@@ -112,10 +140,12 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
         stage.show();
 
         Controller_PerfilUsuario controller = loader.getController();
-        controller.setUsuario(usuario);
+        controller.setUsuario(this.usuarioSeleccionado);
         controller.setHiloLector(hiloLector);
+        controller.setFiltro(this.filtroNU);
+        controller.aniadirAnuncios(anunciosJSON, imagenes);
         this.hiloLector.setController(controller);
-
+        
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
         stage2.close();
     }

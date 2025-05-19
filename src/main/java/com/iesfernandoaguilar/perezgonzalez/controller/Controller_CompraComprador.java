@@ -188,7 +188,7 @@ public class Controller_CompraComprador implements IApp, Initializable{
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Confirmación de oferta");
         alert.setHeaderText("¿Seguro que desea proceder con la compra de este vehículo?");
-        alert.setContentText("Una vez hecha la oferta, el dinero se le descontará automáticamente de su cuenta de PayPal una vez el vendedor acepte la oferta.");
+        alert.setContentText("Una vez hecha la oferta, si el vendedor acepta la oferta le llegará una notificación para proceder con el pago a través de su cuenta de PayPal.");
 
         Optional<ButtonType> res = alert.showAndWait();
 
@@ -242,7 +242,7 @@ public class Controller_CompraComprador implements IApp, Initializable{
         Alert infoAlert = new Alert(AlertType.INFORMATION);
         infoAlert.setTitle("Oferta enviada");
         infoAlert.setHeaderText(null);
-        infoAlert.setContentText("La oferta ha sido enviada al vendedor, cuando acepte la oferta le llegará una notificación");
+        infoAlert.setContentText("La oferta ha sido enviada al vendedor, cuando acepte la oferta le llegará una notificación para proceder con el pago");
         infoAlert.showAndWait();
 
         Stage stage = new Stage();

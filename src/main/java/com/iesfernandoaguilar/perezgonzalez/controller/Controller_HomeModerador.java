@@ -18,7 +18,6 @@ import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.model.Auxiliares.UsuarioReportadosModDTO;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroBarraBusqueda;
-import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroTodo;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroUsuariosConReportes;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;

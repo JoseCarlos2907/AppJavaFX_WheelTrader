@@ -16,7 +16,7 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
-import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroGuardados;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
@@ -40,7 +40,7 @@ public class Controller_MisGuardados implements IApp, Initializable, IListaAnunc
     private DataOutputStream dos;
     
     private List<Anuncio> anuncios;
-    private FiltroGuardados filtro;
+    private FiltroPorNombreUsuario filtro;
     private Anuncio anuncioSeleccionado;
     private boolean cargando;
 
@@ -187,7 +187,7 @@ public class Controller_MisGuardados implements IApp, Initializable, IListaAnunc
         this.hiloLector = hiloLector;
     }
 
-    public void setFiltro(FiltroGuardados filtro){
+    public void setFiltro(FiltroPorNombreUsuario filtro){
         this.filtro = filtro;
     }
 

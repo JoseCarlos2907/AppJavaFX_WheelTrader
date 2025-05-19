@@ -78,6 +78,11 @@ public class Controller_Notificacion{
                 this.Btn_VerOferta.setText("Pagar");
                 this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
                 break;
+            case "OFERTA_RECHAZADA":
+                this.Btn_VerOferta.setDisable(true);
+                this.Btn_VerOferta.setVisible(false);
+                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
+                break;
             default:
                 this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
                 break;

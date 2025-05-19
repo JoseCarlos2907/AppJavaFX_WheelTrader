@@ -9,8 +9,7 @@ import java.util.ResourceBundle;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
-import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroGuardados;
-import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPublicados;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
@@ -32,8 +31,8 @@ public class Controller_ConfUsuario implements IApp, Initializable{
 
     private DataOutputStream dos;
 
-    private FiltroGuardados filtroGuardados;
-    private FiltroPublicados filtroPublicados;
+    private FiltroPorNombreUsuario filtroGuardados;
+    private FiltroPorNombreUsuario filtroPublicados;
 
     @FXML
     private Button Btn_CambiarContrasenia;
@@ -131,7 +130,8 @@ public class Controller_ConfUsuario implements IApp, Initializable{
 
     @FXML
     void handleBtnMisAnunciosAction(MouseEvent event) throws IOException {
-        filtroPublicados = new FiltroPublicados(Session.getUsuario().getNombreUsuario(), 0, 10);
+        filtroPublicados = new FiltroPorNombreUsuario(Session.getUsuario().getNombreUsuario(), 0, 10);
+        filtroPublicados.setTipoFiltro("Publicados");
 
         Mensaje msg = new Mensaje();
 
@@ -155,7 +155,7 @@ public class Controller_ConfUsuario implements IApp, Initializable{
 
     @FXML
     void handleBtnMisGuardadosAction(MouseEvent event) throws IOException {
-        filtroGuardados = new FiltroGuardados(Session.getUsuario().getNombreUsuario(), 0, 10);
+        filtroGuardados = new FiltroPorNombreUsuario(Session.getUsuario().getNombreUsuario(), 0, 10);
 
         Mensaje msg = new Mensaje();
 

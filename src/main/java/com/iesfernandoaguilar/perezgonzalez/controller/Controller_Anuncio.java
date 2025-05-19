@@ -71,6 +71,9 @@ public class Controller_Anuncio implements Initializable{
 
     @FXML
     void handleLblUsuarioAction(MouseEvent event) throws IOException {
+        // Ya que tengo onClick en este label y debajo esta el rectangulo, este método me frena el evento de ratón para que no 
+        // se ejecute el onClick del elemento por debajo a este
+        event.consume();
         this.controller.abrirPerfilUsuario(this.anuncio.getVendedor());
     }
 

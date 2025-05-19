@@ -249,8 +249,47 @@ public class Controller_CompraVendedor implements IApp, Initializable {
     }
 
     @FXML
-    void handleBtnRechazarAcuerdoAction(MouseEvent event) {
+    void handleBtnRechazarAcuerdoAction(MouseEvent event) throws IOException {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Confirmación de rechazo");
+        alert.setHeaderText("¿Seguro que desea rechazar el proceso de venta de este vehículo?");
+        alert.setContentText("Una vez rechace la oferta se le notificará al usuario interesado de que la ha rechazado.");
 
+        Optional<ButtonType> res = alert.showAndWait();
+
+        if(!res.isPresent() || res.isPresent() && res.get() != ButtonType.OK) return;
+
+        Mensaje msg = new Mensaje();
+        msg.setTipo("VENDEDOR_RECHAZA_COMPRA");
+        msg.addParam(String.valueOf(notificacion.getUsuarioEnvia().getIdUsuario()));
+        msg.addParam(String.valueOf(notificacion.getAnuncio().getIdAnuncio()));
+        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
+        msg.addParam(String.valueOf(notificacion.getIdNotificacion()));
+
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
+
+        File pdf = new File("temp/Temp.pdf");
+        pdf.delete();
+
+        Alert infoAlert = new Alert(AlertType.INFORMATION);
+        infoAlert.setTitle("Oferta Rechazada");
+        infoAlert.setHeaderText(null);
+        infoAlert.setContentText("La oferta ha sido rechazada, se procederá a notificar al comprador.");
+        infoAlert.showAndWait();
+
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_Home controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
     }
 
     @FXML

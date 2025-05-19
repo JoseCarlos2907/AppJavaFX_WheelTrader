@@ -61,6 +61,10 @@ public class Lector_InicioSesion extends Thread{
                             Platform.runLater(() -> {
                                 ((Controller_InicioSesion) this.controller).inicioDeSesionIncorrecto();
                             });
+                        }else if("baneado".equals(msgServidor.getParams().get(0))){
+                            Platform.runLater(() -> {
+                                ((Controller_InicioSesion) this.controller).inicioDeSesionIncorrecto();
+                            });
                         }
                         break;
 

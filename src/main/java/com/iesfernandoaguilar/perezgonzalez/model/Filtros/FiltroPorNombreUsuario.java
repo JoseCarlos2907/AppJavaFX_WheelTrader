@@ -2,19 +2,21 @@ package com.iesfernandoaguilar.perezgonzalez.model.Filtros;
 
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IFiltro;
 
-public class FiltroPublicados implements IFiltro{
+public class FiltroPorNombreUsuario implements IFiltro{
     private String nombreUsuario;
     private int pagina;
     private int cantidadPorPagina;
     private String tipoFiltro;
+    
+    public FiltroPorNombreUsuario() {
+        this.tipoFiltro = "Guardado";
+    }
 
-    public FiltroPublicados() {}
-
-    public FiltroPublicados(String nombreUsuario, int pagina, int cantidadPorPagina) {
+    public FiltroPorNombreUsuario(String nombreUsuario, int pagina, int cantidadPorPagina) {
         this.nombreUsuario = nombreUsuario;
         this.pagina = pagina;
         this.cantidadPorPagina = cantidadPorPagina;
-        this.tipoFiltro = "Publicados";
+        this.tipoFiltro = "Guardado";
     }
 
     public String getNombreUsuario() {
@@ -49,9 +51,9 @@ public class FiltroPublicados implements IFiltro{
     public void setTipoFiltro(String tipo){
         this.tipoFiltro = tipo;
     }
-    
+
     @Override
     public String getTipoFiltro() {
-        return tipoFiltro;
+        return this.tipoFiltro;
     }
 }

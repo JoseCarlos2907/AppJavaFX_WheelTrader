@@ -16,6 +16,7 @@ import com.iesfernandoaguilar.perezgonzalez.controller.Controller_HomeModerador;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Notificaciones;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PagoPayPal;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PerfilUsuario;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnuncio2;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Reportes;
@@ -107,6 +108,10 @@ public class Lector_App extends Thread{
                                         ((Controller_HomeModerador) this.controller).aniadirAnuncios(anunciosJSON, imagenes);
                                     }else if ("BarraBusqueda".equals(msgServidor.getParams().get(0))){
                                         ((Controller_Home) this.controller).irListaAnuncios(anunciosJSON, imagenes);
+                                    }else if("PerfilUsuario".equals(msgServidor.getParams().get(0)) && this.controller instanceof Controller_ListaAnuncios){
+                                        ((Controller_ListaAnuncios) this.controller).irPerfilUsuario(anunciosJSON, imagenes);
+                                    }else if("PerfilUsuario".equals(msgServidor.getParams().get(0)) && this.controller instanceof Controller_PerfilUsuario){
+                                        ((Controller_PerfilUsuario) this.controller).irPerfilUsuario(anunciosJSON, imagenes);
                                     }else{
                                         ((Controller_Filtros) this.controller).irListaAnuncios(anunciosJSON, imagenes);
                                     }
@@ -209,7 +214,7 @@ public class Lector_App extends Thread{
                         String notificacionesJSON = msgServidor.getParams().get(0);
                         Platform.runLater(() -> {
                             try {
-                            if("si".equals(msgServidor.getParams().get(1))){
+                                if("si".equals(msgServidor.getParams().get(1))){
                                     ((Controller_Home) this.controller).irListaNotificaciones(notificacionesJSON);
                                 }else if("no".equals(msgServidor.getParams().get(1))){
                                     ((Controller_Notificaciones) this.controller).aniadirNotificaciones(notificacionesJSON);

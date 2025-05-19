@@ -35,7 +35,7 @@
             <Cursor fx:constant="HAND" />
          </cursor>
       </ImageView>
-      <ScrollPane layoutX="70.0" layoutY="211.0" prefHeight="559.0" prefWidth="1264.0" styleClass="scrollPane">
+      <ScrollPane fx:id="ScrollPane_Anuncios" layoutX="70.0" layoutY="211.0" prefHeight="559.0" prefWidth="1264.0" styleClass="scrollPane">
          <content>
             <VBox fx:id="VBox_Anuncios" prefHeight="586.0" prefWidth="1248.0" />
          </content>
