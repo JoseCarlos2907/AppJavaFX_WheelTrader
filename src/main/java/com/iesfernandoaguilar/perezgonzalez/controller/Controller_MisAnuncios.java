@@ -41,6 +41,7 @@ public class Controller_MisAnuncios implements Initializable, IListaAnuncios{
     private List<Anuncio> anuncios;
     private FiltroPorNombreUsuario filtro;
     private Anuncio anuncioSeleccionado;
+    private Usuario usuarioSeleccionado;
     private boolean cargando;
 
 
@@ -217,6 +218,45 @@ public class Controller_MisAnuncios implements Initializable, IListaAnuncios{
 
     @Override
     public void abrirPerfilUsuario(Usuario usuario) throws IOException {
+        this.usuarioSeleccionado = usuario;
+
+        Mensaje msg = new Mensaje();
+
+        this.filtro = new FiltroPorNombreUsuario(this.usuarioSeleccionado.getNombreUsuario(), 0, 10);
+        this.filtro.setTipoFiltro("PerfilUsuario");
+
+        ObjectMapper mapper = new ObjectMapper();
+        String filtroJSON = mapper.writeValueAsString(this.filtro);
+    
+        msg.setTipo("OBTENER_ANUNCIOS");
+        msg.addParam(filtroJSON);
+        msg.addParam(this.filtro.getTipoFiltro());
+        msg.addParam( "si");
+        msg.addParam(Session.getUsuario().getIdUsuario().toString());
+
+        try {
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void irPerfilUsuario(String anunciosJSON, List<byte[]> imagenes) throws IOException{
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PerfilUsuario.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_PerfilUsuario controller = loader.getController();
+        controller.setUsuario(this.usuarioSeleccionado);
+        controller.setHiloLector(hiloLector);
+        controller.setFiltro(this.filtro);
+        controller.aniadirAnuncios(anunciosJSON, imagenes);
+        this.hiloLector.setController(controller);
         
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
     }
 }

@@ -14,6 +14,8 @@ import com.iesfernandoaguilar.perezgonzalez.controller.Controller_FormularioRepo
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Home;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_HomeModerador;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_MisAnuncios;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_MisGuardados;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Notificaciones;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PagoPayPal;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PerfilUsuario;
@@ -112,6 +114,12 @@ public class Lector_App extends Thread{
                                         ((Controller_ListaAnuncios) this.controller).irPerfilUsuario(anunciosJSON, imagenes);
                                     }else if("PerfilUsuario".equals(msgServidor.getParams().get(0)) && this.controller instanceof Controller_PerfilUsuario){
                                         ((Controller_PerfilUsuario) this.controller).irPerfilUsuario(anunciosJSON, imagenes);
+                                    }else if("PerfilUsuario".equals(msgServidor.getParams().get(0)) && this.controller instanceof Controller_HomeModerador){
+                                        ((Controller_HomeModerador) this.controller).irPerfilUsuario(anunciosJSON, imagenes);
+                                    }else if("PerfilUsuario".equals(msgServidor.getParams().get(0)) && this.controller instanceof Controller_MisGuardados){
+                                        ((Controller_MisGuardados) this.controller).irPerfilUsuario(anunciosJSON, imagenes);
+                                    }else if("PerfilUsuario".equals(msgServidor.getParams().get(0)) && this.controller instanceof Controller_MisAnuncios){
+                                        ((Controller_MisAnuncios) this.controller).irPerfilUsuario(anunciosJSON, imagenes);
                                     }else{
                                         ((Controller_Filtros) this.controller).irListaAnuncios(anunciosJSON, imagenes);
                                     }

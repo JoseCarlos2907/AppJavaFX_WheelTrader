@@ -18,6 +18,7 @@ import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.model.Auxiliares.UsuarioReportadosModDTO;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroBarraBusqueda;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroUsuariosConReportes;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
@@ -42,8 +43,10 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
     private List<UsuarioReportadosModDTO> usuariosReportados;
     private List<Anuncio> anuncios;
     private FiltroUsuariosConReportes filtroUsuRep;
+    private FiltroPorNombreUsuario filtroAnunciosUsuarioSeleccionado;
     private FiltroBarraBusqueda filtroAnuncios;
     private Anuncio anuncioSeleccionado;
+    private Usuario usuarioSeleccionado;
     private boolean cargandoUsuarios;
     private boolean cargandoAnuncios;
 
@@ -307,7 +310,53 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
 
     @Override
     public void abrirPerfilUsuario(Usuario usuario) {
-        // TODO: Abrir perfil usuario
+        this.usuarioSeleccionado = usuario;
+
+        Mensaje msg = new Mensaje();
+
+        this.filtroAnunciosUsuarioSeleccionado = new FiltroPorNombreUsuario(this.usuarioSeleccionado.getNombreUsuario(), 0, 10);
+        this.filtroAnunciosUsuarioSeleccionado.setTipoFiltro("PerfilUsuario");
+
+        ObjectMapper mapper = new ObjectMapper();
+        String filtroJSON = "";
+        try {
+            filtroJSON = mapper.writeValueAsString(this.filtroAnunciosUsuarioSeleccionado);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+    
+        msg.setTipo("OBTENER_ANUNCIOS");
+        msg.addParam(filtroJSON);
+        msg.addParam(this.filtroAnunciosUsuarioSeleccionado.getTipoFiltro());
+        msg.addParam( "si");
+        msg.addParam(Session.getUsuario().getIdUsuario().toString());
+
+        try {
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        this.filtroAnunciosUsuarioSeleccionado.siguientePagina();
+    }
+
+    public void irPerfilUsuario(String anunciosJSON, List<byte[]> imagenes) throws IOException{
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PerfilUsuario.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_PerfilUsuario controller = loader.getController();
+        controller.setUsuario(this.usuarioSeleccionado);
+        controller.setHiloLector(hiloLector);
+        controller.setFiltro(this.filtroAnunciosUsuarioSeleccionado);
+        controller.aniadirAnuncios(anunciosJSON, imagenes);
+        this.hiloLector.setController(controller);
+        
+        Stage stage2 = (Stage) Btn_CerrarSesion.getScene().getWindow();
+        stage2.close();
     }
 
     @Override

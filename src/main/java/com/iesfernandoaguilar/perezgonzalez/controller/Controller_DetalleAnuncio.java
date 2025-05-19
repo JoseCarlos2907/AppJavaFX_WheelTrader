@@ -11,11 +11,15 @@ import java.nio.file.StandardOpenOption;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IFiltro;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
+import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
+import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
@@ -71,8 +75,11 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
     @FXML
     private VBox VBox_Caracteristicas;
 
+    @FXML
+    private Button Btn_CambiarEstadoAnuncio;
+
     private Anuncio anuncio;
-    private String nombreUsuario;
+    private Usuario usuario;
     private List<byte[]> imagenes;
     private int posImagenActual;
     private IFiltro filtro;
@@ -89,6 +96,11 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
             this.dos = new DataOutputStream(Session.getOutputStream());
         } catch (IOException e) {
             e.printStackTrace();
+        }
+
+        if(!"MODERADOR".equals(Session.getUsuario().getRol())){
+            this.Btn_CambiarEstadoAnuncio.setDisable(true);
+            this.Btn_CambiarEstadoAnuncio.setVisible(false);
         }
     }
 
@@ -120,6 +132,30 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
         }
 
         this.cambiarImagen(this.imagenes.get(posImagenActual));
+    }
+
+    @FXML
+    public void handleBtnCEAAction() throws IOException{
+        Mensaje msg = new Mensaje();
+        if("CANCELADO".equals(anuncio.getEstado())){
+            this.Btn_CambiarEstadoAnuncio.setText("Cancelar anuncio");
+            anuncio.setEstado("EN_VENTA");
+            msg.setTipo("CANCELAR_ANUNCIO");
+        }else{
+            this.Btn_CambiarEstadoAnuncio.setText("Reanudar anuncio");
+            anuncio.setEstado("CANCELADO");
+            msg.setTipo("REANUDAR_ANUNCIO");
+        }
+        msg.addParam(String.valueOf(this.anuncio.getIdAnuncio()));
+
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
+
+        Alert alertInfo = new Alert(AlertType.ERROR);
+        alertInfo.setTitle("Estado del anuncio cambiado");
+        alertInfo.setHeaderText(null);
+        alertInfo.setContentText("El estado del anuncio ha sido cambiado correctamente.");
+        alertInfo.showAndWait();
     }
 
     @FXML
@@ -274,9 +310,15 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
         this.Lbl_Precio.setText(anuncio.getPrecio() + "€");
         this.Lbl_Categoria.setText(anuncio.getTipoVehiculo());
         this.Lbl_Descripcion.setText(anuncio.getDescripcion());
-        this.nombreUsuario = anuncio.getVendedor().getNombreUsuario();
-        this.Lbl_Usuario.setText(this.nombreUsuario);
+        this.usuario = anuncio.getVendedor();
+        this.Lbl_Usuario.setText("De " + this.usuario.getNombreUsuario());
         this.Lbl_Categoria.setText(this.anuncio.getTipoVehiculo());
+
+        if("CANCELADO".equals(anuncio.getEstado())){
+            this.Btn_CambiarEstadoAnuncio.setText("Reanudar anuncio");
+        }else{
+            this.Btn_CambiarEstadoAnuncio.setText("Cancelar anuncio");
+        }
     }
 
     public void setFiltro(IFiltro filtro){

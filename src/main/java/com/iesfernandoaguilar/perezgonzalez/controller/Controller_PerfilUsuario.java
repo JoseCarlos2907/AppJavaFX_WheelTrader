@@ -12,11 +12,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
-import com.iesfernandoaguilar.perezgonzalez.model.Valoracion;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
@@ -117,7 +117,7 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
         Mensaje msg = new Mensaje();
     
         msg.setTipo("OBTENER_IMAGENES");
-        msg.addParam(String.valueOf(this.anuncioSeleccionado.getIdAnuncio()));
+        msg.addParam(String.valueOf(anuncio.getIdAnuncio()));
 
         try {
             this.dos.writeUTF(Serializador.codificarMensaje(msg));
@@ -129,10 +129,15 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
 
     @FXML
     void handleBtnMenuAction(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
+        FXMLLoader loader = null;
+        if("MODERADOR".equals(Session.getUsuario().getRol())){
+            loader = new FXMLLoader(getClass().getResource("/view/FXML_HomeModerador.fxml"));
+        }else{
+            loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
+        }
         Parent nuevaVista = loader.load();
-
-        Controller_Home controller = loader.getController();
+        
+        IApp controller = loader.getController();
         controller.setHiloLector(this.hiloLector);
         this.hiloLector.setController(controller);
 
@@ -228,7 +233,17 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     @FXML
     void handleBtnReportarAction(MouseEvent event) throws IOException {
         Mensaje msg = new Mensaje();
-        if("MODERADOR".equals(Session.getUsuario().getRol()) && "ACTIVO".equals(usuario.getEstado())){
+
+        if(this.usuario.getIdUsuario() == Session.getUsuario().getIdUsuario()){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Reporte incorrecto");
+            alert.setHeaderText(null);
+            alert.setContentText("No puedes reportarte a tí mismo.");
+            alert.getDialogPane().getStylesheets()
+                    .add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+            alert.getDialogPane().getStyleClass().add("alert-error");
+            alert.showAndWait();
+        }else if("MODERADOR".equals(Session.getUsuario().getRol()) && "ACTIVO".equals(usuario.getEstado())){
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Banear usuario");
             alert.setHeaderText("¿Seguro que desea banear a este usuario?");
@@ -239,7 +254,7 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
             if(res.isPresent() && res.get() == ButtonType.OK){
                 usuario.setEstado("BANEADO");
 
-                Alert alertInfo = new Alert(AlertType.ERROR);
+                Alert alertInfo = new Alert(AlertType.INFORMATION);
                 alertInfo.setTitle("Usuario baneado");
                 alertInfo.setHeaderText(null);
                 alertInfo.setContentText("El usuario ha sido baneado correctamente.");
@@ -262,7 +277,7 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
             if(res.isPresent() && res.get() == ButtonType.OK){
                 usuario.setEstado("ACTIVO");
 
-                Alert alertInfo = new Alert(AlertType.ERROR);
+                Alert alertInfo = new Alert(AlertType.INFORMATION);
                 alertInfo.setTitle("Usuario desbaneado");
                 alertInfo.setHeaderText(null);
                 alertInfo.setContentText("El usuario ha sido desbaneado correctamente.");

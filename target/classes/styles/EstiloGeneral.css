@@ -51,6 +51,14 @@
     -fx-font-size: 20px;
 }
 
+.botonIncidencia{
+    -fx-background-radius: 15;
+    -fx-background-color: #970000;
+    -fx-font-size: 22px;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+}
+
 .alert-error{
     background-color: #d26666;
     -fx-background-color: #d26666;

@@ -9,14 +9,14 @@ public class FiltroPorNombreUsuario implements IFiltro{
     private String tipoFiltro;
     
     public FiltroPorNombreUsuario() {
-        this.tipoFiltro = "Guardado";
+        this.tipoFiltro = "Guardados";
     }
 
     public FiltroPorNombreUsuario(String nombreUsuario, int pagina, int cantidadPorPagina) {
         this.nombreUsuario = nombreUsuario;
         this.pagina = pagina;
         this.cantidadPorPagina = cantidadPorPagina;
-        this.tipoFiltro = "Guardado";
+        this.tipoFiltro = "Guardados";
     }
 
     public String getNombreUsuario() {

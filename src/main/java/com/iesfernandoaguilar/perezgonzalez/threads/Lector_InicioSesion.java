@@ -63,7 +63,7 @@ public class Lector_InicioSesion extends Thread{
                             });
                         }else if("baneado".equals(msgServidor.getParams().get(0))){
                             Platform.runLater(() -> {
-                                ((Controller_InicioSesion) this.controller).inicioDeSesionIncorrecto();
+                                ((Controller_InicioSesion) this.controller).usuarioBaneado();
                             });
                         }
                         break;
