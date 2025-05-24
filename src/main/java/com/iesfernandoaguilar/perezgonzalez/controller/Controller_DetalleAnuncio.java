@@ -151,7 +151,7 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
         this.dos.writeUTF(Serializador.codificarMensaje(msg));
         this.dos.flush();
 
-        Alert alertInfo = new Alert(AlertType.ERROR);
+        Alert alertInfo = new Alert(AlertType.INFORMATION);
         alertInfo.setTitle("Estado del anuncio cambiado");
         alertInfo.setHeaderText(null);
         alertInfo.setContentText("El estado del anuncio ha sido cambiado correctamente.");

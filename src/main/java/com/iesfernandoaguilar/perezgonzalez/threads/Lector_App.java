@@ -3,6 +3,7 @@ package com.iesfernandoaguilar.perezgonzalez.threads;
 import java.io.DataInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -269,6 +270,14 @@ public class Lector_App extends Thread{
                                 e.printStackTrace();
                             }
                         });
+                        break;
+
+                    case "ENVIA_SALT_REINICIO":
+                        ((Controller_ConfUsuario) this.controller).reiniciarContrasenia(Base64.getDecoder().decode(msgServidor.getParams().get(0)));
+                        break;
+
+                    case "CONTRASENIA_REINICIADA":
+                        ((Controller_ConfUsuario) this.controller).contraseniaReiniciada();
                         break;
 
                     default:

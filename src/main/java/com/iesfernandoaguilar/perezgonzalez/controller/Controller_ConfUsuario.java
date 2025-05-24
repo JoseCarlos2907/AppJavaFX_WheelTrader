@@ -3,6 +3,7 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -12,6 +13,7 @@ import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.util.SecureUtils;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
@@ -20,6 +22,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -109,8 +113,62 @@ public class Controller_ConfUsuario implements IApp, Initializable{
     }
 
     @FXML
-    void handleBtnCambiarContraseniaAction(MouseEvent event) {
+    void handleBtnCambiarContraseniaAction(MouseEvent event) throws IOException {
+        if(
+            this.TxtF_Contra.getText().length() < 1 ||
+            this.TxtF_ConfContra.getText().length() < 1
+        ){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Campos incompletos");
+            alert.setHeaderText(null);
+            alert.setContentText("Debe rellenar todos los campos para poder continuar con el registro");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+            alert.getDialogPane().getStyleClass().add("alert-error");
+            alert.showAndWait();
+        }else if(!this.TxtF_Contra.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Formato incorrecto");
+            alert.setHeaderText(null);
+            alert.setContentText("El formato de la contraseña no es el correcto");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+            alert.getDialogPane().getStyleClass().add("alert-error");
+            alert.showAndWait();
+        }else if(!this.TxtF_Contra.getText().equals(this.TxtF_ConfContra.getText())){
+            Alert alert = new Alert(AlertType.ERROR);
+            alert.setTitle("Contraseñas diferentes");
+            alert.setHeaderText(null);
+            alert.setContentText("Las dos contraseñas deben ser exactamente iguales");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+            alert.getDialogPane().getStyleClass().add("alert-error");
+            alert.showAndWait();
+        }else{
+            Mensaje msg = new Mensaje();
+            msg.setTipo("OBTENER_SALT_REINICIO");
+            msg.addParam(Session.getUsuario().getNombreUsuario());
 
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
+        }
+    }
+
+    public void reiniciarContrasenia(byte[] salt) throws IOException{
+        String hash = SecureUtils.generate512(new String(this.TxtF_Contra.getText()), salt);
+
+        Mensaje msg = new Mensaje();
+        msg.setTipo("REINICIAR_CONTRASENIA");
+        msg.addParam(Session.getUsuario().getNombreUsuario());
+        msg.addParam(hash);
+
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
+    }
+
+    public void contraseniaReiniciada(){
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Contraseña reiniciada");
+        alert.setHeaderText(null);
+        alert.setContentText("Se ha cambiado la contraseña correctamente.");
+        alert.showAndWait();
     }
 
     @FXML
@@ -180,11 +238,6 @@ public class Controller_ConfUsuario implements IApp, Initializable{
     @FXML
     void handleBtnMisReunionesAction(MouseEvent event) {
         // TODO: Funcionalidad mis reuniones
-    }
-
-    @FXML
-    void handleBtnMisValoracionesAction(MouseEvent event) {
-        // TODO: Funcionalidad mis valoraciones
     }
 
     @FXML
