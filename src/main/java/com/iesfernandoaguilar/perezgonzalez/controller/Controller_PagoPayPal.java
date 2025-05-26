@@ -115,6 +115,7 @@ public class Controller_PagoPayPal implements IApp, Initializable {
                     msg.setTipo("OBTENER_ESTADO_PAGO");
                     msg.addParam(String.valueOf(notificacion.getIdNotificacion()));
                     msg.addParam(String.valueOf(notificacion.getAnuncio().getPrecio()));
+                    msg.addParam(String.valueOf(notificacion.getAnuncio().getIdAnuncio()));
     
                     try {
                         dos.writeUTF(Serializador.codificarMensaje(msg));

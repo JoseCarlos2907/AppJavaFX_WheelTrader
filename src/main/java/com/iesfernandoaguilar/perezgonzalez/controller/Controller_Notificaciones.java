@@ -203,6 +203,7 @@ public class Controller_Notificaciones implements IApp, Initializable {
         msg.setTipo("USUARIO_PAGA");
         msg.addParam(Session.getUsuario().getIdUsuario().toString());
         msg.addParam(String.valueOf(notificacion.getUsuarioEnvia().getIdUsuario()));
+        msg.addParam(String.valueOf(notificacion.getAnuncio().getIdAnuncio()));
 
         double precio = notificacion.getAnuncio().getPrecio() + ((notificacion.getAnuncio().getPrecio()*5)/100);
         msg.addParam(String.valueOf(precio));

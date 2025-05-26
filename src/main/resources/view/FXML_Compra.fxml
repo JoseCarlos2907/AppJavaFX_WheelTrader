@@ -1,46 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.effect.DropShadow?>
-<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.paint.Color?>
 <?import javafx.scene.shape.Rectangle?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="369.0" prefWidth="1238.0" stylesheets="@../styles/EstiloCompras.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Compra">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="165.0" prefWidth="1225.0" stylesheets="@../styles/EstiloCompras.css" xmlns="http://javafx.com/javafx/23.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.iesfernandoaguilar.perezgonzalez.controller.Controller_Compra">
    <children>
-      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#282828" height="349.0" layoutX="10.0" layoutY="10.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1220.0" />
-      <ImageView fx:id="ImgView_Vehiculo" fitHeight="305.0" fitWidth="399.0" layoutX="40.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true" />
-      <Label fx:id="Lbl_MarcaModelo" layoutX="463.0" layoutY="52.0" prefHeight="54.0" prefWidth="391.0" styleClass="marcaModelo" text="Marca | Modelo" textFill="#84aedd">
+      <Rectangle arcHeight="50.0" arcWidth="50.0" fill="#282828" height="160.0" layoutX="2.0" layoutY="2.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.0" width="1220.0" />
+      <Label fx:id="Lbl_MarcaModelo" layoutX="30.0" layoutY="20.0" prefHeight="121.0" prefWidth="406.0" styleClass="marcaModelo" text="Marca | Modelo" textFill="#84aedd" wrapText="true">
          <font>
             <Font size="44.0" />
          </font></Label>
-      <Label fx:id="Lbl_Usuario" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="800.0" layoutY="291.0" prefHeight="40.0" prefWidth="399.0" styleClass="usuario" text="Comprado a JoseCarlos2907" textAlignment="RIGHT" textFill="#84aedd">
+      <Label fx:id="Lbl_Usuario" alignment="CENTER_RIGHT" contentDisplay="RIGHT" layoutX="803.0" layoutY="20.0" prefHeight="121.0" prefWidth="399.0" styleClass="usuario" text="Comprado a JoseCarlos2907" textAlignment="RIGHT" textFill="#84aedd" wrapText="true">
          <font>
             <Font size="30.0" />
          </font></Label>
-      <Label fx:id="Lbl_Precio" layoutX="463.0" layoutY="106.0" styleClass="precio" text="99.999€" textFill="WHITE">
-         <font>
-            <Font size="34.0" />
-         </font>
-      </Label>
-      <Label fx:id="Lbl_Fecha" alignment="TOP_RIGHT" contentDisplay="RIGHT" layoutX="868.0" layoutY="62.0" prefHeight="61.0" prefWidth="330.0" styleClass="fecha" text="La garantía acaba el 20/04/2029" textAlignment="RIGHT" textFill="WHITE" wrapText="true">
+      <Label fx:id="Lbl_Fecha" alignment="CENTER" contentDisplay="RIGHT" layoutX="447.0" layoutY="20.0" prefHeight="121.0" prefWidth="330.0" styleClass="fecha" text="La garantía acaba el 20/04/2029" textAlignment="CENTER" textFill="WHITE" wrapText="true">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Button fx:id="Btn_Incidencia" layoutX="463.0" layoutY="287.0" mnemonicParsing="false" onMouseClicked="#handleBtnIncidenciaAction" prefHeight="49.0" prefWidth="297.0" styleClass="botonIncidencia" text="Registrar incidencia">
-         <effect>
-            <DropShadow height="5.0" offsetX="5.0" offsetY="5.0" radius="2.0" width="5.0">
-               <color>
-                  <Color opacity="0.4000000059604645" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Button>
    </children>
    <cursor>
       <Cursor fx:constant="DEFAULT" />

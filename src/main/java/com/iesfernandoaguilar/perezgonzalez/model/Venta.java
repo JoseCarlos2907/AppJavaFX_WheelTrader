@@ -7,7 +7,7 @@ public class Venta {
     // *-- Atributos --* //
     private Long idVenta;
 
-    private LocalDateTime fechaFinGarantia;
+    private String fechaFinGarantia;
 
     // *-- Relaciones --* //
     private Anuncio anuncio;
@@ -21,7 +21,7 @@ public class Venta {
     // *-- Constructores --* //
     public Venta() {}
 
-    public Venta(LocalDateTime fechaFinGarantia){
+    public Venta(String fechaFinGarantia){
         this.fechaFinGarantia = fechaFinGarantia;
     }
 
@@ -35,11 +35,11 @@ public class Venta {
         this.idVenta = idVenta;
     }
 
-    public LocalDateTime getFechaFinGarantia() {
+    public String getFechaFinGarantia() {
         return fechaFinGarantia;
     }
 
-    public void setFechaFinGarantia(LocalDateTime fechaFinGarantia) {
+    public void setFechaFinGarantia(String fechaFinGarantia) {
         this.fechaFinGarantia = fechaFinGarantia;
     }
 

@@ -16,6 +16,7 @@ import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Home;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_HomeModerador;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_ListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_MisAnuncios;
+import com.iesfernandoaguilar.perezgonzalez.controller.Controller_MisCompras;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_MisGuardados;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Notificaciones;
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PagoPayPal;
@@ -278,6 +279,24 @@ public class Lector_App extends Thread{
 
                     case "CONTRASENIA_REINICIADA":
                         ((Controller_ConfUsuario) this.controller).contraseniaReiniciada();
+                        break;
+
+                    case "ENVIA_VENTAS":
+                        String ventasJSON = msgServidor.getParams().get(0);
+                        Platform.runLater(() -> {
+                            try {
+                                if("si".equals(msgServidor.getParams().get(1))){
+                                    ((Controller_ConfUsuario) this.controller).irListaCompras(ventasJSON);
+                                }else if("no".equals(msgServidor.getParams().get(1))){
+                                    ((Controller_MisCompras) this.controller).aniadirCompras(ventasJSON);
+                                }
+                            } catch (IOException e) {
+                                e.printStackTrace();
+                            }
+                        });
+                        break;
+
+                    case "ENVIA_PAGOS":
                         break;
 
                     default:

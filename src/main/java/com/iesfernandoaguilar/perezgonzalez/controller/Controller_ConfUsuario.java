@@ -3,7 +3,6 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Base64;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -207,8 +206,36 @@ public class Controller_ConfUsuario implements IApp, Initializable{
     }
 
     @FXML
-    void handleBtnMisComprasAction(MouseEvent event) {
-        // TODO: Funcionalidad mis compras
+    void handleBtnMisComprasAction(MouseEvent event) throws IOException {
+        FiltroPorNombreUsuario filtro = new FiltroPorNombreUsuario(Session.getUsuario().getNombreUsuario(), 0, 10);
+        
+        ObjectMapper mapper = new ObjectMapper();
+        String filtroJSON = mapper.writeValueAsString(filtro);
+
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_VENTAS");
+        msg.addParam(filtroJSON);
+        msg.addParam("si");
+    
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
+    }
+
+    public void irListaCompras(String comprasJSON) throws IOException{
+        Stage stage = new Stage();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_MisCompras.fxml"));
+        Parent parent = loader.load();
+        stage.setScene(new Scene(parent));
+        stage.show();
+
+        Controller_MisCompras controller = loader.getController();
+        controller.setHiloLector(hiloLector);
+        controller.aniadirCompras(comprasJSON);
+        controller.setFiltro(filtroGuardados);
+        this.hiloLector.setController(controller);
+
+        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
+        stage2.close();
     }
 
     @FXML

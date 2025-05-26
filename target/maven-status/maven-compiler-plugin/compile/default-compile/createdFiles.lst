@@ -71,6 +71,7 @@ com/iesfernandoaguilar/perezgonzalez/threads/Lector_App.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro1.class
 com/iesfernandoaguilar/perezgonzalez/model/Imagen.class
 com/iesfernandoaguilar/perezgonzalez/controller/recuperarContrasenia/Controller_RecuperarContrasenia2.class
+com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisCompras$1.class
 com/iesfernandoaguilar/perezgonzalez/util/Session.class
 com/iesfernandoaguilar/perezgonzalez/model/Pago.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Compra.class
