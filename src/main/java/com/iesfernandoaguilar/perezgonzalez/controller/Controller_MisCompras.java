@@ -135,6 +135,7 @@ public class Controller_MisCompras implements IApp, Initializable{
                 Controller_Compra controller = loader.getController();
                 controller.setFecha(compra.getFechaFinGarantia());
                 controller.setUsuario(compra.getAnuncio().getVendedor().getNombreUsuario());
+                controller.setPrecio(compra.getAnuncio().getPrecio());
                 controller.setMarcaModelo(marca, modelo);
 
                 this.VBox_Compras.getChildren().add(componente);
