@@ -172,7 +172,9 @@ public class Controller_ConfUsuario implements IApp, Initializable{
 
     @FXML
     void handleBtnCerrarSesionAction(MouseEvent event) throws IOException {
+        this.hiloLector.cerrarSesion(Session.getUsuario().getIdUsuario());
         Session.setHiloNoCreado();
+        Session.setHiloLoginNoCreado();
         Session.cerrarSession();
 
         Stage stage = new Stage();

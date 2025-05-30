@@ -1,9 +1,11 @@
 package com.iesfernandoaguilar.perezgonzalez.threads;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Base64;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,18 +20,23 @@ import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Regis
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.util.SecureUtils;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 public class Lector_InicioSesion extends Thread{
-    private InputStream flujoInicioSesion;
+    private InputStream flujoInicioSesionEntrada;
+    private OutputStream flujoInicioSesionSalida;
 
     private ILogin controller;
 
     private static String usuarioJSON;
 
-    public Lector_InicioSesion(InputStream flujoInicioSesion) {
-        this.flujoInicioSesion = flujoInicioSesion;
+    private DataOutputStream dos;
+
+    public Lector_InicioSesion(InputStream flujoInicioSesionEntrada, OutputStream flujoInicioSesionSalida) {
+        this.flujoInicioSesionEntrada = flujoInicioSesionEntrada;
+        this.flujoInicioSesionSalida = flujoInicioSesionSalida;
         this.controller = null;
 
         usuarioJSON = "";
@@ -37,7 +44,8 @@ public class Lector_InicioSesion extends Thread{
 
     @Override
     public void run(){
-        DataInputStream dis = new DataInputStream(this.flujoInicioSesion);
+        DataInputStream dis = new DataInputStream(this.flujoInicioSesionEntrada);
+        dos = new DataOutputStream(this.flujoInicioSesionSalida);
         boolean iniciaSesion = false;
         while (!iniciaSesion) {
             
@@ -156,6 +164,8 @@ public class Lector_InicioSesion extends Thread{
                 break;
             } catch (IOException e) {
                 System.err.println(e.getMessage());
+                System.out.println("Peta Login");
+                break;
             }
         }
         
@@ -181,5 +191,22 @@ public class Lector_InicioSesion extends Thread{
 
     public void setController(ILogin controller){
         this.controller = controller;
+    }
+
+    public void obtenerSalt(String nombreUsuario) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_SALT");
+        msg.addParam(nombreUsuario);
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
+    }
+
+    public void iniciarSesion(String correo_NombreUsuario, String contraseniaHash, byte[] salt) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("INICIAR_SESION");
+        msg.addParam(correo_NombreUsuario);
+        msg.addParam(SecureUtils.generate512(contraseniaHash, salt));
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
     }
 }

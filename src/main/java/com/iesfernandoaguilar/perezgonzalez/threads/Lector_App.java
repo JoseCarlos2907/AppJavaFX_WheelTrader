@@ -1,6 +1,7 @@
 package com.iesfernandoaguilar.perezgonzalez.threads;
 
 import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Base64;
@@ -37,16 +38,14 @@ public class Lector_App extends Thread{
 
     private boolean cierraSesion;
 
+    private DataOutputStream dos;
+
     public Lector_App(){
         this.cierraSesion = false;
     }
 
     public void setController(IApp controller){
         this.controller = controller;
-    }
-
-    public void cerrarSesion(){
-        this.cierraSesion = true;
     }
 
     @Override
@@ -56,6 +55,7 @@ public class Lector_App extends Thread{
         String linea = "";
         try {
             DataInputStream dis = new DataInputStream(Session.getInputStream());
+            dos = new DataOutputStream(Session.getOutputStream());
             while (!this.cierraSesion) {
                 
                 linea = dis.readUTF();
@@ -296,7 +296,7 @@ public class Lector_App extends Thread{
                         });
                         break;
 
-                    case "ENVIA_PAGOS":
+                    case "SESION_CERRADA":
                         break;
 
                     default:
@@ -306,6 +306,16 @@ public class Lector_App extends Thread{
             }
         } catch (IOException e) {
             e.printStackTrace();
+            System.out.println("Peta App");
         }
+    }
+
+    public void cerrarSesion(Long idUsuario) throws IOException{
+        this.cierraSesion = true;
+        Mensaje msg = new Mensaje();
+        msg.setTipo("CERRAR_SESION");
+        msg.addParam(idUsuario.toString());
+        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.dos.flush();
     }
 }

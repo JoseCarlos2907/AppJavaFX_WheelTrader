@@ -125,7 +125,7 @@ public class Controller_PagoPayPal implements IApp, Initializable {
                     }
                     
                     try {
-                        Thread.sleep(6000);
+                        Thread.sleep(4000);
                     } catch (InterruptedException e) {
                         Thread.currentThread().interrupt();
                         System.out.println("Interrumpido");

@@ -56,19 +56,34 @@ public class Controller_InicioSesion implements ILogin, Initializable {
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
         try {
-            if (Session.getSocket() == null) {
+            if (!Session.isHiloLoginCreado()) {
                 Properties prop = new Properties();
                 prop.load(new FileInputStream("src/main/resources/conf.properties"));
 
                 int serverPort = Integer.parseInt(prop.getProperty("PORT"));
                 String serverAddr = prop.getProperty("ADDRESS");
 
-                Session.setSocket(new Socket(serverAddr, serverPort));
-                this.hiloLector = new Lector_InicioSesion(Session.getInputStream());
-                this.hiloLector.setController(this);
-                this.hiloLector.start();
+                // Se hace en un hilo secundario porque si intento crear el socket en el principal
+                // el que se queda pillado esperando seria el controller y no se mostraría la interfaz.
+                // En este caso se queda pillado el hilo secundario en caso de que no se pueda conectar 
+                // al arrancar la aplicación
+                Thread hiloAux = new Thread(() -> {
+                    try {
+                        if(Session.getSocket() == null){
+                            Session.setSocket(new Socket(serverAddr, serverPort));
+                        }
+                        
+                        this.hiloLector = new Lector_InicioSesion(Session.getInputStream(), Session.getOutputStream());
+                        this.hiloLector.setController(this);
+                        this.hiloLector.start();
+                        Session.setHiloLoginCreado();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                });
+                hiloAux.start();
+
             }
-            this.dos = new DataOutputStream(Session.getOutputStream());
         } catch (IOException e) {
             System.err.println(e.getMessage());
         }
@@ -77,21 +92,25 @@ public class Controller_InicioSesion implements ILogin, Initializable {
     public void respuestaSalt(byte[] salt) throws IOException {
         String contraseniaStr = new String(TxtF_Contrasenia.getText());
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("INICIAR_SESION");
-        msg.addParam(TxtF_Correo_NomUsu.getText());
-        msg.addParam(SecureUtils.generate512(contraseniaStr, salt));
-        dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.hiloLector.iniciarSesion(TxtF_Correo_NomUsu.getText(), contraseniaStr, salt);
+        // Mensaje msg = new Mensaje();
+        // msg.setTipo("INICIAR_SESION");
+        // msg.addParam(TxtF_Correo_NomUsu.getText());
+        // msg.addParam(SecureUtils.generate512(contraseniaStr, salt));
+        // dos.writeUTF(Serializador.codificarMensaje(msg));
+        System.out.println("Inicia");
     }
 
     @FXML
     void handleBtnIniciarSesionAction(MouseEvent event) throws IOException {
         String nombreUsuario = new String(TxtF_Correo_NomUsu.getText());
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("OBTENER_SALT");
-        msg.addParam(nombreUsuario);
-        dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.hiloLector.obtenerSalt(nombreUsuario);
+        // Mensaje msg = new Mensaje();
+        // msg.setTipo("OBTENER_SALT");
+        // msg.addParam(nombreUsuario);
+        // dos.writeUTF(Serializador.codificarMensaje(msg));
+        System.out.println("God");
     }
 
     @FXML

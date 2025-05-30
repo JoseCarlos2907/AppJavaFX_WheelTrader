@@ -56,11 +56,13 @@ public class Controller_Home implements IApp, Initializable {
         
         try {
             if(!Session.isHiloCreado()){
-                this.hiloLector = new Lector_App();
-                this.hiloLector.setController(this);
-                this.hiloLector.start();
-                Session.setHiloCreado();
-                System.out.println("entra en el if");
+                new Thread(() -> {
+                    this.hiloLector = new Lector_App();
+                    this.hiloLector.setController(this);
+                    this.hiloLector.start();
+                    Session.setHiloCreado();
+                    System.out.println("entra en el if");
+                }).start();
             }
 
             this.dos = new DataOutputStream(Session.getOutputStream());
