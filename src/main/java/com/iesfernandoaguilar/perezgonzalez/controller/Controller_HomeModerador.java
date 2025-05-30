@@ -96,11 +96,13 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
         this.anuncios = new ArrayList<>();
 
         if(!Session.isHiloCreado()){
-            this.hiloLector = new Lector_App();
-            this.hiloLector.setController(this);
-            this.hiloLector.start();
-            Session.setHiloCreado();
-            System.out.println("entra en el if");
+            new Thread(() -> {
+                this.hiloLector = new Lector_App();
+                this.hiloLector.setController(this);
+                this.hiloLector.start();
+                Session.setHiloCreado();
+                System.out.println("entra en el if");
+            }).start();
         }
         
         try {
@@ -237,7 +239,9 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
 
     @FXML
     void handleBtnCerrarSesionAction(MouseEvent event) throws IOException {
+        this.hiloLector.cerrarSesion(Session.getUsuario().getIdUsuario());
         Session.setHiloNoCreado();
+        Session.setHiloLoginNoCreado();
         Session.cerrarSession();
 
         Stage stage = new Stage();

@@ -30,7 +30,6 @@ import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Regis
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.SecureUtils;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
@@ -73,7 +72,7 @@ public class Controller_InicioSesion implements ILogin, Initializable {
                             Session.setSocket(new Socket(serverAddr, serverPort));
                         }
                         
-                        this.hiloLector = new Lector_InicioSesion(Session.getInputStream(), Session.getOutputStream());
+                        this.hiloLector = new Lector_InicioSesion(Session.getInputStream(), Session.getOutputStream(), prop);
                         this.hiloLector.setController(this);
                         this.hiloLector.start();
                         Session.setHiloLoginCreado();
@@ -93,12 +92,6 @@ public class Controller_InicioSesion implements ILogin, Initializable {
         String contraseniaStr = new String(TxtF_Contrasenia.getText());
 
         this.hiloLector.iniciarSesion(TxtF_Correo_NomUsu.getText(), contraseniaStr, salt);
-        // Mensaje msg = new Mensaje();
-        // msg.setTipo("INICIAR_SESION");
-        // msg.addParam(TxtF_Correo_NomUsu.getText());
-        // msg.addParam(SecureUtils.generate512(contraseniaStr, salt));
-        // dos.writeUTF(Serializador.codificarMensaje(msg));
-        System.out.println("Inicia");
     }
 
     @FXML
@@ -106,11 +99,6 @@ public class Controller_InicioSesion implements ILogin, Initializable {
         String nombreUsuario = new String(TxtF_Correo_NomUsu.getText());
 
         this.hiloLector.obtenerSalt(nombreUsuario);
-        // Mensaje msg = new Mensaje();
-        // msg.setTipo("OBTENER_SALT");
-        // msg.addParam(nombreUsuario);
-        // dos.writeUTF(Serializador.codificarMensaje(msg));
-        System.out.println("God");
     }
 
     @FXML

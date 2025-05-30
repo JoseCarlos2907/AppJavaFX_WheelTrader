@@ -6,7 +6,9 @@ import java.io.EOFException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.Socket;
 import java.util.Base64;
+import java.util.Properties;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -33,24 +35,28 @@ public class Lector_InicioSesion extends Thread{
     private static String usuarioJSON;
 
     private DataOutputStream dos;
+    private DataInputStream dis;
 
-    public Lector_InicioSesion(InputStream flujoInicioSesionEntrada, OutputStream flujoInicioSesionSalida) {
+    private Properties confProperties;
+
+    public Lector_InicioSesion(InputStream flujoInicioSesionEntrada, OutputStream flujoInicioSesionSalida, Properties confProperties) {
         this.flujoInicioSesionEntrada = flujoInicioSesionEntrada;
         this.flujoInicioSesionSalida = flujoInicioSesionSalida;
         this.controller = null;
+        this.confProperties = confProperties;
 
         usuarioJSON = "";
     }
 
     @Override
     public void run(){
-        DataInputStream dis = new DataInputStream(this.flujoInicioSesionEntrada);
-        dos = new DataOutputStream(this.flujoInicioSesionSalida);
+        this.dis = new DataInputStream(this.flujoInicioSesionEntrada);
+        this.dos = new DataOutputStream(this.flujoInicioSesionSalida);
         boolean iniciaSesion = false;
         while (!iniciaSesion) {
             
             try {
-                String linea = dis.readUTF();
+                String linea = this.dis.readUTF();
                 Mensaje msgServidor = Serializador.decodificarMensaje(linea);
                 
 
@@ -161,11 +167,10 @@ public class Lector_InicioSesion extends Thread{
 
             } catch (EOFException e) {
                 System.out.println("Se ha cerrado el flujo del socket");
-                break;
+                this.reconectar();
             } catch (IOException e) {
-                System.err.println(e.getMessage());
-                System.out.println("Peta Login");
-                break;
+                System.out.println("Error de conexión: " + e.getMessage());
+                this.reconectar();
             }
         }
         
@@ -193,12 +198,40 @@ public class Lector_InicioSesion extends Thread{
         this.controller = controller;
     }
 
+    private void reconectar(){
+        if(Session.getSocket() != null){
+            try {
+                Session.getSocket().close();
+            } catch (IOException e) {
+                System.out.println("Error al cerrar el socket al intentar reconectar");
+            }
+        }
+
+        try {
+            Session.setSocket(new Socket(this.confProperties.getProperty("ADDRESS"), Integer.parseInt(this.confProperties.getProperty("PORT"))));
+            this.dis = new DataInputStream(Session.getInputStream());
+            this.dos = new DataOutputStream(Session.getOutputStream());
+        } catch (IOException e) {
+            System.out.println("Error al intentar reconectar");
+        }
+
+        System.out.println("Se te ha vuelto a conectar a la aplicación.");
+    }
+
+    private void enviarMensaje(Mensaje msg) throws IOException{
+        if(Session.getSocket() != null && Session.getSocket().isClosed()){
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
+        }else{
+            System.out.println("No se puede realizar esa acción por un error en la conexión");
+        }
+    }
+
     public void obtenerSalt(String nombreUsuario) throws IOException{
         Mensaje msg = new Mensaje();
         msg.setTipo("OBTENER_SALT");
         msg.addParam(nombreUsuario);
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.enviarMensaje(msg);
     }
 
     public void iniciarSesion(String correo_NombreUsuario, String contraseniaHash, byte[] salt) throws IOException{
@@ -206,7 +239,6 @@ public class Lector_InicioSesion extends Thread{
         msg.setTipo("INICIAR_SESION");
         msg.addParam(correo_NombreUsuario);
         msg.addParam(SecureUtils.generate512(contraseniaHash, salt));
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.enviarMensaje(msg);
     }
 }
