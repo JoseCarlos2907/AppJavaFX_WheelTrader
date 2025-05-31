@@ -24,17 +24,12 @@ import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
 import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia1;
-// import com.fasterxml.jackson.databind.ObjectMapper;
-// import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 public class Controller_InicioSesion implements ILogin, Initializable {
-    private DataOutputStream dos;
     private Lector_InicioSesion hiloLector;
 
     @FXML
@@ -117,28 +112,6 @@ public class Controller_InicioSesion implements ILogin, Initializable {
         stage.setScene(scene);
         stage.show();
         stage.centerOnScreen();
-
-        // Usuario us = new Usuario();
-        // us.setNombre("Prueba");
-        // us.setApellidos("Registro 1");
-        // us.setDni("22345678A");
-        // us.setDireccion("c/Mi Casa, n 9");
-        // us.setNombreUsuario("pruebareg1");
-        // us.setCorreo("pruebareg1@gmail.com");
-        // us.setCorreoPP("pruebareg1.pp@gmail.com");
-
-        // byte[] salt = SecureUtils.getSalt();
-        // String contraHash = SecureUtils.generate512("prueba1", salt);
-        // us.setContrasenia(contraHash);
-        // us.setSalt(Base64.getEncoder().encodeToString(salt));
-
-        // ObjectMapper mapper = new ObjectMapper();
-        // String usuarioJSON = mapper.writeValueAsString(us);
-
-        // Mensaje msg = new Mensaje();
-        // msg.setTipo("REGISTRAR_USUARIO");
-        // msg.addParam(usuarioJSON);
-        // this.dos.writeUTF(Serializador.codificarMensaje(msg));
     }
 
     @FXML
@@ -212,13 +185,6 @@ public class Controller_InicioSesion implements ILogin, Initializable {
 
     public String getContrasenia() {
         return this.TxtF_Contrasenia.getText();
-    }
-
-    public void pedirUsuarioJSON() throws IOException {
-        Mensaje msg = new Mensaje();
-        msg.setTipo("OBTENER_USUARIO");
-        msg.addParam(this.getNombreUsuarioCorreo());
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
     }
 
     public void setHiloLector(Lector_InicioSesion hiloLector) {

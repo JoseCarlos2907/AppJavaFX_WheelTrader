@@ -1,21 +1,14 @@
 package com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_InicioSesion;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.SecureUtils;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
-import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -25,9 +18,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class Controller_RecuperarContrasenia3 implements ILogin, Initializable{
+public class Controller_RecuperarContrasenia3 implements ILogin{
     private Lector_InicioSesion hiloLector;
-    private DataOutputStream dos;
 
     @FXML
     private Button Btn_CambiarContrasenia;
@@ -42,15 +34,6 @@ public class Controller_RecuperarContrasenia3 implements ILogin, Initializable{
     private PasswordField TxtF_Contra;
 
     private byte[] salt;
-    
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-    }
 
     @FXML
     void handleBtnCambiarContraseniaAction(MouseEvent event) throws IOException {
@@ -82,13 +65,7 @@ public class Controller_RecuperarContrasenia3 implements ILogin, Initializable{
             alert.getDialogPane().getStyleClass().add("alert-error");
             alert.showAndWait();
         }else{
-            String contraseniaHasheada = SecureUtils.generate512(new String(this.TxtF_Contra.getText()), salt);
-
-            Mensaje msg = new Mensaje();
-            msg.setTipo("REINICIAR_CONTRASENIA");
-            msg.addParam(contraseniaHasheada);
-
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.hiloLector.reiniciaContraseña(SecureUtils.generate512(new String(this.TxtF_Contra.getText()), salt));
         }
     }
 

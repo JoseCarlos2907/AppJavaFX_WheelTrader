@@ -1,19 +1,11 @@
 package com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
-
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
-import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -23,9 +15,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class Controller_RecuperarContrasenia2 implements ILogin, Initializable{
+public class Controller_RecuperarContrasenia2 implements ILogin{
     private Lector_InicioSesion hiloLector;
-    private DataOutputStream dos;
 
     @FXML
     private Button Btn_Siguiente;
@@ -37,22 +28,10 @@ public class Controller_RecuperarContrasenia2 implements ILogin, Initializable{
     private TextField TxtF_Codigo;
 
     private byte[] salt;
-    
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
-    }
 
     @FXML
     void handleBtnSiguienteAction(MouseEvent event) throws IOException {
-        Mensaje msg = new Mensaje();
-        msg.setTipo("INTENTA_CODIGO");
-        msg.addParam(new String(this.TxtF_Codigo.getText()));
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
+        this.hiloLector.intentaCodigo(new String(this.TxtF_Codigo.getText()));
     }
 
     @FXML

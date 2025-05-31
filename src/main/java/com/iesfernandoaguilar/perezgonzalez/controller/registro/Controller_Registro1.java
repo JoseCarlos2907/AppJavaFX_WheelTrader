@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller.registro;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -9,9 +8,6 @@ import com.iesfernandoaguilar.perezgonzalez.controller.Controller_InicioSesion;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
-import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -27,7 +23,6 @@ import javafx.stage.Stage;
 
 public class Controller_Registro1 implements ILogin, Initializable{
     private Lector_InicioSesion hiloLector;
-    private DataOutputStream dos;
 
     public static Usuario usuario;
 
@@ -59,12 +54,6 @@ public class Controller_Registro1 implements ILogin, Initializable{
             this.TxtF_DNI.setText(new String(usuario.getDni()));
             this.TxtF_Direccion.setText(new String(usuario.getDireccion()));
         }
-
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
     }
 
     @FXML
@@ -91,10 +80,7 @@ public class Controller_Registro1 implements ILogin, Initializable{
             alert.getDialogPane().getStyleClass().add("alert-error");
             alert.showAndWait();
         }else{
-            Mensaje msg = new Mensaje();
-            msg.setTipo("COMPROBAR_DNI");
-            msg.addParam(new String(this.TxtF_DNI.getText()));
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.hiloLector.comprobarDNI(new String(this.TxtF_DNI.getText()));
         }
     }
 

@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller.registro;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -8,9 +7,6 @@ import java.util.ResourceBundle;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
-import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -26,7 +22,6 @@ import javafx.stage.Stage;
 
 public class Controller_Registro2 implements ILogin, Initializable{
     private Lector_InicioSesion hiloLector;
-    private DataOutputStream dos;
 
     public static Usuario usuario;
 
@@ -51,12 +46,6 @@ public class Controller_Registro2 implements ILogin, Initializable{
         this.TxtF_NombreUsuario.setText(usuario.getNombreUsuario() == null ? "" : new String(usuario.getNombreUsuario()));
         this.TxtF_Correo.setText(usuario.getCorreo() == null ? "" : new String(usuario.getCorreo()));
         this.TxtF_CorreoPP.setText(usuario.getCorreoPP() == null ? "" : new String(usuario.getCorreoPP()));
-
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
     }
 
     @FXML
@@ -99,11 +88,7 @@ public class Controller_Registro2 implements ILogin, Initializable{
             alert.getDialogPane().getStyleClass().add("alert-error");
             alert.showAndWait();
         }else{
-            Mensaje msg = new Mensaje();
-            msg.setTipo("COMPROBAR_NOMUSU_CORREO");
-            msg.addParam(new String(this.TxtF_NombreUsuario.getText()));
-            msg.addParam(new String(this.TxtF_Correo.getText()));
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.hiloLector.comprobarNombreUsuarioYCorreo(new String(this.TxtF_NombreUsuario.getText()), new String(this.TxtF_Correo.getText()));
         }
     }
 

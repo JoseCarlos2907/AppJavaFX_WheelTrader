@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller.registro;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.Base64;
@@ -10,10 +9,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.SecureUtils;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
-import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -29,7 +25,6 @@ import javafx.stage.Stage;
 
 public class Controller_Registro3 implements ILogin, Initializable{
     private Lector_InicioSesion hiloLector;
-    private DataOutputStream dos;
 
     public static Usuario usuario;
 
@@ -48,11 +43,6 @@ public class Controller_Registro3 implements ILogin, Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         usuario = Controller_Registro2.usuario;
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
     }
 
     @FXML
@@ -109,11 +99,7 @@ public class Controller_Registro3 implements ILogin, Initializable{
             ObjectMapper mapper = new ObjectMapper();
             String usuarioJSON = mapper.writeValueAsString(usuario);
 
-            Mensaje msg = new Mensaje();
-            msg.setTipo("REGISTRAR_USUARIO");
-            msg.addParam(usuarioJSON);
-
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.hiloLector.registrarUsuario(usuarioJSON);
         }
     }
 

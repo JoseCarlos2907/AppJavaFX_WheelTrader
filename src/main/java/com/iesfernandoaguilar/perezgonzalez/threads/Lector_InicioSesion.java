@@ -218,27 +218,74 @@ public class Lector_InicioSesion extends Thread{
         System.out.println("Se te ha vuelto a conectar a la aplicación.");
     }
 
-    private void enviarMensaje(Mensaje msg) throws IOException{
+    private void enviarMensaje(Mensaje msg){
         if(Session.getSocket() != null && !Session.getSocket().isClosed()){
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
+            try {
+                this.dos.writeUTF(Serializador.codificarMensaje(msg));
+                this.dos.flush();
+            } catch (IOException e) {
+                System.err.println("Error al enviar el mensaje");
+            }
         }else{
             System.out.println("No se puede realizar esa acción por un error en la conexión");
         }
     }
 
-    public void obtenerSalt(String nombreUsuario) throws IOException{
+    public void obtenerSalt(String nombreUsuario){
         Mensaje msg = new Mensaje();
         msg.setTipo("OBTENER_SALT");
         msg.addParam(nombreUsuario);
         this.enviarMensaje(msg);
     }
 
-    public void iniciarSesion(String correo_NombreUsuario, String contraseniaHash, byte[] salt) throws IOException{
+    public void iniciarSesion(String correo_NombreUsuario, String contraseniaHash, byte[] salt){
         Mensaje msg = new Mensaje();
         msg.setTipo("INICIAR_SESION");
         msg.addParam(correo_NombreUsuario);
         msg.addParam(SecureUtils.generate512(contraseniaHash, salt));
+        this.enviarMensaje(msg);
+    }
+
+    public void comprobarDNI(String dni){
+        Mensaje msg = new Mensaje();
+        msg.setTipo("COMPROBAR_DNI");
+        msg.addParam(dni);
+        this.enviarMensaje(msg);
+    }
+
+    public void comprobarNombreUsuarioYCorreo(String nombreUsuario, String correo){
+        Mensaje msg = new Mensaje();
+        msg.setTipo("COMPROBAR_NOMUSU_CORREO");
+        msg.addParam(nombreUsuario);
+        msg.addParam(correo);
+        this.enviarMensaje(msg);
+    }
+
+    public void registrarUsuario(String usuarioJSON){
+        Mensaje msg = new Mensaje();
+        msg.setTipo("REGISTRAR_USUARIO");
+        msg.addParam(usuarioJSON);
+        this.enviarMensaje(msg);
+    }
+
+    public void recuperarContrasenia(String correo){
+        Mensaje msg = new Mensaje();
+        msg.setTipo("RECUPERAR_CONTRASENIA");
+        msg.addParam(correo);
+        this.enviarMensaje(msg);
+    }
+
+    public void intentaCodigo(String codigo){
+        Mensaje msg = new Mensaje();
+        msg.setTipo("INTENTA_CODIGO");
+        msg.addParam(codigo);
+        this.enviarMensaje(msg);
+    }
+
+    public void reiniciaContraseña(String contraseniaHash){
+        Mensaje msg = new Mensaje();
+        msg.setTipo("REINICIAR_CONTRASENIA");
+        msg.addParam(contraseniaHash);
         this.enviarMensaje(msg);
     }
 }
