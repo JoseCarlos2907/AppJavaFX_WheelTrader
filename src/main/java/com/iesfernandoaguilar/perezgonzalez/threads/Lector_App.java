@@ -2,10 +2,15 @@ package com.iesfernandoaguilar.perezgonzalez.threads;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.Socket;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.List;
+import java.util.Properties;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
@@ -39,9 +44,21 @@ public class Lector_App extends Thread{
     private boolean cierraSesion;
 
     private DataOutputStream dos;
+    private DataInputStream dis;
 
-    public Lector_App(){
+    private Properties confProperties;
+
+    public Lector_App() {
         this.cierraSesion = false;
+
+        this.confProperties = new Properties();
+        try {
+            this.confProperties.load(new FileInputStream("src/main/resources/conf.properties"));
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setController(IApp controller){
@@ -50,15 +67,13 @@ public class Lector_App extends Thread{
 
     @Override
     public void run() {
-
-        
         String linea = "";
         try {
-            DataInputStream dis = new DataInputStream(Session.getInputStream());
-            dos = new DataOutputStream(Session.getOutputStream());
+            this.dis = new DataInputStream(Session.getInputStream());
+            this.dos = new DataOutputStream(Session.getOutputStream());
             while (!this.cierraSesion) {
                 
-                linea = dis.readUTF();
+                linea = this.dis.readUTF();
                 System.out.println(linea);
                 Mensaje msgServidor = Serializador.decodificarMensaje(linea);
 
@@ -93,9 +108,9 @@ public class Lector_App extends Thread{
                         List<byte[]> imagenes = new ArrayList<>();
                         int cantAnuncios = Integer.valueOf(msgServidor.getParams().get(2));
                         for (int i = 0; i < cantAnuncios; i++) {
-                            int bytes = dis.readInt();
+                            int bytes = this.dis.readInt();
                             byte[] imagen = new byte[bytes];
-                            dis.readFully(imagen);
+                            this.dis.readFully(imagen);
                             imagenes.add(imagen);
                         }
 
@@ -155,9 +170,9 @@ public class Lector_App extends Thread{
                         List<byte[]> imagenesAnuncio = new ArrayList<>();
                         int cantImagenes = Integer.valueOf(msgServidor.getParams().get(0));
                         for (int i = 0; i < cantImagenes; i++) {
-                            int bytes = dis.readInt();
+                            int bytes = this.dis.readInt();
                             byte[] imagen = new byte[bytes];
-                            dis.readFully(imagen);
+                            this.dis.readFully(imagen);
                             imagenesAnuncio.add(imagen);
                         }
 
@@ -208,7 +223,7 @@ public class Lector_App extends Thread{
                     case "ENVIA_PDF_ACUERDO":
                         int longitudDocumento = Integer.valueOf(msgServidor.getParams().get(0));
                         byte[] bytesDocumento = new byte[longitudDocumento];
-                        dis.readFully(bytesDocumento);
+                        this.dis.readFully(bytesDocumento);
 
                         Platform.runLater(() ->{
                             try {
@@ -238,7 +253,7 @@ public class Lector_App extends Thread{
                     case "ENVIA_PDF_ACUERDO_VENDEDOR":
                         int longitudDocumentoVendedor = Integer.valueOf(msgServidor.getParams().get(0));
                         byte[] bytesDocumentoVendedor = new byte[longitudDocumentoVendedor];
-                        dis.readFully(bytesDocumentoVendedor);
+                        this.dis.readFully(bytesDocumentoVendedor);
 
                         Platform.runLater(() ->{
                             try {
@@ -297,6 +312,7 @@ public class Lector_App extends Thread{
                         break;
 
                     case "SESION_CERRADA":
+                        System.out.println("Sesión cerrada");
                         break;
 
                     default:
@@ -304,9 +320,41 @@ public class Lector_App extends Thread{
                         break;
                 }
             }
+        } catch (EOFException e) {
+            System.out.println("Se ha cerrado el flujo del socket");
+            this.reconectar();
         } catch (IOException e) {
-            e.printStackTrace();
-            System.out.println("Peta App");
+            System.out.println("Error de conexión: " + e.getMessage());
+            this.reconectar();
+        }
+    }
+
+    private void reconectar(){
+        if(Session.getSocket() != null){
+            try {
+                Session.getSocket().close();
+            } catch (IOException e) {
+                System.out.println("Error al cerrar el socket al intentar reconectar");
+            }
+        }
+
+        try {
+            Session.setSocket(new Socket(this.confProperties.getProperty("ADDRESS"), Integer.parseInt(this.confProperties.getProperty("PORT"))));
+            this.dis = new DataInputStream(Session.getInputStream());
+            this.dos = new DataOutputStream(Session.getOutputStream());
+        } catch (IOException e) {
+            System.out.println("Error al intentar reconectar");
+        }
+
+        System.out.println("Se te ha vuelto a conectar a la aplicación.");
+    }
+
+    private void enviarMensaje(Mensaje msg) throws IOException{
+        if(Session.getSocket() != null && !Session.getSocket().isClosed()){
+            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.dos.flush();
+        }else{
+            System.out.println("No se puede realizar esa acción por un error en la conexión");
         }
     }
 
@@ -315,7 +363,6 @@ public class Lector_App extends Thread{
         Mensaje msg = new Mensaje();
         msg.setTipo("CERRAR_SESION");
         msg.addParam(idUsuario.toString());
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.enviarMensaje(msg);
     }
 }

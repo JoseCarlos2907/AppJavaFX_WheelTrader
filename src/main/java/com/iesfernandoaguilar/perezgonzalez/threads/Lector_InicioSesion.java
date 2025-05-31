@@ -219,7 +219,7 @@ public class Lector_InicioSesion extends Thread{
     }
 
     private void enviarMensaje(Mensaje msg) throws IOException{
-        if(Session.getSocket() != null && Session.getSocket().isClosed()){
+        if(Session.getSocket() != null && !Session.getSocket().isClosed()){
             this.dos.writeUTF(Serializador.codificarMensaje(msg));
             this.dos.flush();
         }else{
