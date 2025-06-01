@@ -1,14 +1,15 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
-// import java.util.Base64;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.concurrent.CountDownLatch;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,11 +17,13 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Controller_RecuperarContrasenia1;
@@ -54,24 +57,70 @@ public class Controller_InicioSesion implements ILogin, Initializable {
                 Properties prop = new Properties();
                 prop.load(new FileInputStream("src/main/resources/conf.properties"));
 
-                int serverPort = Integer.parseInt(prop.getProperty("PORT"));
-                String serverAddr = prop.getProperty("ADDRESS");
-
                 // Se hace en un hilo secundario porque si intento crear el socket en el principal
                 // el que se queda pillado esperando seria el controller y no se mostraría la interfaz.
-                // En este caso se queda pillado el hilo secundario en caso de que no se pueda conectar 
-                // al arrancar la aplicación
+                // En este caso se queda pillado el hilo secundario en caso de que no se pueda conectar al arrancar la aplicación
                 Thread hiloAux = new Thread(() -> {
                     try {
-                        if(Session.getSocket() == null){
+                        if (!prop.containsKey("PORT") || !prop.containsKey("ADDRESS")) {
+                            // Creo un latch para sincronizar el hilo principal con el alert
+                            CountDownLatch latch = new CountDownLatch(1);
+
+                            Platform.runLater(() -> {
+                                Alert alert = new Alert(AlertType.CONFIRMATION);
+                                alert.setTitle("Configuración de conexión con el servidor");
+                                alert.setHeaderText(null);
+                                alert.setContentText("Introduce la dirección IP y el puerto del servidor: ");
+
+                                TextField TxtF_Direccion = new TextField();
+                                TxtF_Direccion.setPromptText("ej: 192.168.1.50");
+
+                                TextField TxtF_Puerto = new TextField();
+                                TxtF_Puerto.setPromptText("ej: 8888");
+
+                                VBox vbox = new VBox(new Label("Dirección:"), TxtF_Direccion, new Label("Puerto:"), TxtF_Puerto);
+                                vbox.setSpacing(10);
+                                alert.getDialogPane().setContent(vbox);
+
+                                alert.showAndWait().ifPresent(response -> {
+                                    if (response == ButtonType.OK) {
+                                        prop.setProperty("ADDRESS", TxtF_Direccion.getText());
+                                        prop.setProperty("PORT", TxtF_Puerto.getText());
+
+                                        try {
+                                            // Sobreescribo el contenido del properties en el archivo correspondiente
+                                            prop.store(new FileOutputStream("src/main/resources/conf.properties"), null);
+                                        } catch (IOException e) {
+                                            e.printStackTrace();
+                                        }
+                                    }else if(response == ButtonType.CANCEL || response == ButtonType.CLOSE){
+                                        // TODO: Cerrar la ventana de manera correcta
+                                        System.exit(0);
+                                    }
+
+                                    // Vuelvo al hilo principal
+                                    latch.countDown();
+                                });
+                            });
+
+                            // Esperar a que el usuario responda
+                            latch.await();
+                        }
+
+                        int serverPort = Integer.parseInt(prop.getProperty("PORT"));
+                        String serverAddr = prop.getProperty("ADDRESS");
+
+                        if (Session.getSocket() == null) {
                             Session.setSocket(new Socket(serverAddr, serverPort));
                         }
-                        
+
                         this.hiloLector = new Lector_InicioSesion(Session.getInputStream(), Session.getOutputStream(), prop);
                         this.hiloLector.setController(this);
                         this.hiloLector.start();
                         Session.setHiloLoginCreado();
                     } catch (IOException e) {
+                        e.printStackTrace();
+                    } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
                 });
@@ -146,7 +195,8 @@ public class Controller_InicioSesion implements ILogin, Initializable {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Usuario baneado");
         alert.setHeaderText(null);
-        alert.setContentText("El usuario con el que intenta iniciar sesión ha sido baneado, si cree que se le ha baneado por error contacte con el correo wheeltraderapp@gmail.com");
+        alert.setContentText(
+                "El usuario con el que intenta iniciar sesión ha sido baneado, si cree que se le ha baneado por error contacte con el correo wheeltraderapp@gmail.com");
         alert.getDialogPane().getStylesheets()
                 .add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
         alert.getDialogPane().getStyleClass().add("alert-error");
@@ -166,7 +216,7 @@ public class Controller_InicioSesion implements ILogin, Initializable {
         stage.centerOnScreen();
     }
 
-    public void irHomeModerador() throws IOException{
+    public void irHomeModerador() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_HomeModerador.fxml"));
         Parent nuevaVista = loader.load();
 
