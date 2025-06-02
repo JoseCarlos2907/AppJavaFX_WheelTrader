@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -21,8 +20,6 @@ import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroBarraBusqueda;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroUsuariosConReportes;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -51,8 +48,6 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
     private boolean cargandoAnuncios;
 
     private Lector_App hiloLector;
-
-    private DataOutputStream dos;
 
     @FXML
     private Button Btn_CerrarSesion;
@@ -106,15 +101,11 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
         }
         
         try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        
-        try {
             this.cargarUsuarios("", true);
             this.cargarAnuncios(true);
         } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -142,7 +133,7 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
     }
 
     @FXML
-    void onBusquedaAnuncioKeyPressed(KeyEvent event) throws JsonProcessingException {
+    void onBusquedaAnuncioKeyPressed(KeyEvent event) throws IOException {
         if (event.getCode().toString().equals("ENTER")) {
             String cadenaBusqueda = this.TxtF_BusquedaAnuncios.getText();
             this.filtroAnuncios.setCadena(cadenaBusqueda);
@@ -152,7 +143,7 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
     }
 
     @FXML
-    void onBusquedaUsuarioKeyPressed(KeyEvent event) throws JsonProcessingException {
+    void onBusquedaUsuarioKeyPressed(KeyEvent event) throws IOException {
         if (event.getCode().toString().equals("ENTER")) {
             String cadenaBusqueda = this.TxtF_BusquedaUsuario.getText();
             this.cargarUsuarios(cadenaBusqueda, true);
@@ -160,7 +151,7 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
         }
     }
 
-    public void cargarUsuarios(String cadena, boolean primeraCarga) throws JsonProcessingException{
+    public void cargarUsuarios(String cadena, boolean primeraCarga) throws IOException{
         if(primeraCarga){
             this.filtroUsuRep.setPagina(0);
             this.filtroUsuRep.setCadena(cadena);
@@ -168,48 +159,25 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
             this.VBox_Usuarios.getChildren().clear();
         }
 
-        Mensaje msg = new Mensaje();
-
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(this.filtroUsuRep);
-    
-        msg.setTipo("OBTENER_REPORTES_MOD");
-        msg.addParam(filtroJSON);
 
-        try {
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.hiloLector.obtenerReportesMod(filtroJSON);
         
         this.filtroUsuRep.siguientePagina();
     }
 
-    public void cargarAnuncios(boolean primeraCarga) throws JsonProcessingException{
+    public void cargarAnuncios(boolean primeraCarga) throws IOException{
         if(primeraCarga){
             this.filtroAnuncios.setPagina(0);
             this.anuncios.clear();
             this.VBox_Anuncios.getChildren().clear();
         }
 
-        Mensaje msg = new Mensaje();
-
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(this.filtroAnuncios);
-    
-        msg.setTipo("OBTENER_ANUNCIOS");
-        msg.addParam(filtroJSON);
-        msg.addParam(this.filtroAnuncios.getTipoFiltro());
-        msg.addParam(primeraCarga ? "si": "no");
-        msg.addParam(Session.getUsuario().getIdUsuario().toString());
 
-        try {
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.hiloLector.obtenerAnuncios(filtroJSON, this.filtroAnuncios.getTipoFiltro(), primeraCarga ? "si" : "no", Session.getUsuario().getIdUsuario());
         
         this.filtroAnuncios.siguientePagina();
     }
@@ -276,14 +244,8 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
     public void abrirAnuncio(Anuncio anuncio) {
         this.anuncioSeleccionado = anuncio;
 
-        Mensaje msg = new Mensaje();
-    
-        msg.setTipo("OBTENER_IMAGENES");
-        msg.addParam(String.valueOf(this.anuncioSeleccionado.getIdAnuncio()));
-
         try {
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
+            this.hiloLector.obtenerImagenes(this.anuncioSeleccionado.getIdAnuncio());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -316,8 +278,6 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
     public void abrirPerfilUsuario(Usuario usuario) {
         this.usuarioSeleccionado = usuario;
 
-        Mensaje msg = new Mensaje();
-
         this.filtroAnunciosUsuarioSeleccionado = new FiltroPorNombreUsuario(this.usuarioSeleccionado.getNombreUsuario(), 0, 10);
         this.filtroAnunciosUsuarioSeleccionado.setTipoFiltro("PerfilUsuario");
 
@@ -325,19 +285,9 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
         String filtroJSON = "";
         try {
             filtroJSON = mapper.writeValueAsString(this.filtroAnunciosUsuarioSeleccionado);
+            this.hiloLector.obtenerAnuncios(filtroJSON, this.filtroAnunciosUsuarioSeleccionado.getTipoFiltro(), "si", Session.getUsuario().getIdUsuario());
         } catch (JsonProcessingException e) {
             e.printStackTrace();
-        }
-    
-        msg.setTipo("OBTENER_ANUNCIOS");
-        msg.addParam(filtroJSON);
-        msg.addParam(this.filtroAnunciosUsuarioSeleccionado.getTipoFiltro());
-        msg.addParam( "si");
-        msg.addParam(Session.getUsuario().getIdUsuario().toString());
-
-        try {
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

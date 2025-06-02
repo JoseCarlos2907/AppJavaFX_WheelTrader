@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -11,9 +10,7 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.SecureUtils;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -32,8 +29,6 @@ import javafx.stage.Stage;
 public class Controller_ConfUsuario implements IApp, Initializable{
     private Lector_App hiloLector;
 
-    private DataOutputStream dos;
-
     private FiltroPorNombreUsuario filtroGuardados;
     private FiltroPorNombreUsuario filtroPublicados;
 
@@ -51,15 +46,6 @@ public class Controller_ConfUsuario implements IApp, Initializable{
 
     @FXML
     private Button Btn_MisGuardados;
-
-    @FXML
-    private Button Btn_MisPagos;
-
-    @FXML
-    private Button Btn_MisReuniones;
-
-    @FXML
-    private Button Btn_MisValoraciones;
 
     @FXML
     private Button Btn_Volver;
@@ -103,12 +89,6 @@ public class Controller_ConfUsuario implements IApp, Initializable{
         this.Lbl_NombreUsuario.setText("Nombre de Usuario: " + usuario.getNombreUsuario());
         this.Lbl_Correo.setText("Correo: " + usuario.getCorreo());
         this.Lbl_CorreoPP.setText("Correo de PayPal" + usuario.getCorreoPP());
-
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -141,25 +121,14 @@ public class Controller_ConfUsuario implements IApp, Initializable{
             alert.getDialogPane().getStyleClass().add("alert-error");
             alert.showAndWait();
         }else{
-            Mensaje msg = new Mensaje();
-            msg.setTipo("OBTENER_SALT_REINICIO");
-            msg.addParam(Session.getUsuario().getNombreUsuario());
-
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
+            this.hiloLector.obtenerSaltReinicio(Session.getUsuario().getNombreUsuario());
         }
     }
 
     public void reiniciarContrasenia(byte[] salt) throws IOException{
         String hash = SecureUtils.generate512(new String(this.TxtF_Contra.getText()), salt);
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("REINICIAR_CONTRASENIA");
-        msg.addParam(Session.getUsuario().getNombreUsuario());
-        msg.addParam(hash);
-
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.hiloLector.reiniciarContrasenia(Session.getUsuario().getNombreUsuario(), hash);
     }
 
     public void contraseniaReiniciada(){
@@ -192,19 +161,11 @@ public class Controller_ConfUsuario implements IApp, Initializable{
         filtroPublicados = new FiltroPorNombreUsuario(Session.getUsuario().getNombreUsuario(), 0, 10);
         filtroPublicados.setTipoFiltro("Publicados");
 
-        Mensaje msg = new Mensaje();
-
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(filtroPublicados);
 
-        msg.setTipo("OBTENER_ANUNCIOS");
-        msg.addParam(filtroJSON);
-        msg.addParam(filtroPublicados.getTipoFiltro());
-        msg.addParam("si");
-        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
+        this.hiloLector.obtenerAnuncios(filtroJSON, filtroPublicados.getTipoFiltro(), "si", Session.getUsuario().getIdUsuario());
 
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
     }
 
     @FXML
@@ -214,13 +175,7 @@ public class Controller_ConfUsuario implements IApp, Initializable{
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(filtro);
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("OBTENER_VENTAS");
-        msg.addParam(filtroJSON);
-        msg.addParam("si");
-    
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.hiloLector.obtenerVentas(filtroJSON, "si");
     }
 
     public void irListaCompras(String comprasJSON) throws IOException{
@@ -244,29 +199,10 @@ public class Controller_ConfUsuario implements IApp, Initializable{
     void handleBtnMisGuardadosAction(MouseEvent event) throws IOException {
         filtroGuardados = new FiltroPorNombreUsuario(Session.getUsuario().getNombreUsuario(), 0, 10);
 
-        Mensaje msg = new Mensaje();
-
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(filtroGuardados);
 
-        msg.setTipo("OBTENER_ANUNCIOS");
-        msg.addParam(filtroJSON);
-        msg.addParam(filtroGuardados.getTipoFiltro());
-        msg.addParam("si");
-        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
-
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
-    }
-
-    @FXML
-    void handleBtnMisPagosAction(MouseEvent event) {
-        // TODO: Funcionalidad mis pagos
-    }
-
-    @FXML
-    void handleBtnMisReunionesAction(MouseEvent event) {
-        // TODO: Funcionalidad mis reuniones
+        this.hiloLector.obtenerAnuncios(filtroJSON, filtroGuardados.getTipoFiltro(), "si", Session.getUsuario().getIdUsuario());
     }
 
     @FXML

@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -16,9 +15,6 @@ import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.model.Venta;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
-import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -39,8 +35,6 @@ public class Controller_MisCompras implements IApp, Initializable{
 
     private Lector_App hiloLector;
 
-    private DataOutputStream dos;
-
     @FXML
     private Button Btn_Volver;
 
@@ -53,12 +47,6 @@ public class Controller_MisCompras implements IApp, Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.compras = new ArrayList<>();
-
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         this.ScrollPane_Compras.vvalueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.doubleValue() >= 0.8 && !cargando) {
@@ -91,17 +79,10 @@ public class Controller_MisCompras implements IApp, Initializable{
     public void pedirCompras() throws IOException{
         this.filtro.siguientePagina();
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("OBTENER_VENTAS");
-
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(this.filtro);
 
-        msg.addParam(filtroJSON);
-        msg.addParam("no");
-        
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.hiloLector.obtenerVentas(filtroJSON, "no");
     }
 
     public void aniadirCompras(String notisJSON) throws JsonMappingException, JsonProcessingException{

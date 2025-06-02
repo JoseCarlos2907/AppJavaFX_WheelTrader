@@ -2,21 +2,15 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
-
-import javax.imageio.ImageIO;
 
 import org.apache.pdfbox.Loader;
 import org.apache.pdfbox.pdmodel.PDDocument;
@@ -25,14 +19,9 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 import com.itextpdf.text.DocumentException;
-import com.itextpdf.text.pdf.AcroFields;
-import com.itextpdf.text.pdf.PdfAcroForm;
 import com.itextpdf.text.pdf.PdfContentByte;
-import com.itextpdf.text.pdf.PdfDocument;
 import com.itextpdf.text.pdf.PdfReader;
 import com.itextpdf.text.pdf.PdfStamper;
 
@@ -100,7 +89,6 @@ public class Controller_CompraComprador implements IApp, Initializable{
 
     private Anuncio anuncio;
     
-    private DataOutputStream dos;
     private Lector_App hiloLector;
 
     @Override
@@ -143,7 +131,6 @@ public class Controller_CompraComprador implements IApp, Initializable{
             }
 
             pddDocument.close();
-            this.dos = new DataOutputStream(Session.getOutputStream());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -223,18 +210,8 @@ public class Controller_CompraComprador implements IApp, Initializable{
 
         byte[] bytesPdf = Files.readAllBytes(Paths.get("temp/Temp.pdf"));
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("COMPRADOR_OFRECE_COMPRA");
-        msg.addParam(String.valueOf(bytesPdf.length));
-        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
-        msg.addParam(String.valueOf(anuncio.getIdAnuncio()));
-        msg.addParam(String.valueOf(anuncio.getVendedor().getIdUsuario()));
-
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
-
-        this.dos.write(bytesPdf);
-        this.dos.flush();
+        // Se envia al servidor
+        this.hiloLector.compradorOfreceCompra(bytesPdf, Session.getUsuario().getIdUsuario(), anuncio.getIdAnuncio(), anuncio.getVendedor().getIdUsuario());
 
         File pdf = new File("temp/Temp.pdf");
         pdf.delete();

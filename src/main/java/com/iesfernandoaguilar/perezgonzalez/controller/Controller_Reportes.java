@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -15,9 +14,6 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Reporte;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroReportes;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
-import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,8 +33,6 @@ public class Controller_Reportes implements IApp, Initializable{
 
     private Lector_App hiloLector;
 
-    private DataOutputStream dos;
-
     @FXML
     private Button Btn_Volver;
 
@@ -52,16 +46,12 @@ public class Controller_Reportes implements IApp, Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         this.filtro = new FiltroReportes();
         this.reportes = new ArrayList<>();
-
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
         
         try {
             this.cargarReportes(true);
         } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
 
@@ -89,27 +79,17 @@ public class Controller_Reportes implements IApp, Initializable{
         this.Lbl_Titulo.setText(titulo);
     }
 
-    private void cargarReportes(boolean primeraCarga) throws JsonProcessingException{
+    private void cargarReportes(boolean primeraCarga) throws IOException{
         if(primeraCarga){
             this.filtro = new FiltroReportes();
             this.reportes.clear();
             this.VBox_Reportes.getChildren().clear();
         }
 
-        Mensaje msg = new Mensaje();
-
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(this.filtro);
-    
-        msg.setTipo("OBTENER_ULTIMOS_REPORTES_MOD");
-        msg.addParam(filtroJSON);
 
-        try {
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.hiloLector.obtenerUltimosReportesMod(filtroJSON);
         
         this.filtro.siguientePagina();
     }

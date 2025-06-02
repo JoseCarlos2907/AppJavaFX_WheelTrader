@@ -1,18 +1,15 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
-
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IFiltro;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
@@ -20,8 +17,6 @@ import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -41,8 +36,6 @@ import javafx.stage.Stage;
 
 public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
     private Lector_App hiloLector;
-
-    private DataOutputStream dos;
 
     private List<Anuncio> anuncios;
     private IFiltro filtro;
@@ -72,13 +65,7 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.anuncios = new ArrayList<>();
-
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
+        
         this.ScrollPane_Anuncios.vvalueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.doubleValue() >= 0.8 && !cargando) {
                 cargando = true;
@@ -110,26 +97,13 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
     public void abrirPerfilUsuario(Usuario usuario) throws IOException{
         this.usuarioSeleccionado = usuario;
 
-        Mensaje msg = new Mensaje();
-
         this.filtroNU = new FiltroPorNombreUsuario(this.usuarioSeleccionado.getNombreUsuario(), 0, 10);
         this.filtroNU.setTipoFiltro("PerfilUsuario");
 
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(this.filtroNU);
     
-        msg.setTipo("OBTENER_ANUNCIOS");
-        msg.addParam(filtroJSON);
-        msg.addParam(this.filtroNU.getTipoFiltro());
-        msg.addParam( "si");
-        msg.addParam(Session.getUsuario().getIdUsuario().toString());
-
-        try {
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.hiloLector.obtenerAnuncios(filtroJSON, this.filtroNU.getTipoFiltro(), "si", Session.getUsuario().getIdUsuario());
     }
 
     public void irPerfilUsuario(String anunciosJSON, List<byte[]> imagenes) throws IOException{
@@ -153,14 +127,8 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
     public void abrirAnuncio(Anuncio anuncio){
         this.anuncioSeleccionado = anuncio;
 
-        Mensaje msg = new Mensaje();
-    
-        msg.setTipo("OBTENER_IMAGENES");
-        msg.addParam(String.valueOf(this.anuncioSeleccionado.getIdAnuncio()));
-
         try {
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
+            this.hiloLector.obtenerImagenes(this.anuncioSeleccionado.getIdAnuncio());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -200,19 +168,10 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
     public void pedirAnuncios() throws IOException{
         this.filtro.siguientePagina();
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("OBTENER_ANUNCIOS");
-
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(this.filtro);
 
-        msg.addParam(filtroJSON);
-        msg.addParam(this.filtro.getTipoFiltro());
-        msg.addParam("no");
-        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
-        
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.hiloLector.obtenerAnuncios(filtroJSON, this.filtro.getTipoFiltro(), "no", Session.getUsuario().getIdUsuario());
     }
 
     public void aniadirAnuncios(String anunciosJSON, List<byte[]> imagenesNuevas) throws JsonMappingException, JsonProcessingException{

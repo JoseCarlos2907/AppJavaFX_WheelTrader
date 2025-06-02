@@ -282,7 +282,7 @@ public class Lector_InicioSesion extends Thread{
         this.enviarMensaje(msg);
     }
 
-    public void reiniciaContraseña(String contraseniaHash){
+    public void reiniciaContrasenia(String contraseniaHash){
         Mensaje msg = new Mensaje();
         msg.setTipo("REINICIAR_CONTRASENIA");
         msg.addParam(contraseniaHash);

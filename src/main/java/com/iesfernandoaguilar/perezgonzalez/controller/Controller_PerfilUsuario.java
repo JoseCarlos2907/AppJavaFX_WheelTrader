@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -19,8 +18,6 @@ import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -47,8 +44,6 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     private boolean cargando;
     private Usuario usuarioSeleccionado;
 
-    private DataOutputStream dos;
-
     private Lector_App hiloLector;
 
     @FXML
@@ -74,12 +69,6 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
         this.anuncios = new ArrayList<>();
         this.cargando = false;
 
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
         this.ScrollPane_Anuncios.vvalueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.doubleValue() >= 0.8 && !cargando) {
                 cargando = true;
@@ -95,33 +84,18 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     public void pedirAnuncios() throws IOException{
         this.filtro.siguientePagina();
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("OBTENER_ANUNCIOS");
-
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(this.filtro);
 
-        msg.addParam(filtroJSON);
-        msg.addParam(this.filtro.getTipoFiltro());
-        msg.addParam("no");
-        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
-        
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.hiloLector.obtenerAnuncios(filtroJSON, this.filtro.getTipoFiltro(), "no", Session.getUsuario().getIdUsuario());
     }
 
     @Override
     public void abrirAnuncio(Anuncio anuncio) {
         this.anuncioSeleccionado = anuncio;
-
-        Mensaje msg = new Mensaje();
-    
-        msg.setTipo("OBTENER_IMAGENES");
-        msg.addParam(String.valueOf(anuncio.getIdAnuncio()));
-
+        
         try {
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
+            this.hiloLector.obtenerImagenes(this.anuncioSeleccionado.getIdAnuncio());
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -232,8 +206,6 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
 
     @FXML
     void handleBtnReportarAction(MouseEvent event) throws IOException {
-        Mensaje msg = new Mensaje();
-
         if(this.usuario.getIdUsuario() == Session.getUsuario().getIdUsuario()){
             Alert alert = new Alert(AlertType.ERROR);
             alert.setTitle("Reporte incorrecto");
@@ -260,11 +232,7 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
                 alertInfo.setContentText("El usuario ha sido baneado correctamente.");
                 alertInfo.showAndWait();
 
-                msg.setTipo("BANEAR_USUARIO");
-                msg.addParam(String.valueOf(usuario.getIdUsuario()));
-
-                this.dos.writeUTF(Serializador.codificarMensaje(msg));
-                this.dos.flush();
+                this.hiloLector.banearUsuario(usuario.getIdUsuario());
             }
         }else if("MODERADOR".equals(Session.getUsuario().getRol()) && "BANEADO".equals(usuario.getEstado())){
             Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -283,11 +251,7 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
                 alertInfo.setContentText("El usuario ha sido desbaneado correctamente.");
                 alertInfo.showAndWait();
 
-                msg.setTipo("DESBANEAR_USUARIO");
-                msg.addParam(String.valueOf(usuario.getIdUsuario()));
-
-                this.dos.writeUTF(Serializador.codificarMensaje(msg));
-                this.dos.flush();
+                this.hiloLector.desbanearUsuario(usuario.getIdUsuario());
             }
         }else{
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_FormularioReporte.fxml"));
@@ -310,26 +274,13 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     public void abrirPerfilUsuario(Usuario usuario) throws IOException {
         this.usuarioSeleccionado = usuario;
 
-        Mensaje msg = new Mensaje();
-
         this.filtro = new FiltroPorNombreUsuario(this.usuarioSeleccionado.getNombreUsuario(), 0, 10);
         this.filtro.setTipoFiltro("PerfilUsuario");
 
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(this.filtro);
-    
-        msg.setTipo("OBTENER_ANUNCIOS");
-        msg.addParam(filtroJSON);
-        msg.addParam(this.filtro.getTipoFiltro());
-        msg.addParam( "si");
-        msg.addParam(Session.getUsuario().getIdUsuario().toString());
 
-        try {
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.hiloLector.obtenerAnuncios(filtroJSON, this.filtro.getTipoFiltro(), "si", Session.getUsuario().getIdUsuario());
         
         this.filtro.siguientePagina();
     }

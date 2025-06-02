@@ -2,7 +2,6 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -18,11 +17,8 @@ import org.apache.pdfbox.pdmodel.PDDocument;
 import org.apache.pdfbox.rendering.PDFRenderer;
 
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
-import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Notificacion;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -89,8 +85,6 @@ public class Controller_CompraVendedor implements IApp, Initializable {
 
     private Lector_App hiloLector;
 
-    private DataOutputStream dos;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         zoom = 1;
@@ -131,7 +125,6 @@ public class Controller_CompraVendedor implements IApp, Initializable {
             }
 
             pddDocument.close();
-            this.dos = new DataOutputStream(Session.getOutputStream());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -211,19 +204,7 @@ public class Controller_CompraVendedor implements IApp, Initializable {
 
         byte[] bytesPdf = Files.readAllBytes(Paths.get("temp/Temp.pdf"));
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("VENDEDOR_CONFIRMA_COMPRA");
-        msg.addParam(String.valueOf(bytesPdf.length));
-        msg.addParam(String.valueOf(notificacion.getUsuarioEnvia().getIdUsuario()));
-        msg.addParam(String.valueOf(notificacion.getAnuncio().getIdAnuncio()));
-        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
-        msg.addParam(String.valueOf(notificacion.getIdNotificacion()));
-
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
-
-        this.dos.write(bytesPdf);
-        this.dos.flush();
+        this.hiloLector.vendedorConfirmaCompra(bytesPdf, notificacion.getUsuarioEnvia().getIdUsuario(), notificacion.getAnuncio().getIdAnuncio(), Session.getUsuario().getIdUsuario(), notificacion.getIdNotificacion());
 
         File pdf = new File("temp/Temp.pdf");
         pdf.delete();
@@ -259,15 +240,7 @@ public class Controller_CompraVendedor implements IApp, Initializable {
 
         if(!res.isPresent() || res.isPresent() && res.get() != ButtonType.OK) return;
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("VENDEDOR_RECHAZA_COMPRA");
-        msg.addParam(String.valueOf(notificacion.getUsuarioEnvia().getIdUsuario()));
-        msg.addParam(String.valueOf(notificacion.getAnuncio().getIdAnuncio()));
-        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
-        msg.addParam(String.valueOf(notificacion.getIdNotificacion()));
-
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.hiloLector.vendedorRechazaCompra(notificacion.getUsuarioEnvia().getIdUsuario(), notificacion.getAnuncio().getIdAnuncio(), Session.getUsuario().getIdUsuario(), notificacion.getIdNotificacion());
 
         File pdf = new File("temp/Temp.pdf");
         pdf.delete();

@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -21,13 +20,9 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroBarraBusqueda;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroNotificaciones;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 public class Controller_Home implements IApp, Initializable {
-    private DataOutputStream dos;
-
     private Lector_App hiloLector;
 
     private FiltroBarraBusqueda filtro;
@@ -54,22 +49,17 @@ public class Controller_Home implements IApp, Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         
-        try {
-            if(!Session.isHiloCreado()){
-                new Thread(() -> {
-                    this.hiloLector = new Lector_App();
-                    this.hiloLector.setController(this);
-                    this.hiloLector.start();
-                    Session.setHiloCreado();
-                    System.out.println("entra en el if");
-                }).start();
-            }
-
-            this.dos = new DataOutputStream(Session.getOutputStream());
-            this.Btn_ConfCuenta.setText(Session.getUsuario().getNombreUsuario());
-        } catch (IOException e) {
-            e.printStackTrace();
+        if(!Session.isHiloCreado()){
+            new Thread(() -> {
+                this.hiloLector = new Lector_App();
+                this.hiloLector.setController(this);
+                this.hiloLector.start();
+                Session.setHiloCreado();
+                System.out.println("entra en el if");
+            }).start();
         }
+
+        this.Btn_ConfCuenta.setText(Session.getUsuario().getNombreUsuario());
     }
 
     @FXML
@@ -103,19 +93,10 @@ public class Controller_Home implements IApp, Initializable {
         this.filtro.setCadena(cadena);
         this.filtro.setEsModerador(false);
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("OBTENER_ANUNCIOS");
-
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(this.filtro);
 
-        msg.addParam(filtroJSON);
-        msg.addParam(this.filtro.getTipoFiltro());
-        msg.addParam("si");
-        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
-
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.hiloLector.obtenerAnuncios(filtroJSON, this.filtro.getTipoFiltro(), "si", Session.getUsuario().getIdUsuario());
     }
 
     public void irListaAnuncios(String anunciosJSON, List<byte[]> imagenes) throws IOException{
@@ -156,17 +137,10 @@ public class Controller_Home implements IApp, Initializable {
         this.filtroNotis = new FiltroNotificaciones();
         this.filtroNotis.setIdUsuario(Session.getUsuario().getIdUsuario());
 
-        Mensaje msg = new Mensaje();
-        msg.setTipo("OBTENER_NOTIFICACIONES");
-
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(this.filtroNotis);
 
-        msg.addParam(filtroJSON);
-        msg.addParam("si");
-
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.hiloLector.obtenerNotificaciones(filtroJSON, "si");
     }
 
     public void irListaNotificaciones(String notisJSON) throws IOException{

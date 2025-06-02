@@ -32,6 +32,7 @@ import com.iesfernandoaguilar.perezgonzalez.controller.Controller_PublicarAnunci
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Reportes;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
+import com.iesfernandoaguilar.perezgonzalez.model.Imagen;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
@@ -363,6 +364,226 @@ public class Lector_App extends Thread{
         Mensaje msg = new Mensaje();
         msg.setTipo("CERRAR_SESION");
         msg.addParam(idUsuario.toString());
+        this.enviarMensaje(msg);
+    }
+
+    public void comprobarDatosVehiculo(String valoresAnuncioJSON) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("COMPROBAR_DATOS_VEHICULO");
+        msg.addParam(valoresAnuncioJSON);
+        this.enviarMensaje(msg);
+    }
+
+    public void publicarAnuncio(String anuncioJSON, List<Imagen> imagenes) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("PUBLICAR_ANUNCIO");
+        msg.addParam(anuncioJSON);
+        msg.addParam(String.valueOf(imagenes.size()));
+
+        this.enviarMensaje(msg);
+
+        for (Imagen imagen : imagenes) {
+            this.dos.writeInt(imagen.getImagen().length);
+            this.dos.write(imagen.getImagen());
+            this.dos.flush();
+        }
+    }
+
+    public void obtenerAnuncios(String filtroJSON, String tipoFiltro, String primeraCarga, Long idUsuario) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_ANUNCIOS");
+        msg.addParam(filtroJSON);
+        msg.addParam(tipoFiltro);
+        msg.addParam(primeraCarga);
+        msg.addParam(String.valueOf(idUsuario));
+        this.enviarMensaje(msg);
+    }
+
+    public void guardarAnuncio(Long idAnuncio, String nombreUsuario) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("GUARDAR_ANUNCIO");
+        msg.addParam(String.valueOf(idAnuncio));
+        msg.addParam(nombreUsuario);
+        this.enviarMensaje(msg);
+    }
+
+    public void eliminarAnuncioGuardados(Long idAnuncio, String nombreUsuario) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("ELIMINAR_ANUNCIO_GUARDADOS");
+        msg.addParam(String.valueOf(idAnuncio));
+        msg.addParam(nombreUsuario);
+        this.enviarMensaje(msg);
+    }
+
+    public void obtenerImagenes(Long idAnuncio) throws IOException{
+        Mensaje msg = new Mensaje();
+    
+        msg.setTipo("OBTENER_IMAGENES");
+        msg.addParam(String.valueOf(idAnuncio));
+        this.enviarMensaje(msg);
+    }
+
+    public void obtenerReportesMod(String filtroJSON) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_REPORTES_MOD");
+        msg.addParam(filtroJSON);
+        this.enviarMensaje(msg);
+    }
+
+    public void obtenerUltimosReportesMod(String filtroJSON) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_ULTIMOS_REPORTES_MOD");
+        msg.addParam(filtroJSON);
+        this.enviarMensaje(msg);
+    }
+
+    public void reportarUsuario(String reporteJSON) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("REPORTAR_USUARIO");
+        msg.addParam(reporteJSON);
+        this.enviarMensaje(msg);
+    }
+
+    public void banearUsuario(Long idUsuario) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("BANEAR_USUARIO");
+        msg.addParam(String.valueOf(idUsuario));
+        this.enviarMensaje(msg);
+    }
+
+    public void desbanearUsuario(Long idUsuario) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("DESBANEAR_USUARIO");
+        msg.addParam(String.valueOf(idUsuario));
+        this.enviarMensaje(msg);
+    }
+
+    public void obtenerPDFAcuerdo(Long idUsuarioComprador, Long idAnuncio, String tipoAnuncio) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_PDF_ACUERDO");
+        msg.addParam(String.valueOf(idUsuarioComprador));
+        msg.addParam(String.valueOf(idAnuncio));
+        msg.addParam(tipoAnuncio);
+        this.enviarMensaje(msg);
+    }
+
+    public void compradorOfreceCompra(byte[] bytesPdf, Long idComprador, Long idAnuncio, Long idVendedor) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("COMPRADOR_OFRECE_COMPRA");
+        msg.addParam(String.valueOf(bytesPdf.length));
+        msg.addParam(String.valueOf(idComprador));
+        msg.addParam(String.valueOf(idAnuncio));
+        msg.addParam(String.valueOf(idVendedor));
+
+        this.enviarMensaje(msg);
+
+        this.dos.write(bytesPdf);
+        this.dos.flush();
+    }
+
+    public void vendedorConfirmaCompra(byte[] bytesPdf, Long idComprador, Long idAnuncio, Long idVendedor, Long idNotificacion) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("VENDEDOR_CONFIRMA_COMPRA");
+        msg.addParam(String.valueOf(bytesPdf.length));
+        msg.addParam(String.valueOf(idComprador));
+        msg.addParam(String.valueOf(idAnuncio));
+        msg.addParam(String.valueOf(idVendedor));
+        msg.addParam(String.valueOf(idNotificacion));
+
+        this.enviarMensaje(msg);
+
+        this.dos.write(bytesPdf);
+        this.dos.flush();
+    }
+
+    public void vendedorRechazaCompra(Long idComprador, Long idAnuncio, Long idVendedor, Long idNotificacion) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("VENDEDOR_RECHAZA_COMPRA");
+        msg.addParam(String.valueOf(idComprador));
+        msg.addParam(String.valueOf(idAnuncio));
+        msg.addParam(String.valueOf(idVendedor));
+        msg.addParam(String.valueOf(idNotificacion));
+        this.enviarMensaje(msg);
+    }
+
+    public void obtenerPDFAcuerdoVendedor(Long idUsuarioComprador, Long idAnuncio, String tipoAnuncio) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_PDF_ACUERDO_VENDEDOR");
+        msg.addParam(String.valueOf(idUsuarioComprador));
+        msg.addParam(String.valueOf(idAnuncio));
+        msg.addParam(tipoAnuncio);
+        this.enviarMensaje(msg);
+    }
+
+    public void obtenerNotificaciones(String filtroJSON, String primeraCarga) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_NOTIFICACIONES");
+        msg.addParam(filtroJSON);
+        msg.addParam(primeraCarga);
+        this.enviarMensaje(msg);
+    }
+
+    public void cambiarEstadoNotificacion(Long idNotificacion, String estado) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("CAMBIAR_ESTADO_NOTIFICACION");
+        msg.addParam(String.valueOf(idNotificacion));
+        msg.addParam(estado);
+        this.enviarMensaje(msg);
+    }
+
+    public void usuarioPaga(Long idComprador, Long idVendedor, Long idAnuncio, double precio) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("USUARIO_PAGA");
+        msg.addParam(String.valueOf(idComprador));
+        msg.addParam(String.valueOf(idVendedor));
+        msg.addParam(String.valueOf(idAnuncio));
+        msg.addParam(String.valueOf(precio));
+        this.enviarMensaje(msg);
+    }
+
+    public void obtenerEstadoPago(Long idNotificacion, double precio, Long idAnuncio) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_ESTADO_PAGO");
+        msg.addParam(String.valueOf(idNotificacion));
+        msg.addParam(String.valueOf(precio));
+        msg.addParam(String.valueOf(idAnuncio));
+        this.enviarMensaje(msg);
+    }
+
+    public void cancelarAnuncio(Long idAnuncio) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("CANCELAR_ANUNCIO");
+        msg.addParam(String.valueOf(idAnuncio));
+        this.enviarMensaje(msg);
+    }
+
+    public void reanudarAnuncio(Long idAnuncio) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("REANUDAR_ANUNCIO");
+        msg.addParam(String.valueOf(idAnuncio));
+        this.enviarMensaje(msg);
+    }
+
+    public void obtenerSaltReinicio(String nombreUsuario) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_SALT_REINICIO");
+        msg.addParam(nombreUsuario);
+        this.enviarMensaje(msg);
+    }
+
+    public void reiniciarContrasenia(String nombreUsuario, String contraseniaHash) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("REINICIAR_CONTRASENIA");
+        msg.addParam(nombreUsuario);
+        msg.addParam(contraseniaHash);
+        this.enviarMensaje(msg);
+    }
+
+    public void obtenerVentas(String filtroJSON, String primeraCarga) throws IOException{
+        Mensaje msg = new Mensaje();
+        msg.setTipo("OBTENER_VENTAS");
+        msg.addParam(filtroJSON);
+        msg.addParam(primeraCarga);
         this.enviarMensaje(msg);
     }
 }

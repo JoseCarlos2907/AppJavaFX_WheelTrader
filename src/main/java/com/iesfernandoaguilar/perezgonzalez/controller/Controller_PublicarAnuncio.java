@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,9 +9,6 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
-import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,7 +26,6 @@ import javafx.stage.Stage;
 public class Controller_PublicarAnuncio implements IApp, Initializable{
 
     private Anuncio anuncio;
-    private DataOutputStream dos;
     private Lector_App hiloLector;
 
     @Override
@@ -57,12 +52,6 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
 
         this.CB_Maquinaria_TipoCombustible.getItems().addAll("Diesel","Gasolina","Electrico","GLP");
         this.CB_Maquinaria_TipoCombustible.setValue("Tipo Combustible");
-
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     public void setHiloLector(Lector_App hiloLector){
@@ -151,14 +140,9 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
             this.anuncio.setMatricula(matricula);
             this.anuncio.setNumSerieBastidor(numBastidor);
             
-            Mensaje msg = new Mensaje();
-            msg.setTipo("COMPROBAR_DATOS_VEHICULO");
-            
             ObjectMapper mapper = new ObjectMapper();
             String valoresAnuncioJSON = mapper.writeValueAsString(this.anuncio.getValoresCaracteristicas());
-            msg.addParam(valoresAnuncioJSON);
-
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.hiloLector.comprobarDatosVehiculo(valoresAnuncioJSON);
         }
     }
 
@@ -214,15 +198,10 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
             this.anuncio.addValorCaracteristica(new ValorCaracteristica(new String(this.TxtF_Moto_CantMarchas.getText()), "Marchas_Moto"));
             this.anuncio.setMatricula(matricula);
             this.anuncio.setNumSerieBastidor(numBastidor);
-            
-            Mensaje msg = new Mensaje();
-            msg.setTipo("COMPROBAR_DATOS_VEHICULO");
-            
+
             ObjectMapper mapper = new ObjectMapper();
             String valoresAnuncioJSON = mapper.writeValueAsString(this.anuncio.getValoresCaracteristicas());
-            msg.addParam(valoresAnuncioJSON);
-
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.hiloLector.comprobarDatosVehiculo(valoresAnuncioJSON);
         }
     }
 
@@ -291,14 +270,9 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
             this.anuncio.setMatricula(matricula);
             this.anuncio.setNumSerieBastidor(numBastidor);
             
-            Mensaje msg = new Mensaje();
-            msg.setTipo("COMPROBAR_DATOS_VEHICULO");
-            
             ObjectMapper mapper = new ObjectMapper();
             String valoresAnuncioJSON = mapper.writeValueAsString(this.anuncio.getValoresCaracteristicas());
-            msg.addParam(valoresAnuncioJSON);
-
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.hiloLector.comprobarDatosVehiculo(valoresAnuncioJSON);
         }
     }
 
@@ -359,14 +333,9 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
             this.anuncio.setMatricula(matricula);
             this.anuncio.setNumSerieBastidor(numBastidor);
             
-            Mensaje msg = new Mensaje();
-            msg.setTipo("COMPROBAR_DATOS_VEHICULO");
-            
             ObjectMapper mapper = new ObjectMapper();
             String valoresAnuncioJSON = mapper.writeValueAsString(this.anuncio.getValoresCaracteristicas());
-            msg.addParam(valoresAnuncioJSON);
-
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.hiloLector.comprobarDatosVehiculo(valoresAnuncioJSON);
         }
     }
 
@@ -405,14 +374,9 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
             this.anuncio.setMatricula("MAQUINARIA");
             this.anuncio.setNumSerieBastidor(numBastidor);
             
-            Mensaje msg = new Mensaje();
-            msg.setTipo("COMPROBAR_DATOS_VEHICULO");
-            
             ObjectMapper mapper = new ObjectMapper();
             String valoresAnuncioJSON = mapper.writeValueAsString(this.anuncio.getValoresCaracteristicas());
-            msg.addParam(valoresAnuncioJSON);
-
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
+            this.hiloLector.comprobarDatosVehiculo(valoresAnuncioJSON);
         }
     }
 

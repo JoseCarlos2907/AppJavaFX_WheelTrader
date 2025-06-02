@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -14,8 +13,6 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Imagen;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -36,8 +33,6 @@ import javafx.stage.Stage;
 public class Controller_PublicarAnuncio2 implements IApp, Initializable{
     private List<Imagen> imagenes;
     private Anuncio anuncio;
-
-    private DataOutputStream dos;
 
     private Lector_App hiloLector;
 
@@ -70,12 +65,6 @@ public class Controller_PublicarAnuncio2 implements IApp, Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.imagenes = new ArrayList<>();
-
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            System.err.println(e.getMessage());
-        }
     }
 
     @FXML
@@ -166,19 +155,7 @@ public class Controller_PublicarAnuncio2 implements IApp, Initializable{
             ObjectMapper mapper = new ObjectMapper();
             String anuncioJSON = mapper.writeValueAsString(this.anuncio);
 
-            Mensaje msg = new Mensaje();
-            msg.setTipo("PUBLICAR_ANUNCIO");
-            msg.addParam(anuncioJSON);
-            msg.addParam(String.valueOf(this.imagenes.size()));
-
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
-
-            for (Imagen imagen : this.imagenes) {
-                this.dos.writeInt(imagen.getImagen().length);
-                this.dos.write(imagen.getImagen());
-                this.dos.flush();
-            }
+            this.hiloLector.publicarAnuncio(anuncioJSON, new ArrayList<>(imagenes));
         }
     }
 

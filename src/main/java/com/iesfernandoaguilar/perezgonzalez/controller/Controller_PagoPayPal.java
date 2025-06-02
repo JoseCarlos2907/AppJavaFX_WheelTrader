@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -10,9 +9,6 @@ import java.util.concurrent.Executors;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Notificacion;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
-import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -35,8 +31,6 @@ public class Controller_PagoPayPal implements IApp, Initializable {
 
     private Lector_App hiloLector;
 
-    private DataOutputStream dos;
-
     private Notificacion notificacion;
     private String url;
     private boolean pagado;
@@ -46,12 +40,6 @@ public class Controller_PagoPayPal implements IApp, Initializable {
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.pagado = false;
-
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         scheduler = Executors.newSingleThreadExecutor();
     }
@@ -111,15 +99,8 @@ public class Controller_PagoPayPal implements IApp, Initializable {
             @Override
             public void run() {
                 while (!pagado) {
-                    Mensaje msg = new Mensaje();
-                    msg.setTipo("OBTENER_ESTADO_PAGO");
-                    msg.addParam(String.valueOf(notificacion.getIdNotificacion()));
-                    msg.addParam(String.valueOf(notificacion.getAnuncio().getPrecio()));
-                    msg.addParam(String.valueOf(notificacion.getAnuncio().getIdAnuncio()));
-    
                     try {
-                        dos.writeUTF(Serializador.codificarMensaje(msg));
-                        dos.flush();
+                        hiloLector.obtenerEstadoPago(notificacion.getIdNotificacion(), notificacion.getAnuncio().getPrecio(), notificacion.getAnuncio().getIdAnuncio());
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

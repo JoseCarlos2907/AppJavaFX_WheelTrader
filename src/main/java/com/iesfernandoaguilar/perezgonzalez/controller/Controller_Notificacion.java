@@ -3,7 +3,7 @@ package com.iesfernandoaguilar.perezgonzalez.controller;
 import java.io.IOException;
 
 import com.iesfernandoaguilar.perezgonzalez.model.Notificacion;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
+import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -40,8 +40,10 @@ public class Controller_Notificacion{
     private Controller_Notificaciones controller;
     private Notificacion notificacion;
 
+    private Lector_App hiloLector;
+
     @FXML
-    void handleBtnVerOfertaAction(MouseEvent event) {
+    void handleBtnVerOfertaAction(MouseEvent event) throws IOException {
         if("Pagar".equals(this.Btn_VerOferta.getText())){
             this.controller.abrirPagoPayPal(notificacion);
         }else{
@@ -51,21 +53,20 @@ public class Controller_Notificacion{
 
     @FXML
     void handleIcono2Action(MouseEvent event) throws IOException{
-        Mensaje msg = new Mensaje();
-        msg.setTipo("CAMBIAR_ESTADO_NOTIFICACION");
-        msg.addParam(String.valueOf(notificacion.getIdNotificacion()));
+        
+        String estado = "NO_LEIDO";
         if("NO_LEIDO".equals(notificacion.getEstado())){
             this.ImgView_Icono2.setImage(new Image(getClass().getResourceAsStream("/img/IconoLeido.png")));
             notificacion.setEstado("LEIDO");
-            msg.addParam("LEIDO");
+            estado = "LEIDO";
         }else if("LEIDO".equals(notificacion.getEstado())){
             this.ImgView_Icono2.setImage(new Image(getClass().getResourceAsStream("/img/IconoNoLeido.png")));
             notificacion.setEstado("NO_LEIDO");
-            msg.addParam("NO_LEIDO");
+            estado = "NO_LEIDO";
         }
 
         if(!"RESPONDIDO".equals(notificacion.getEstado())){
-            this.controller.cambiarEstadoNotificacion(msg);
+            this.hiloLector.cambiarEstadoNotificacion(notificacion.getIdNotificacion(), estado);
         }
     }
 
@@ -121,5 +122,9 @@ public class Controller_Notificacion{
 
     public Pane getPane(){
         return this.Pane_Notificacion;
+    }
+
+    public void setHiloLector(Lector_App hiloLector){
+        this.hiloLector = hiloLector;
     }
 }

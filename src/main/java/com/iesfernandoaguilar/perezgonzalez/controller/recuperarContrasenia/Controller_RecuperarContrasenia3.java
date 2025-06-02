@@ -65,7 +65,7 @@ public class Controller_RecuperarContrasenia3 implements ILogin{
             alert.getDialogPane().getStyleClass().add("alert-error");
             alert.showAndWait();
         }else{
-            this.hiloLector.reiniciaContraseña(SecureUtils.generate512(new String(this.TxtF_Contra.getText()), salt));
+            this.hiloLector.reiniciaContrasenia(SecureUtils.generate512(new String(this.TxtF_Contra.getText()), salt));
         }
     }
 

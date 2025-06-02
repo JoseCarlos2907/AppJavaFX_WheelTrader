@@ -1,23 +1,16 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Reporte;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -27,9 +20,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class Controller_FormularioReporte implements IApp, Initializable {
+public class Controller_FormularioReporte implements IApp {
     private Lector_App hiloLector;
-    private DataOutputStream dos;
 
     private Usuario usuario;
 
@@ -45,19 +37,8 @@ public class Controller_FormularioReporte implements IApp, Initializable {
     @FXML
     private TextArea TxtA_Desccripcion;
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-    }
-
     @FXML
-    void handleBtnReportarAction(MouseEvent event) throws JsonProcessingException {
-        Mensaje msg = new Mensaje();
-
+    void handleBtnReportarAction(MouseEvent event) throws IOException {
         Reporte reporte = new Reporte();
         reporte.setExplicacion(new String(this.TxtA_Desccripcion.getText()));
         reporte.setMotivo(new String(this.TxtField_Motivo.getText()));
@@ -67,15 +48,7 @@ public class Controller_FormularioReporte implements IApp, Initializable {
         ObjectMapper mapper = new ObjectMapper();
         String reporteJSON = mapper.writeValueAsString(reporte);
     
-        msg.setTipo("REPORTAR_USUARIO");
-        msg.addParam(reporteJSON);
-
-        try {
-            this.dos.writeUTF(Serializador.codificarMensaje(msg));
-            this.dos.flush();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        this.hiloLector.reportarUsuario(reporteJSON);
     }
 
     @FXML

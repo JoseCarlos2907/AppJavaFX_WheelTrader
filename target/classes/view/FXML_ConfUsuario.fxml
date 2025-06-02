@@ -227,7 +227,7 @@
           </TitledPane>
         </panes>
       </Accordion>
-      <Button fx:id="Btn_MisPagos" layoutX="738.0" layoutY="509.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisPagosAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Pagos" textAlignment="CENTER">
+      <Button fx:id="Btn_MisGuardados" layoutX="951.0" layoutY="349.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisGuardadosAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Guardados" textAlignment="CENTER">
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>
@@ -236,7 +236,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button fx:id="Btn_MisGuardados" layoutX="738.0" layoutY="203.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisGuardadosAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Guardados" textAlignment="CENTER">
+      <Button fx:id="Btn_MisAnuncios" layoutX="951.0" layoutY="194.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisAnunciosAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Anuncios" textAlignment="CENTER">
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>
@@ -245,25 +245,7 @@
             </DropShadow>
          </effect>
       </Button>
-      <Button fx:id="Btn_MisAnuncios" layoutX="1069.0" layoutY="203.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisAnunciosAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Anuncios" textAlignment="CENTER">
-         <effect>
-            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
-               <color>
-                  <Color opacity="0.4000000059604645" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Button>
-      <Button fx:id="Btn_MisCompras" layoutX="738.0" layoutY="355.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisComprasAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Compras y Garantías" textAlignment="CENTER" wrapText="true">
-         <effect>
-            <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
-               <color>
-                  <Color opacity="0.4000000059604645" />
-               </color>
-            </DropShadow>
-         </effect>
-      </Button>
-      <Button fx:id="Btn_MisReuniones" layoutX="1070.0" layoutY="353.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisReunionesAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Reuniones" textAlignment="CENTER">
+      <Button fx:id="Btn_MisCompras" layoutX="951.0" layoutY="501.0" mnemonicParsing="false" onMouseClicked="#handleBtnMisComprasAction" prefHeight="105.0" prefWidth="274.0" styleClass="botonAzul" text="Mis Compras y Garantías" textAlignment="CENTER" wrapText="true">
          <effect>
             <DropShadow height="10.0" offsetX="5.0" offsetY="5.0" radius="4.5" width="10.0">
                <color>
