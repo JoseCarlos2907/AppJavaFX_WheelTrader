@@ -62,12 +62,10 @@ public class Lector_InicioSesion extends Thread{
 
                 switch (msgServidor.getTipo()) {
                     case "ENVIA_SALT":
-                        // System.out.println("ENVIA_SALT");
                         ((Controller_InicioSesion) this.controller).respuestaSalt(Base64.getDecoder().decode(msgServidor.getParams().get(0)));
                         break;
                 
                     case "INICIA_SESION":
-                        // System.out.println("INICIA_SESION");
                         if("si".equals(msgServidor.getParams().get(0))){
                             iniciaSesion = true;
                             usuarioJSON = msgServidor.getParams().get(1);
@@ -83,7 +81,6 @@ public class Lector_InicioSesion extends Thread{
                         break;
 
                     case "DNI_EXISTE":
-                        // System.out.println("DNI_EXISTE");
                         Platform.runLater(() -> {
                             if("si".equals(msgServidor.getParams().get(0))){
                                 ((Controller_Registro1) this.controller).dniExistente();

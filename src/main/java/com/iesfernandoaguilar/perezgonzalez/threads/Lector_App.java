@@ -105,7 +105,6 @@ public class Lector_App extends Thread{
                         
 
                     case "ENVIA_ANUNCIOS":
-                        // System.out.println("ENVIA_ANUNCIOS");
                         List<byte[]> imagenes = new ArrayList<>();
                         int cantAnuncios = Integer.valueOf(msgServidor.getParams().get(2));
                         for (int i = 0; i < cantAnuncios; i++) {
@@ -187,7 +186,6 @@ public class Lector_App extends Thread{
                         break;
 
                     case "ENVIA_REPORTES_MOD":
-                        // System.out.println("ENVIA_REPORTES_MOD");
                         Platform.runLater(() -> {
                             try {
                                 ((Controller_HomeModerador) this.controller).aniadirUsuario(msgServidor.getParams().get(0));
@@ -236,7 +234,6 @@ public class Lector_App extends Thread{
                         break;
 
                     case "ENVIA_NOTIFICACIONES":
-                        // System.out.println("ENVIA_NOTIFICACIONES");
                         String notificacionesJSON = msgServidor.getParams().get(0);
                         Platform.runLater(() -> {
                             try {

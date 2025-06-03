@@ -1,6 +1,5 @@
 package com.iesfernandoaguilar.perezgonzalez.controller;
 
-import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
@@ -16,8 +15,6 @@ import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroMaquinaria;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroMoto;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroTodo;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
-import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
-import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -34,8 +31,6 @@ import javafx.stage.Stage;
 
 public class Controller_Filtros implements IApp, Initializable{
     private Lector_App hiloLector;
-
-    private DataOutputStream dos;
 
     private IFiltro filtro;
 
@@ -61,12 +56,6 @@ public class Controller_Filtros implements IApp, Initializable{
 
         this.CB_Maquinaria_TipoCombustible.getItems().addAll("Diesel","Gasolina","Electrico","GLP");
         this.CB_Maquinaria_TipoCombustible.setValue("Tipo Combustible");
-
-        try {
-            this.dos = new DataOutputStream(Session.getOutputStream());
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
     @FXML
@@ -566,19 +555,10 @@ public class Controller_Filtros implements IApp, Initializable{
     public void buscar(IFiltro filtro) throws IOException{
         this.filtro = filtro;
 
-        Mensaje msg = new Mensaje();
-
         ObjectMapper mapper = new ObjectMapper();
         String filtroJSON = mapper.writeValueAsString(this.filtro);
 
-        msg.setTipo("OBTENER_ANUNCIOS");
-        msg.addParam(filtroJSON);
-        msg.addParam(this.filtro.getTipoFiltro());
-        msg.addParam("si");
-        msg.addParam(String.valueOf(Session.getUsuario().getIdUsuario()));
-
-        this.dos.writeUTF(Serializador.codificarMensaje(msg));
-        this.dos.flush();
+        this.hiloLector.obtenerAnuncios(filtroJSON, this.filtro.getTipoFiltro(), "si", Session.getUsuario().getIdUsuario());
     }
 
     public void irListaAnuncios(String anunciosJSON, List<byte[]> imagenes) throws IOException{

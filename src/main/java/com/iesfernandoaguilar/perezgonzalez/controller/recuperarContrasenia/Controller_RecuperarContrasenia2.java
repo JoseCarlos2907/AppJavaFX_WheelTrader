@@ -3,13 +3,12 @@ package com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia;
 import java.io.IOException;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +16,9 @@ import javafx.stage.Stage;
 
 public class Controller_RecuperarContrasenia2 implements ILogin{
     private Lector_InicioSesion hiloLector;
-
+    
+    private byte[] salt;
+    
     @FXML
     private Button Btn_Siguiente;
     
@@ -27,7 +28,6 @@ public class Controller_RecuperarContrasenia2 implements ILogin{
     @FXML
     private TextField TxtF_Codigo;
 
-    private byte[] salt;
 
     @FXML
     void handleBtnSiguienteAction(MouseEvent event) throws IOException {
@@ -75,12 +75,10 @@ public class Controller_RecuperarContrasenia2 implements ILogin{
     }
 
     public void codigoIncorrecto(){
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Código incorrecto");
-        alert.setHeaderText(null);
-        alert.setContentText("El código que se te ha enviado por correo no es el que has indicado");
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("alert-error");
-        alert.showAndWait();
+        AlertManager.alertError(
+            "Código incorrecto",
+            "El código que se te ha enviado por correo no es el que has indicado",
+            getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+        );
     }
 }

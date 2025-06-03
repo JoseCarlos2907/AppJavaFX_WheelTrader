@@ -13,6 +13,7 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Imagen;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -20,8 +21,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -31,10 +30,10 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 public class Controller_PublicarAnuncio2 implements IApp, Initializable{
+    private Lector_App hiloLector;
+
     private List<Imagen> imagenes;
     private Anuncio anuncio;
-
-    private Lector_App hiloLector;
 
     @FXML
     private Button Btn_AniadirImg;
@@ -107,13 +106,11 @@ public class Controller_PublicarAnuncio2 implements IApp, Initializable{
         try {
             precio = Double.parseDouble(new String(this.TxtF_Precio.getText()));
         } catch (Exception e) {
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Formato del precio incorrecto");
-            alert.setHeaderText(null);
-            alert.setContentText("El formato del precio no es el correcto");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            AlertManager.alertError(
+                "Formato del precio incorrecto",
+                "El formato del precio no es el correcto",
+                getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+            );
         }
 
         String provincia = new String(this.TxtF_Provincia.getText());
@@ -121,29 +118,23 @@ public class Controller_PublicarAnuncio2 implements IApp, Initializable{
         String descripcion = new String(this.TxtA_Desccripcion.getText());
         
         if(this.imagenes.size() < 1){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("No hay imagenes");
-            alert.setHeaderText(null);
-            alert.setContentText("El anuncio debe tener al menos una imagen");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            AlertManager.alertError(
+                "No hay imagenes",
+                "El anuncio debe tener al menos una imagen",
+                getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+            );
         }else if(provincia.isEmpty() || ciudad.isEmpty() || descripcion.isEmpty()){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Datos incompletos");
-            alert.setHeaderText(null);
-            alert.setContentText("Es necesario rellenar todos los datos del anuncio");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            AlertManager.alertError(
+                "Datos incompletos",
+                "Es necesario rellenar todos los datos del anuncio",
+                getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+                );
         }else if(precio <= 0.0){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Precio no válido");
-            alert.setHeaderText(null);
-            alert.setContentText("El precio no puede ser menor o igual a 0");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            AlertManager.alertError(
+                "Precio no válido",
+                "El precio no puede ser menor o igual a 0",
+                getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+                );
         }else{
             this.anuncio.setProvincia(provincia);
             this.anuncio.setCiudad(ciudad);
@@ -188,13 +179,10 @@ public class Controller_PublicarAnuncio2 implements IApp, Initializable{
     }
 
     public void anuncioPublicado() throws IOException{
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Anuncio publicado");
-        alert.setHeaderText(null);
-        alert.setContentText("El anuncio se ha publicado correctamente");
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-        // alert.getDialogPane().getStyleClass().add("alert-error");
-        alert.showAndWait();
+        AlertManager.alertInfo(
+            "Anuncio publicado",
+            "El anuncio se ha publicado correctamente"
+        );
 
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));

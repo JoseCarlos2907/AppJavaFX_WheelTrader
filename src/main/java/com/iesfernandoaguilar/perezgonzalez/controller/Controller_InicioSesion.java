@@ -30,6 +30,7 @@ import com.iesfernandoaguilar.perezgonzalez.controller.recuperarContrasenia.Cont
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro1;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 public class Controller_InicioSesion implements ILogin, Initializable {
@@ -181,26 +182,19 @@ public class Controller_InicioSesion implements ILogin, Initializable {
     }
 
     public void inicioDeSesionIncorrecto() {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Credenciales incorrectas");
-        alert.setHeaderText(null);
-        alert.setContentText("El nombre de usuario, el correo o la contraseña no son correctos");
-        alert.getDialogPane().getStylesheets()
-                .add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("alert-error");
-        alert.showAndWait();
+        AlertManager.alertError(
+            "Credenciales incorrectas",
+            "El nombre de usuario, el correo o la contraseña no son correctos",
+            getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+        );
     }
 
     public void usuarioBaneado() {
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Usuario baneado");
-        alert.setHeaderText(null);
-        alert.setContentText(
-                "El usuario con el que intenta iniciar sesión ha sido baneado, si cree que se le ha baneado por error contacte con el correo wheeltraderapp@gmail.com");
-        alert.getDialogPane().getStylesheets()
-                .add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("alert-error");
-        alert.showAndWait();
+        AlertManager.alertError(
+            "Usuario baneado",
+            "El usuario con el que intenta iniciar sesión ha sido baneado, si cree que se le ha baneado por error contacte con el correo wheeltraderapp@gmail.com",
+            getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+        );
     }
 
     public void siguientePaso() throws IOException {

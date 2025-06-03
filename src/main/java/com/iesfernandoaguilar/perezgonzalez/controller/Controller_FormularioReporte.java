@@ -7,14 +7,13 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Reporte;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.input.MouseEvent;
@@ -80,11 +79,10 @@ public class Controller_FormularioReporte implements IApp {
     }
 
     public void reporteRealizado() throws IOException{
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Reporte realizado");
-        alert.setHeaderText(null);
-        alert.setContentText("El reporte se ha realizado correctamente");
-        alert.showAndWait();
+        AlertManager.alertInfo(
+            "Reporte realizado",
+            "El reporte se ha realizado correctamente"
+        );
 
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
@@ -103,10 +101,9 @@ public class Controller_FormularioReporte implements IApp {
     
 
     public void reporteYaRealizado() throws IOException{
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Reporte ya realizado");
-        alert.setHeaderText(null);
-        alert.setContentText("El reporte a este mismo usuario ya se ha realizado en otro momento");
-        alert.showAndWait();
+        AlertManager.alertInfo(
+            "Reporte ya realizado",
+            "El reporte a este mismo usuario ya se ha realizado en otro momento"
+        );
     }
 }

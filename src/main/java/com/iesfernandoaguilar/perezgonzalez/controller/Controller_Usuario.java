@@ -8,6 +8,9 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 public class Controller_Usuario {
+    private Controller_HomeModerador controller;
+    private Usuario usuario;
+
     @FXML
     private Label Lbl_CantReportes;
 
@@ -19,9 +22,6 @@ public class Controller_Usuario {
 
     @FXML
     private Pane Pane_Usuario;
-
-    private Controller_HomeModerador controller;
-    private Usuario usuario;
 
     @FXML
     void handlePaneUsuarioAction(MouseEvent event) {

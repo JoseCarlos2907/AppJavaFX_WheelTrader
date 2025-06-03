@@ -20,7 +20,6 @@ public class SecureUtils {
     }
     
     public static String generate512(String passwordToHash, byte[] salt){
-    // public static String generate512(String passwordToHash){
         String generatedPassword = null;
         try {
             

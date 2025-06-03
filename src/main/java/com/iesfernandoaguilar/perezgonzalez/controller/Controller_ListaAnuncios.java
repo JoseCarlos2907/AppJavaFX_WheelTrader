@@ -17,6 +17,7 @@ import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -24,8 +25,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
@@ -115,7 +114,7 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
 
         Controller_PerfilUsuario controller = loader.getController();
         controller.setUsuario(this.usuarioSeleccionado);
-        controller.setHiloLector(hiloLector);
+        controller.setHiloLector(this.hiloLector);
         controller.setFiltro(this.filtroNU);
         controller.aniadirAnuncios(anunciosJSON, imagenes);
         this.hiloLector.setController(controller);
@@ -217,6 +216,7 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
                 controller.setUsuario(anuncio.getVendedor().getNombreUsuario());
                 controller.setImagen(imagenesNuevas.get(i));
                 controller.setGuardado(anuncio.isGuardado());
+                controller.setHiloLector(this.hiloLector);
                 controller.setController(this);
 
                 this.VBox_Anuncios.getChildren().add(componente);
@@ -228,16 +228,16 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
     }
 
     public void avisoGuardado(boolean guardado){
-        Alert alert = new Alert(AlertType.INFORMATION);
         if(guardado){
-            alert.setTitle("Anuncio guardado");
-            alert.setContentText("El anuncio se ha guardado correctamente en 'Mis Guardados'");
+            AlertManager.alertInfo(
+                "Anuncio guardado",
+                "El anuncio se ha guardado correctamente en 'Mis Guardados'"
+            );
         }else{
-            alert.setTitle("Anuncio eliminado");
-            alert.setContentText("El anuncio se ha eliminado correctamente en 'Mis Guardados'");
+            AlertManager.alertInfo(
+                "Anuncio eliminado",
+                "El anuncio se ha eliminado correctamente en 'Mis Guardados'"
+            );
         }
-
-        alert.setHeaderText(null);
-        alert.showAndWait();
     }
 }

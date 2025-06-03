@@ -15,6 +15,7 @@ import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -22,8 +23,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -34,6 +33,16 @@ import javafx.scene.shape.Line;
 import javafx.stage.Stage;
 
 public class Controller_DetalleAnuncio implements IApp, Initializable {
+    private Lector_App hiloLector;
+    
+    private Anuncio anuncio;
+    private Usuario usuario;
+    private List<byte[]> imagenes;
+    private int posImagenActual;
+    private IFiltro filtro;
+
+    private IListaAnuncios controller;
+
     @FXML
     private Button Btn_AnteriorImg;
 
@@ -69,17 +78,7 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
 
     @FXML
     private Button Btn_CambiarEstadoAnuncio;
-
-    private Anuncio anuncio;
-    private Usuario usuario;
-    private List<byte[]> imagenes;
-    private int posImagenActual;
-    private IFiltro filtro;
-
-    private IListaAnuncios controller;
-
-    private Lector_App hiloLector;
-
+    
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         if(!"MODERADOR".equals(Session.getUsuario().getRol())){
@@ -134,24 +133,20 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
             this.hiloLector.cancelarAnuncio(anuncio.getIdAnuncio());
         }
 
-        Alert alertInfo = new Alert(AlertType.INFORMATION);
-        alertInfo.setTitle("Estado del anuncio cambiado");
-        alertInfo.setHeaderText(null);
-        alertInfo.setContentText("El estado del anuncio ha sido cambiado correctamente.");
-        alertInfo.showAndWait();
+        AlertManager.alertInfo(
+            "Estado del anuncio cambiado",
+            "El estado del anuncio ha sido cambiado correctamente."
+        );
     }
 
     @FXML
     void handleBtnComprarAction(MouseEvent event) throws IOException {
         if(anuncio.getVendedor().getIdUsuario() == Session.getUsuario().getIdUsuario()){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Compra incorrecta");
-            alert.setHeaderText(null);
-            alert.setContentText("No puedes comprar un vehículo que has publicado tu.");
-            alert.getDialogPane().getStylesheets()
-                    .add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            AlertManager.alertError(
+                "Compra incorrecta",
+                "No puedes comprar un vehículo que has publicado tu.",
+                getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+            );
         }else{
             
             this.hiloLector.obtenerPDFAcuerdo(Session.getUsuario().getIdUsuario(), this.anuncio.getIdAnuncio(), anuncio.getTipoVehiculo());

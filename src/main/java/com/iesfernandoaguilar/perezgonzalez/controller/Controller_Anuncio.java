@@ -74,7 +74,6 @@ public class Controller_Anuncio{
             this.setGuardado(true);
             this.hiloLector.eliminarAnuncioGuardados(anuncio.getIdAnuncio(), Session.getUsuario().getNombreUsuario());
         }
-
     }
 
     public void setGuardado(boolean guardado){

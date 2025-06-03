@@ -76,7 +76,7 @@ public class Controller_MisGuardados implements Initializable, IListaAnuncios{
         stage.show();
 
         Controller_ConfUsuario controller = loader.getController();
-        controller.setHiloLector(hiloLector);
+        controller.setHiloLector(this.hiloLector);
         this.hiloLector.setController(controller);
 
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();

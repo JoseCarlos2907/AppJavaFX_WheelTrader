@@ -15,6 +15,10 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
 public class Controller_Notificacion{
+    private Lector_App hiloLector;
+
+    private Controller_Notificaciones controller;
+    private Notificacion notificacion;
 
     @FXML
     private Button Btn_VerOferta;
@@ -37,11 +41,6 @@ public class Controller_Notificacion{
     @FXML
     private Rectangle Rectangle_Fondo;
 
-    private Controller_Notificaciones controller;
-    private Notificacion notificacion;
-
-    private Lector_App hiloLector;
-
     @FXML
     void handleBtnVerOfertaAction(MouseEvent event) throws IOException {
         if("Pagar".equals(this.Btn_VerOferta.getText())){
@@ -53,7 +52,6 @@ public class Controller_Notificacion{
 
     @FXML
     void handleIcono2Action(MouseEvent event) throws IOException{
-        
         String estado = "NO_LEIDO";
         if("NO_LEIDO".equals(notificacion.getEstado())){
             this.ImgView_Icono2.setImage(new Image(getClass().getResourceAsStream("/img/IconoLeido.png")));

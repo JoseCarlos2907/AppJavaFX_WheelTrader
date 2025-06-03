@@ -9,14 +9,13 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TextField;
@@ -381,23 +380,19 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
     }
 
     public void formatoMatriculaIncorrecto(){
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Formato de matrícula errónea");
-        alert.setHeaderText(null);
-        alert.setContentText("El formato de la matrícula no es el correcto");
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("alert-error");
-        alert.showAndWait();
+        AlertManager.alertError(
+            "Formato de matrícula errónea",
+            "El formato de la matrícula no es el correcto",
+            getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+        );
     }
 
     public void formatoNumSerieBastidorIncorrecto(){
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Formato de número de bastidor");
-        alert.setHeaderText(null);
-        alert.setContentText("El formato del número de bastidor no es el correcto");
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("alert-error");
-        alert.showAndWait();
+        AlertManager.alertError(
+            "Formato de número de bastidor",
+            "El formato del número de bastidor no es el correcto",
+            getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+        );
     }
 
     public void siguientePaso() throws IOException{
@@ -417,13 +412,11 @@ public class Controller_PublicarAnuncio implements IApp, Initializable{
     }
 
     public void datosIncorrectos(){
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Datos del vehículo incompletos");
-        alert.setHeaderText(null);
-        alert.setContentText("Faltan datos del vehículo de los campos obligatorios");
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("alert-error");
-        alert.showAndWait();
+        AlertManager.alertError(
+            "Datos del vehículo incompletos",
+            "Faltan datos del vehículo de los campos obligatorios",
+            getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+        );
 
         this.anuncio = new Anuncio();
     }

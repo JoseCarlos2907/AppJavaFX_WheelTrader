@@ -37,6 +37,8 @@ import javafx.stage.Stage;
 
 public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios, Initializable{
 
+    private Lector_App hiloLector;
+
     private List<UsuarioReportadosModDTO> usuariosReportados;
     private List<Anuncio> anuncios;
     private FiltroUsuariosConReportes filtroUsuRep;
@@ -46,9 +48,7 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
     private Usuario usuarioSeleccionado;
     private boolean cargandoUsuarios;
     private boolean cargandoAnuncios;
-
-    private Lector_App hiloLector;
-
+    
     @FXML
     private Button Btn_CerrarSesion;
 

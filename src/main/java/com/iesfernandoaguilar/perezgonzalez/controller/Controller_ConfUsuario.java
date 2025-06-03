@@ -10,6 +10,7 @@ import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 import com.iesfernandoaguilar.perezgonzalez.util.SecureUtils;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
@@ -18,8 +19,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -97,29 +96,23 @@ public class Controller_ConfUsuario implements IApp, Initializable{
             this.TxtF_Contra.getText().length() < 1 ||
             this.TxtF_ConfContra.getText().length() < 1
         ){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Campos incompletos");
-            alert.setHeaderText(null);
-            alert.setContentText("Debe rellenar todos los campos para poder continuar con el registro");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            AlertManager.alertError(
+                "Campos incompletos",
+                "Debe rellenar todos los campos para poder continuar con el registro",
+                getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+            );
         }else if(!this.TxtF_Contra.getText().matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).{6,}$")){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Formato incorrecto");
-            alert.setHeaderText(null);
-            alert.setContentText("El formato de la contraseña no es el correcto");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            AlertManager.alertError(
+                "Formato incorrecto",
+                "El formato de la contraseña no es el correcto",
+                getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+            );
         }else if(!this.TxtF_Contra.getText().equals(this.TxtF_ConfContra.getText())){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Contraseñas diferentes");
-            alert.setHeaderText(null);
-            alert.setContentText("Las dos contraseñas deben ser exactamente iguales");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            AlertManager.alertError(
+                "Contraseñas diferentes",
+                "Las dos contraseñas deben ser exactamente iguales",
+                getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+            );
         }else{
             this.hiloLector.obtenerSaltReinicio(Session.getUsuario().getNombreUsuario());
         }
@@ -132,11 +125,10 @@ public class Controller_ConfUsuario implements IApp, Initializable{
     }
 
     public void contraseniaReiniciada(){
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Contraseña reiniciada");
-        alert.setHeaderText(null);
-        alert.setContentText("Se ha cambiado la contraseña correctamente.");
-        alert.showAndWait();
+        AlertManager.alertInfo(
+            "Contraseña reiniciada",
+            "Se ha cambiado la contraseña correctamente."
+        );
     }
 
     @FXML
@@ -165,7 +157,6 @@ public class Controller_ConfUsuario implements IApp, Initializable{
         String filtroJSON = mapper.writeValueAsString(filtroPublicados);
 
         this.hiloLector.obtenerAnuncios(filtroJSON, filtroPublicados.getTipoFiltro(), "si", Session.getUsuario().getIdUsuario());
-
     }
 
     @FXML

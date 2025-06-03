@@ -18,6 +18,7 @@ import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.model.ValorCaracteristica;
 import com.iesfernandoaguilar.perezgonzalez.model.Filtros.FiltroPorNombreUsuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 
 import javafx.fxml.FXML;
@@ -37,14 +38,14 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
+    private Lector_App hiloLector;
+
     private Usuario usuario;
     private Anuncio anuncioSeleccionado;
     private FiltroPorNombreUsuario filtro;
     private List<Anuncio> anuncios;
     private boolean cargando;
     private Usuario usuarioSeleccionado;
-
-    private Lector_App hiloLector;
 
     @FXML
     private Button Btn_Menu;
@@ -207,14 +208,11 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     @FXML
     void handleBtnReportarAction(MouseEvent event) throws IOException {
         if(this.usuario.getIdUsuario() == Session.getUsuario().getIdUsuario()){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Reporte incorrecto");
-            alert.setHeaderText(null);
-            alert.setContentText("No puedes reportarte a tí mismo.");
-            alert.getDialogPane().getStylesheets()
-                    .add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            AlertManager.alertError(
+                "Reporte incorrecto",
+                "No puedes reportarte a tí mismo.",
+                getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+            );
         }else if("MODERADOR".equals(Session.getUsuario().getRol()) && "ACTIVO".equals(usuario.getEstado())){
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Banear usuario");
@@ -226,11 +224,10 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
             if(res.isPresent() && res.get() == ButtonType.OK){
                 usuario.setEstado("BANEADO");
 
-                Alert alertInfo = new Alert(AlertType.INFORMATION);
-                alertInfo.setTitle("Usuario baneado");
-                alertInfo.setHeaderText(null);
-                alertInfo.setContentText("El usuario ha sido baneado correctamente.");
-                alertInfo.showAndWait();
+                AlertManager.alertInfo(
+                    "Usuario baneado",
+                    "El usuario ha sido baneado correctamente."
+                );
 
                 this.hiloLector.banearUsuario(usuario.getIdUsuario());
             }
@@ -245,11 +242,10 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
             if(res.isPresent() && res.get() == ButtonType.OK){
                 usuario.setEstado("ACTIVO");
 
-                Alert alertInfo = new Alert(AlertType.INFORMATION);
-                alertInfo.setTitle("Usuario desbaneado");
-                alertInfo.setHeaderText(null);
-                alertInfo.setContentText("El usuario ha sido desbaneado correctamente.");
-                alertInfo.showAndWait();
+                AlertManager.alertInfo(
+                    "Usuario desbaneado",
+                    "El usuario ha sido desbaneado correctamente."
+                );
 
                 this.hiloLector.desbanearUsuario(usuario.getIdUsuario());
             }

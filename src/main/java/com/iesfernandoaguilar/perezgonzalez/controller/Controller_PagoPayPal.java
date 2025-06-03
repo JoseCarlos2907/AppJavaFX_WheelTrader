@@ -9,14 +9,13 @@ import java.util.concurrent.Executors;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Notificacion;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.web.WebView;
@@ -55,7 +54,6 @@ public class Controller_PagoPayPal implements IApp, Initializable {
         this.pagado = true;
 
         if(scheduler != null){
-            // System.out.println("Scheduler Parau");
             scheduler.shutdownNow();
         }
 
@@ -74,14 +72,11 @@ public class Controller_PagoPayPal implements IApp, Initializable {
     }
 
     public void error() throws IOException{
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Pago erróneo");
-        alert.setHeaderText(null);
-        alert.setContentText("Ha ocurrido un error al crear la transacción de pago entre cuentas");
-        alert.getDialogPane().getStylesheets()
-                .add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("alert-error");
-        alert.showAndWait();
+        AlertManager.alertError(
+            "Pago erróneo",
+            "Ha ocurrido un error al crear la transacción de pago entre cuentas",
+            getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+        );
 
         this.irHome();
     }

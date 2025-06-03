@@ -30,6 +30,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Controller_Notificaciones implements IApp, Initializable {
+    private Lector_App hiloLector;
+    
+    private List<Notificacion> notificaciones;
+    private Notificacion notificacionSeleccionada;
+    private boolean cargando;
+    private FiltroNotificaciones filtro;
+
     @FXML
     private Button Btn_Volver;
 
@@ -38,13 +45,6 @@ public class Controller_Notificaciones implements IApp, Initializable {
 
     @FXML
     private ScrollPane ScrollPane_Notificaciones;
-
-    private List<Notificacion> notificaciones;
-    private Notificacion notificacionSeleccionada;
-    private boolean cargando;
-    private FiltroNotificaciones filtro;
-
-    private Lector_App hiloLector;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -110,6 +110,7 @@ public class Controller_Notificaciones implements IApp, Initializable {
                 controller.setTitulo(notificacion.getTitulo());
                 controller.setMensaje(notificacion.getMensaje());
                 controller.setNotificacion(notificacion);
+                controller.setHiloLector(this.hiloLector);
                 controller.setController(this);
 
                 this.VBox_Notificaciones.getChildren().add(componente);

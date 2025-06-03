@@ -28,12 +28,11 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Controller_MisCompras implements IApp, Initializable{
+    private Lector_App hiloLector;
     
     private List<Venta> compras;
     private boolean cargando;
     private FiltroPorNombreUsuario filtro;
-
-    private Lector_App hiloLector;
 
     @FXML
     private Button Btn_Volver;
@@ -69,7 +68,7 @@ public class Controller_MisCompras implements IApp, Initializable{
         stage.show();
 
         Controller_Home controller = loader.getController();
-        controller.setHiloLector(hiloLector);
+        controller.setHiloLector(this.hiloLector);
         this.hiloLector.setController(controller);
 
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();

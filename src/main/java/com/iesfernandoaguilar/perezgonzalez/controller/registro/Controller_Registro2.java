@@ -7,14 +7,13 @@ import java.util.ResourceBundle;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
@@ -72,21 +71,17 @@ public class Controller_Registro2 implements ILogin, Initializable{
             this.TxtF_Correo.getText().length() < 1 ||
             this.TxtF_CorreoPP.getText().length() < 1
         ){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Campos incompletos");
-            alert.setHeaderText(null);
-            alert.setContentText("Debe rellenar todos los campos para poder continuar con el registro");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            AlertManager.alertError(
+                "Campos incompletos",
+                "Debe rellenar todos los campos para poder continuar con el registro",
+                getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+            );
         }else if(!this.TxtF_Correo.getText().matches("^[a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\\.[a-zA-Z]{2,3}$")){
-            Alert alert = new Alert(AlertType.ERROR);
-            alert.setTitle("Formato incorrecto");
-            alert.setHeaderText(null);
-            alert.setContentText("El formato del correo no es el correcto");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-            alert.getDialogPane().getStyleClass().add("alert-error");
-            alert.showAndWait();
+            AlertManager.alertError(
+                "Formato incorrecto",
+                "El formato del correo no es el correcto",
+                getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+            );
         }else{
             this.hiloLector.comprobarNombreUsuarioYCorreo(new String(this.TxtF_NombreUsuario.getText()), new String(this.TxtF_Correo.getText()));
         }
@@ -97,13 +92,11 @@ public class Controller_Registro2 implements ILogin, Initializable{
     }
 
     public void usuarioExistente(){
-        Alert alert = new Alert(AlertType.ERROR);
-        alert.setTitle("Usuario existente");
-        alert.setHeaderText(null);
-        alert.setContentText("Ya hay un usuario registrado con ese mismo correo o nombre de usuario");
-        alert.getDialogPane().getStylesheets().add(getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
-        alert.getDialogPane().getStyleClass().add("alert-error");
-        alert.showAndWait();
+        AlertManager.alertError(
+            "Usuario existente",
+            "Ya hay un usuario registrado con ese mismo correo o nombre de usuario",
+            getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
+        );
     }
 
     public void siguientePaso() throws IOException{

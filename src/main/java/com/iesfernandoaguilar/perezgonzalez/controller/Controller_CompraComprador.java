@@ -19,6 +19,7 @@ import org.apache.pdfbox.rendering.PDFRenderer;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_App;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
 import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.pdf.PdfContentByte;
@@ -49,7 +50,17 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
 public class Controller_CompraComprador implements IApp, Initializable{
+    private Lector_App hiloLector;
 
+    private double lastX;
+    private double lastY;
+
+    private PDDocument pddDocument;
+    private List<ImageView> imagenesPaginas;
+    private double zoom;
+
+    private Anuncio anuncio;
+    
     @FXML
     private Button Btn_OfrecerAcuerdo;
 
@@ -80,16 +91,6 @@ public class Controller_CompraComprador implements IApp, Initializable{
     @FXML
     private Button Btn_ZoomOut;
 
-    private double lastX;
-    private double lastY;
-
-    private PDDocument pddDocument;
-    private List<ImageView> imagenesPaginas;
-    private double zoom;
-
-    private Anuncio anuncio;
-    
-    private Lector_App hiloLector;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -112,7 +113,6 @@ public class Controller_CompraComprador implements IApp, Initializable{
         });
 
         try {
-            // File archivoPDF = new File("/home/josecarlos/Descargas/prueba_Python_27_02_25.pdf");
             File archivoPDF = new File("temp/Temp.pdf");
             pddDocument = Loader.loadPDF(archivoPDF);
             PDFRenderer renderer = new PDFRenderer(pddDocument);
@@ -215,12 +215,11 @@ public class Controller_CompraComprador implements IApp, Initializable{
 
         File pdf = new File("temp/Temp.pdf");
         pdf.delete();
-
-        Alert infoAlert = new Alert(AlertType.INFORMATION);
-        infoAlert.setTitle("Oferta enviada");
-        infoAlert.setHeaderText(null);
-        infoAlert.setContentText("La oferta ha sido enviada al vendedor, cuando acepte la oferta le llegará una notificación para proceder con el pago");
-        infoAlert.showAndWait();
+        
+        AlertManager.alertInfo(
+            "Oferta enviada",
+            "La oferta ha sido enviada al vendedor, cuando acepte la oferta le llegará una notificación para proceder con el pago"
+        );
 
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
@@ -229,7 +228,7 @@ public class Controller_CompraComprador implements IApp, Initializable{
         stage.show();
 
         Controller_Home controller = loader.getController();
-        controller.setHiloLector(hiloLector);
+        controller.setHiloLector(this.hiloLector);
         this.hiloLector.setController(controller);
 
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
