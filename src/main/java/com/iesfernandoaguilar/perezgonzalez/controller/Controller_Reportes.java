@@ -22,17 +22,19 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 public class Controller_Reportes implements IApp, Initializable{
 
-    private List<Reporte> reportes;
-    private FiltroReportes filtro;
-
     private Lector_App hiloLector;
 
+    private List<Reporte> reportes;
+    private FiltroReportes filtro;
+    private boolean cargando;
+    
     @FXML
     private Button Btn_Volver;
 
@@ -41,6 +43,9 @@ public class Controller_Reportes implements IApp, Initializable{
 
     @FXML
     private VBox VBox_Reportes;
+
+    @FXML
+    private ScrollPane ScrollPane_Reportes;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -55,7 +60,16 @@ public class Controller_Reportes implements IApp, Initializable{
             e.printStackTrace();
         }
 
-        // TODO: Scroll infinito con la primera carga a false
+        this.ScrollPane_Reportes.vvalueProperty().addListener((obs, oldVal, newVal) -> {
+            if (newVal.doubleValue() >= 0.8 && !cargando) {
+                cargando = true;
+                try {
+                    this.cargarReportes(false);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 
     @FXML
@@ -116,6 +130,8 @@ public class Controller_Reportes implements IApp, Initializable{
                 e.printStackTrace();
             }
         }
+
+        this.cargando = false;
     }
 
     @Override

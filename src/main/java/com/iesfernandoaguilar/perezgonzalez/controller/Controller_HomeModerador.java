@@ -138,7 +138,6 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
             String cadenaBusqueda = this.TxtF_BusquedaAnuncios.getText();
             this.filtroAnuncios.setCadena(cadenaBusqueda);
             this.cargarAnuncios(true);
-            this.cargandoAnuncios = false;
         }
     }
 
@@ -147,7 +146,6 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
         if (event.getCode().toString().equals("ENTER")) {
             String cadenaBusqueda = this.TxtF_BusquedaUsuario.getText();
             this.cargarUsuarios(cadenaBusqueda, true);
-            this.cargandoUsuarios = false;
         }
     }
 
@@ -203,6 +201,8 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
                 e.printStackTrace();
             }
         }
+
+        this.cargandoUsuarios = false;
     }
 
     @FXML
@@ -359,6 +359,8 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
                 e.printStackTrace();
             }
         }
+
+        this.cargandoAnuncios = false;
     }
 
     @Override

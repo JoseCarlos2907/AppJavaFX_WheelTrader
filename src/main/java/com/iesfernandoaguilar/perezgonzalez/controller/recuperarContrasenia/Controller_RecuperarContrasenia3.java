@@ -59,7 +59,7 @@ public class Controller_RecuperarContrasenia3 implements ILogin{
                 getClass().getResource("/styles/EstiloGeneral.css").toExternalForm()
             );
         }else{
-            this.hiloLector.reiniciaContrasenia(SecureUtils.generate512(new String(this.TxtF_Contra.getText()), salt));
+            this.hiloLector.reiniciarContrasenia(SecureUtils.generate512(new String(this.TxtF_Contra.getText()), salt));
         }
     }
 
