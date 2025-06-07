@@ -33,6 +33,7 @@ import com.iesfernandoaguilar.perezgonzalez.controller.Controller_Reportes;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Imagen;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
 import com.iesfernandoaguilar.perezgonzalez.util.Session;
@@ -354,11 +355,14 @@ public class Lector_App extends Thread{
     }
 
     private void enviarMensaje(Mensaje msg) throws IOException{
-        if(Session.getSocket() != null && !Session.getSocket().isClosed()){
+        if(Session.getSocket() != null && !Session.getSocket().isClosed() && Session.isHiloCreado()){
             this.dos.writeUTF(Serializador.codificarMensaje(msg));
             this.dos.flush();
         }else{
             System.out.println("No se puede realizar esa acción por un error en la conexión");
+            Platform.runLater(() -> {
+                AlertManager.alertError("Error al realizar la acción", "No se puede realizar esa acción por un error en la conexión", "");
+            });
         }
     }
 

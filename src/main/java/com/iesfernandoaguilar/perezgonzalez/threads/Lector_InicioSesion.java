@@ -21,6 +21,7 @@ import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Regis
 import com.iesfernandoaguilar.perezgonzalez.controller.registro.Controller_Registro2;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
+import com.iesfernandoaguilar.perezgonzalez.util.AlertManager;
 import com.iesfernandoaguilar.perezgonzalez.util.Mensaje;
 import com.iesfernandoaguilar.perezgonzalez.util.SecureUtils;
 import com.iesfernandoaguilar.perezgonzalez.util.Serializador;
@@ -222,7 +223,7 @@ public class Lector_InicioSesion extends Thread{
     }
 
     private void enviarMensaje(Mensaje msg){
-        if(Session.getSocket() != null && !Session.getSocket().isClosed()){
+        if(Session.getSocket() != null && !Session.getSocket().isClosed() && Session.isHiloLoginCreado()){
             try {
                 this.dos.writeUTF(Serializador.codificarMensaje(msg));
                 this.dos.flush();
@@ -231,6 +232,9 @@ public class Lector_InicioSesion extends Thread{
             }
         }else{
             System.out.println("No se puede realizar esa acción por un error en la conexión");
+            Platform.runLater(() -> {
+                AlertManager.alertError("Error al realizar la acción", "No se puede realizar esa acción por un error en la conexión", "");
+            });
         }
     }
 

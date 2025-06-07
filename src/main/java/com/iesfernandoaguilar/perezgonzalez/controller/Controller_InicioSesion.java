@@ -169,11 +169,26 @@ public class Controller_InicioSesion implements ILogin, Initializable {
     void handleBtnIniciarSesionAction(MouseEvent event) throws IOException {
         String nombreUsuario = new String(TxtF_Correo_NomUsu.getText());
 
-        this.hiloLector.obtenerSalt(nombreUsuario);
+        if(this.hiloLector != null){
+            this.hiloLector.obtenerSalt(nombreUsuario);
+        }else{
+            System.out.println("No se puede realizar esa acción por un error en la conexión");
+            Platform.runLater(() -> {
+                AlertManager.alertError("Error al realizar la acción", "No se puede realizar esa acción por un error en la conexión", getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+            });
+        }
     }
 
     @FXML
     void handleBtnRegistrarseAction(MouseEvent event) throws IOException {
+        if(this.hiloLector == null){
+            System.out.println("No se puede realizar esa acción por un error en la conexión");
+            Platform.runLater(() -> {
+                AlertManager.alertError("Error al realizar la acción", "No se puede realizar esa acción por un error en la conexión", getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
+            });
+            return;
+        }
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro1.fxml"));
         Parent nuevaVista = loader.load();
 
