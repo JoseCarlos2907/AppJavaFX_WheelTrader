@@ -8,10 +8,8 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_PublicarAnuncio2.clas
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_CompraComprador.class
 com/iesfernandoaguilar/perezgonzalez/controller/registro/Controller_Registro4.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Reportes.class
-com/iesfernandoaguilar/perezgonzalez/controller/Controller_Valoracion.class
 com/iesfernandoaguilar/perezgonzalez/model/Caracteristica.class
 com/iesfernandoaguilar/perezgonzalez/interfaces/IFiltro.class
-com/iesfernandoaguilar/perezgonzalez/controller/Controller_RegistrarIncidencia.class
 com/iesfernandoaguilar/perezgonzalez/model/Venta.class
 com/iesfernandoaguilar/perezgonzalez/model/Valoracion.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ListaAnuncios.class
@@ -20,7 +18,6 @@ com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisGuardados.class
 com/iesfernandoaguilar/perezgonzalez/controller/recuperarContrasenia/Controller_RecuperarContrasenia3.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Anuncio.class
 com/iesfernandoaguilar/perezgonzalez/model/Notificacion.class
-com/iesfernandoaguilar/perezgonzalez/controller/Controller_MisValoraciones.class
 com/iesfernandoaguilar/perezgonzalez/interfaces/IListaAnuncios.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_PagoPayPal$1.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_ConfUsuario.class
@@ -30,6 +27,7 @@ com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroBarraBusqueda.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Reportes$1.class
 com/iesfernandoaguilar/perezgonzalez/App.class
 com/iesfernandoaguilar/perezgonzalez/model/TipoVehiculo.class
+com/iesfernandoaguilar/perezgonzalez/util/AlertManager.class
 com/iesfernandoaguilar/perezgonzalez/controller/Controller_Reporte.class
 com/iesfernandoaguilar/perezgonzalez/model/Anuncio.class
 com/iesfernandoaguilar/perezgonzalez/model/Filtros/FiltroReportes.class

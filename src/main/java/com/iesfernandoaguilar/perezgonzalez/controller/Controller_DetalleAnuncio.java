@@ -85,10 +85,6 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
             this.Btn_CambiarEstadoAnuncio.setDisable(true);
             this.Btn_CambiarEstadoAnuncio.setVisible(false);
         }
-
-        if(!"EN_VENTA".equals(anuncio.getEstado()) && !"EN_PROCESO".equals(anuncio.getEstado())){
-            this.Btn_Comprar.setDisable(true);
-        }
     }
 
     @FXML
@@ -285,6 +281,10 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
             this.Btn_CambiarEstadoAnuncio.setText("Reanudar anuncio");
         }else{
             this.Btn_CambiarEstadoAnuncio.setText("Cancelar anuncio");
+        }
+
+        if(!"EN_VENTA".equals(anuncio.getEstado()) && !"EN_PROCESO".equals(anuncio.getEstado())){
+            this.Btn_Comprar.setDisable(true);
         }
     }
 

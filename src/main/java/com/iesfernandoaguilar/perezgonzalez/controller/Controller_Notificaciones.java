@@ -183,9 +183,9 @@ public class Controller_Notificaciones implements IApp, Initializable {
         stage.show();
 
         Controller_PagoPayPal controller = loader.getController();
+        controller.setHiloLector(hiloLector);
         controller.setNotificacion(notificacionSeleccionada);
         controller.setUrl(url);
-        controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
         Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();

@@ -337,14 +337,20 @@ public class Lector_App extends Thread{
         }
 
         try {
-            Session.setSocket(new Socket(this.confProperties.getProperty("ADDRESS"), Integer.parseInt(this.confProperties.getProperty("PORT"))));
-            this.dis = new DataInputStream(Session.getInputStream());
-            this.dos = new DataOutputStream(Session.getOutputStream());
+            Socket socket = new Socket(this.confProperties.getProperty("ADDRESS"), Integer.parseInt(this.confProperties.getProperty("PORT")));
+            Session.setSocket(socket);
+            
+            if (socket.isConnected()) {
+                Session.setSocket(socket);
+                this.dis = new DataInputStream(socket.getInputStream());
+                this.dos = new DataOutputStream(socket.getOutputStream());
+                System.out.println("Se te ha vuelto a conectar a la aplicación.");
+            } else {
+                System.out.println("No se ha podido establecer conexión.");
+            }
         } catch (IOException e) {
             System.out.println("Error al intentar reconectar");
         }
-
-        System.out.println("Se te ha vuelto a conectar a la aplicación.");
     }
 
     private void enviarMensaje(Mensaje msg) throws IOException{
@@ -533,8 +539,8 @@ public class Lector_App extends Thread{
         msg.setTipo("USUARIO_PAGA");
         msg.addParam(String.valueOf(idComprador));
         msg.addParam(String.valueOf(idVendedor));
-        msg.addParam(String.valueOf(idAnuncio));
         msg.addParam(String.valueOf(precio));
+        msg.addParam(String.valueOf(idAnuncio));
         this.enviarMensaje(msg);
     }
 

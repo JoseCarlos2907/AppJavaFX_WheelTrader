@@ -4,7 +4,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 
 public class AlertManager {
-    public static void alertInfo(String titulo, String msg){
+    public static void alertInfo(String titulo, String msg) {
         Alert infoAlert = new Alert(AlertType.INFORMATION);
         infoAlert.setTitle(titulo);
         infoAlert.setHeaderText(null);
@@ -12,7 +12,7 @@ public class AlertManager {
         infoAlert.showAndWait();
     }
 
-    public static void alertError(String titulo, String msg, String hojaDeEstilo){
+    public static void alertError(String titulo, String msg, String hojaDeEstilo) {
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle(titulo);
         alert.setHeaderText(null);

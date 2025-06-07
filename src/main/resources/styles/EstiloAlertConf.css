@@ -1,0 +1,38 @@
+.inputs, .inputs:focus{
+    -fx-background-radius: 25;
+    font-size: 20px;
+    -fx-font-size: 20px;
+}
+
+.alert{
+    -fx-background-color: #282828;
+    -fx-pref-height: 300;
+    -fx-pref-width: 600;
+    -fx-min-height: 300;
+    -fx-min-width: 600;
+}
+
+.dialog-pane * Label{
+    -fx-text-fill: white;
+    -fx-font-size: 20px;
+}
+
+.botonOK{
+    -fx-background-radius: 18;
+    background-color: #84aedd;
+    -fx-background-color: #84aedd;
+    -fx-text-fill: black;
+    font-size: 20px;
+    -fx-font-size: 20px;
+    -fx-cursor: hand;
+}
+
+.botonCancel{
+    -fx-cursor: hand;
+    -fx-background-radius: 18;
+    -fx-text-fill: white;
+    background-color: black;
+    -fx-background-color: black;
+    font-size: 20px;
+    -fx-font-size: 20px;
+}
