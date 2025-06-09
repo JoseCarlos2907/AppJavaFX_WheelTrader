@@ -221,18 +221,19 @@ public class Controller_CompraComprador implements IApp, Initializable{
             "La oferta ha sido enviada al vendedor, cuando acepte la oferta le llegará una notificación para proceder con el pago"
         );
 
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
-
+        
         Controller_Home controller = loader.getController();
         controller.setHiloLector(this.hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -240,18 +241,19 @@ public class Controller_CompraComprador implements IApp, Initializable{
         File pdf = new File("temp/Temp.pdf");
         pdf.delete();
 
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
-
+        
         Controller_Home controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void setPrecios(double precio){

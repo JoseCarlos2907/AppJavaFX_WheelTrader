@@ -21,18 +21,19 @@ public class Controller_Registro4 {
 
     @FXML
     void handleBtnIniciarSesionAction(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_InicioSesion.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
-
+        
         Controller_InicioSesion controller = loader.getController();
         hiloLector.setController(controller);
         controller.setHiloLector(hiloLector);
 
-        Stage stage2 = (Stage) Btn_IniciarSesion.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_IniciarSesion.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void setHiloLector(Lector_InicioSesion hiloLector){

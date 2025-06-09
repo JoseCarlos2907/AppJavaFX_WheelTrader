@@ -184,11 +184,8 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     @Override
     public void irDetalleAnuncio(List<byte[]> bytesImagenes) throws IOException {
         try {
-            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_DetalleAnuncio.fxml"));
             Parent parent = loader.load();
-            stage.setScene(new Scene(parent));
-            stage.show();
             
             Controller_DetalleAnuncio controller = loader.getController();
             controller.setAnuncio(this.anuncioSeleccionado);
@@ -198,8 +195,12 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
             controller.setController(this);
             this.hiloLector.setController(this);
 
-            Stage stage2 = (Stage) Btn_Menu.getScene().getWindow();
-            stage2.close();
+            Stage stage = (Stage) Btn_Menu.getScene().getWindow();
+
+            Scene scene = new Scene(parent);
+
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -282,11 +283,8 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
     }
 
     public void irPerfilUsuario(String anunciosJSON, List<byte[]> imagenes) throws IOException{
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PerfilUsuario.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_PerfilUsuario controller = loader.getController();
         controller.setUsuario(this.usuarioSeleccionado);
@@ -295,8 +293,12 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
         controller.aniadirAnuncios(anunciosJSON, imagenes);
         this.hiloLector.setController(controller);
         
-        Stage stage2 = (Stage) Btn_Menu.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Menu.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void setFiltro(FiltroPorNombreUsuario filtro){

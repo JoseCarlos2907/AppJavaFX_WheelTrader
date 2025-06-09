@@ -190,7 +190,7 @@ public class Controller_InicioSesion implements ILogin, Initializable {
         }
 
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro1.fxml"));
-        Parent nuevaVista = loader.load();
+        Parent parent = loader.load();
 
         Controller_Registro1 controller = loader.getController();
         controller.setHiloLector(this.hiloLector);
@@ -198,17 +198,16 @@ public class Controller_InicioSesion implements ILogin, Initializable {
 
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
 
-        Scene scene = new Scene(nuevaVista);
+        Scene scene = new Scene(parent);
 
         stage.setScene(scene);
         stage.show();
-        stage.centerOnScreen();
     }
 
     @FXML
     void handleLblRecuperarContraseniaAction(MouseEvent event) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_RecuperarContrasenia1.fxml"));
-        Parent nuevaVista = loader.load();
+        Parent parent = loader.load();
 
         Controller_RecuperarContrasenia1 controller = loader.getController();
         controller.setHiloLector(this.hiloLector);
@@ -216,7 +215,7 @@ public class Controller_InicioSesion implements ILogin, Initializable {
 
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
 
-        Scene scene = new Scene(nuevaVista);
+        Scene scene = new Scene(parent);
 
         stage.setScene(scene);
         stage.show();
@@ -238,28 +237,26 @@ public class Controller_InicioSesion implements ILogin, Initializable {
 
     public void siguientePaso() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
-        Parent nuevaVista = loader.load();
+        Parent parent = loader.load();
 
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
 
-        Scene scene = new Scene(nuevaVista);
+        Scene scene = new Scene(parent);
 
         stage.setScene(scene);
         stage.show();
-        stage.centerOnScreen();
     }
 
     public void irHomeModerador() throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_HomeModerador.fxml"));
-        Parent nuevaVista = loader.load();
+        Parent parent = loader.load();
 
         Stage stage = (Stage) Btn_InicioSesion.getScene().getWindow();
 
-        Scene scene = new Scene(nuevaVista);
+        Scene scene = new Scene(parent);
 
         stage.setScene(scene);
         stage.show();
-        stage.centerOnScreen();
     }
 
     public String getNombreUsuarioCorreo() {

@@ -69,18 +69,19 @@ public class Controller_MisAnuncios implements Initializable, IListaAnuncios{
 
     @FXML
     void handleBtnVolverAction(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_ConfUsuario.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_ConfUsuario controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void abrirAnuncio(Anuncio anuncio){
@@ -202,11 +203,8 @@ public class Controller_MisAnuncios implements Initializable, IListaAnuncios{
     }
 
     public void irPerfilUsuario(String anunciosJSON, List<byte[]> imagenes) throws IOException{
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PerfilUsuario.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_PerfilUsuario controller = loader.getController();
         controller.setUsuario(this.usuarioSeleccionado);
@@ -215,7 +213,11 @@ public class Controller_MisAnuncios implements Initializable, IListaAnuncios{
         controller.aniadirAnuncios(anunciosJSON, imagenes);
         this.hiloLector.setController(controller);
         
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }

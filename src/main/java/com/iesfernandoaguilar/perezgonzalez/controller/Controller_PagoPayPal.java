@@ -57,18 +57,19 @@ public class Controller_PagoPayPal implements IApp, Initializable {
             scheduler.shutdownNow();
         }
 
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_Home controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Home.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Home.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void error() throws IOException{

@@ -161,27 +161,25 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
             fos.write(documento);
         }
 
-        Stage stage = new Stage();
-
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_CompraComprador.fxml"));
-
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_CompraComprador controller = loader.getController();
         controller.setHiloLector(hiloLector);
         controller.setAnuncio(anuncio);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     void handleBtnVolverAction(MouseEvent event) throws IOException {
-
-        Stage stage = new Stage();
 
         FXMLLoader loader = null;
         if(this.controller instanceof Controller_HomeModerador){
@@ -204,15 +202,17 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
         // }
 
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         IApp controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void setController(IListaAnuncios controller){

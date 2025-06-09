@@ -152,18 +152,19 @@ public class Controller_PublicarAnuncio2 implements IApp, Initializable{
 
     @FXML
     void handleBtnCancelarAction(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_Home controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Cancelar.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Cancelar.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void eliminarImagen(Imagen img){
@@ -184,17 +185,18 @@ public class Controller_PublicarAnuncio2 implements IApp, Initializable{
             "El anuncio se ha publicado correctamente"
         );
 
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_Home controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Cancelar.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Cancelar.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }

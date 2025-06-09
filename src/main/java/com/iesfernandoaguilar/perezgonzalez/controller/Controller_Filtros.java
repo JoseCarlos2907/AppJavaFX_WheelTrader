@@ -562,19 +562,20 @@ public class Controller_Filtros implements IApp, Initializable{
     }
 
     public void irListaAnuncios(String anunciosJSON, List<byte[]> imagenes) throws IOException{
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_ListaAnuncios.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
-
+        
         Controller_ListaAnuncios controller = loader.getController();
         controller.setHiloLector(hiloLector);
         controller.aniadirAnuncios(anunciosJSON, imagenes);
         controller.setFiltro(this.filtro);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }

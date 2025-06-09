@@ -64,18 +64,19 @@ public class Controller_Notificaciones implements IApp, Initializable {
 
     @FXML
     void handleBtnVolverAction(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_Home controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void pedirNotificaciones() throws IOException{
@@ -148,21 +149,21 @@ public class Controller_Notificaciones implements IApp, Initializable {
             fos.write(documento);
         }
 
-        Stage stage = new Stage();
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_CompraVendedor.fxml"));
 
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_CompraVendedor controller = loader.getController();
         controller.setHiloLector(hiloLector);
         controller.setNotificacion(notificacionSeleccionada);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void abrirPagoPayPal(Notificacion notificacion) throws IOException{
@@ -174,21 +175,20 @@ public class Controller_Notificaciones implements IApp, Initializable {
     }
 
     public void irPagoPayPal(String url) throws IOException{
-        Stage stage = new Stage();
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PagoPayPal.fxml"));
-
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
-
+        
         Controller_PagoPayPal controller = loader.getController();
         controller.setHiloLector(hiloLector);
         controller.setNotificacion(notificacionSeleccionada);
         controller.setUrl(url);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }

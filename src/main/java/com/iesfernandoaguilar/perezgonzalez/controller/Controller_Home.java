@@ -64,18 +64,19 @@ public class Controller_Home implements IApp, Initializable {
 
     @FXML
     void handleBtnFiltrosAction(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Filtros.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_Filtros controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_ConfCuenta.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_ConfCuenta.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -100,11 +101,8 @@ public class Controller_Home implements IApp, Initializable {
     }
 
     public void irListaAnuncios(String anunciosJSON, List<byte[]> imagenes) throws IOException{
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_ListaAnuncios.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_ListaAnuncios controller = loader.getController();
         controller.setHiloLector(hiloLector);
@@ -112,24 +110,29 @@ public class Controller_Home implements IApp, Initializable {
         controller.setFiltro(this.filtro);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_ConfCuenta.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_ConfCuenta.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     void handleBtnConfCuentaAction(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_ConfUsuario.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_ConfUsuario controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_ConfCuenta.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_ConfCuenta.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -144,11 +147,8 @@ public class Controller_Home implements IApp, Initializable {
     }
 
     public void irListaNotificaciones(String notisJSON) throws IOException{
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Notificaciones.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_Notificaciones controller = loader.getController();
         controller.setFiltro(filtroNotis);
@@ -156,24 +156,29 @@ public class Controller_Home implements IApp, Initializable {
         controller.aniadirNotificaciones(notisJSON);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_ConfCuenta.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_ConfCuenta.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
     void handleBtnPublicarAnuncioAction(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PublicarAnuncio.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_PublicarAnuncio controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
+        
+        Stage stage = (Stage) Btn_ConfCuenta.getScene().getWindow();
 
-        Stage stage2 = (Stage) Btn_ConfCuenta.getScene().getWindow();
-        stage2.close();
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
     
     public void setHiloLector(Lector_App hiloLector){

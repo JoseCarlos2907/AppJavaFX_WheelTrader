@@ -79,18 +79,19 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
 
     @FXML
     void handleBtnVolverAction(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_Home controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void abrirPerfilUsuario(Usuario usuario) throws IOException{
@@ -106,11 +107,8 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
     }
 
     public void irPerfilUsuario(String anunciosJSON, List<byte[]> imagenes) throws IOException{
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PerfilUsuario.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
 
         Controller_PerfilUsuario controller = loader.getController();
         controller.setUsuario(this.usuarioSeleccionado);
@@ -119,8 +117,12 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
         controller.aniadirAnuncios(anunciosJSON, imagenes);
         this.hiloLector.setController(controller);
         
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void abrirAnuncio(Anuncio anuncio){
@@ -135,11 +137,8 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
 
     public void irDetalleAnuncio(List<byte[]> bytesImagenes) throws IOException{
         try {
-            Stage stage = new Stage();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_DetalleAnuncio.fxml"));
             Parent parent = loader.load();
-            stage.setScene(new Scene(parent));
-            stage.show();
             
             Controller_DetalleAnuncio controller = loader.getController();
             controller.setAnuncio(this.anuncioSeleccionado);
@@ -149,8 +148,12 @@ public class Controller_ListaAnuncios implements Initializable, IListaAnuncios{
             controller.setController(this);
             this.hiloLector.setController(controller);
 
-            Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-            stage2.close();
+            Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+            Scene scene = new Scene(parent);
+
+            stage.setScene(scene);
+            stage.show();
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -46,18 +46,19 @@ public class Controller_Registro3 implements ILogin, Initializable{
 
     @FXML
     void handleBtnAnteriorAction(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro2.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
-
+        
         Controller_Registro2 controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Anterior.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Anterior.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     @FXML
@@ -101,16 +102,17 @@ public class Controller_Registro3 implements ILogin, Initializable{
     }
 
     public void siguientePaso() throws IOException{
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro4.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
-
+        
         Controller_Registro4 controller = loader.getController();
         controller.setHiloLector(hiloLector);
 
-        Stage stage2 = (Stage) Btn_Anterior.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Anterior.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }

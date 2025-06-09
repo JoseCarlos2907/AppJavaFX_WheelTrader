@@ -49,18 +49,19 @@ public class Controller_Registro2 implements ILogin, Initializable{
 
     @FXML
     void handleBtnAnteriorAction(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro1.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
-
+        
         Controller_Registro1 controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
+        
+        Stage stage = (Stage) Btn_Anterior.getScene().getWindow();
 
-        Stage stage2 = (Stage) Btn_Anterior.getScene().getWindow();
-        stage2.close();
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
     
     @FXML
@@ -104,17 +105,18 @@ public class Controller_Registro2 implements ILogin, Initializable{
         usuario.setCorreo(new String(this.TxtF_Correo.getText()));
         usuario.setCorreoPP(new String(this.TxtF_CorreoPP.getText()));
 
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Registro3.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
-
+        
         Controller_Registro3 controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Anterior.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Anterior.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 }

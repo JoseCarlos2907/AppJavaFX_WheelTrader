@@ -43,18 +43,19 @@ public class Controller_RecuperarContrasenia1 implements ILogin{
 
     @FXML
     void handleBtnVolverAction(MouseEvent event) throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_InicioSesion.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
-
+        
         Controller_InicioSesion controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
+
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
     
     public void setHiloLector(Lector_InicioSesion hiloLector){
@@ -62,18 +63,19 @@ public class Controller_RecuperarContrasenia1 implements ILogin{
     }
 
     public void siguientePaso() throws IOException {
-        Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_RecuperarContrasenia2.fxml"));
         Parent parent = loader.load();
-        stage.setScene(new Scene(parent));
-        stage.show();
-
+        
         Controller_RecuperarContrasenia2 controller = loader.getController();
         controller.setHiloLector(hiloLector);
         this.hiloLector.setController(controller);
+        
+        Stage stage = (Stage) Btn_Volver.getScene().getWindow();
 
-        Stage stage2 = (Stage) Btn_Volver.getScene().getWindow();
-        stage2.close();
+        Scene scene = new Scene(parent);
+
+        stage.setScene(scene);
+        stage.show();
     }
 
     public void correoNoExiste(){
