@@ -260,7 +260,6 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
             Controller_DetalleAnuncio controller = loader.getController();
             controller.setAnuncio(this.anuncioSeleccionado);
             controller.setImagenes(bytesImagenes);
-            controller.setFiltro(this.filtroAnuncios);
             controller.setHiloLector(this.hiloLector);
             controller.setController(this);
             this.hiloLector.setController(this);

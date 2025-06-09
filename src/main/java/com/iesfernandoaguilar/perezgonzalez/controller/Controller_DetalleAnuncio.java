@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IApp;
-import com.iesfernandoaguilar.perezgonzalez.interfaces.IFiltro;
 import com.iesfernandoaguilar.perezgonzalez.interfaces.IListaAnuncios;
 import com.iesfernandoaguilar.perezgonzalez.model.Anuncio;
 import com.iesfernandoaguilar.perezgonzalez.model.Usuario;
@@ -39,7 +38,6 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
     private Usuario usuario;
     private List<byte[]> imagenes;
     private int posImagenActual;
-    private IFiltro filtro;
 
     private IListaAnuncios controller;
 
@@ -272,10 +270,6 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
         if(!"EN_VENTA".equals(anuncio.getEstado()) && !"EN_PROCESO".equals(anuncio.getEstado())){
             this.Btn_Comprar.setDisable(true);
         }
-    }
-
-    public void setFiltro(IFiltro filtro){
-        this.filtro = filtro;
     }
 
     public void setHiloLector(Lector_App hiloLector){

@@ -180,7 +180,7 @@ public class Controller_Notificaciones implements IApp, Initializable {
         
         Controller_PagoPayPal controller = loader.getController();
         controller.setHiloLector(hiloLector);
-        controller.setNotificacion(notificacionSeleccionada);
+        controller.comprobacionPago(notificacionSeleccionada);
         controller.setUrl(url);
         this.hiloLector.setController(controller);
 

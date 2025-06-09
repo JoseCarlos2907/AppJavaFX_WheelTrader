@@ -87,7 +87,7 @@ public class Controller_PagoPayPal implements IApp, Initializable {
         this.hiloLector = hiloLector;
     }
 
-    public void setNotificacion(Notificacion notificacion){
+    public void comprobacionPago(Notificacion notificacion){
         this.notificacion = notificacion;
 
         // Hilo terciario para ir preguntando como va la cosa

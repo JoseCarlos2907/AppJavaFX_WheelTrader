@@ -174,7 +174,6 @@ public class Controller_MisGuardados implements Initializable, IListaAnuncios{
             Controller_DetalleAnuncio controller = loader.getController();
             controller.setAnuncio(this.anuncioSeleccionado);
             controller.setImagenes(bytesImagenes);
-            controller.setFiltro(this.filtro);
             controller.setHiloLector(this.hiloLector);
             controller.setController(this);
             this.hiloLector.setController(this);

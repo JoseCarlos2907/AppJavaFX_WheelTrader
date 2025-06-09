@@ -190,7 +190,6 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
             Controller_DetalleAnuncio controller = loader.getController();
             controller.setAnuncio(this.anuncioSeleccionado);
             controller.setImagenes(bytesImagenes);
-            controller.setFiltro(this.filtro);
             controller.setHiloLector(this.hiloLector);
             controller.setController(this);
             this.hiloLector.setController(this);
