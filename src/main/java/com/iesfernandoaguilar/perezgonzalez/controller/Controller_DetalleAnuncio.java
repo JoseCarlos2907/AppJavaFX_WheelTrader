@@ -187,20 +187,6 @@ public class Controller_DetalleAnuncio implements IApp, Initializable {
         }else{
             loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         }
-        // FXMLLoader loader = null;
-        // if(this.controller instanceof Controller_ListaAnuncios){
-        //     loader = new FXMLLoader(getClass().getResource("/view/FXML_ListaAnuncios.fxml"));
-        // }else if(this.controller instanceof Controller_MisAnuncios){
-        //     loader = new FXMLLoader(getClass().getResource("/view/FXML_MisAnuncios.fxml"));
-        // }else if(this.controller instanceof Controller_MisGuardados){
-        //     loader = new FXMLLoader(getClass().getResource("/view/FXML_MisGuardados.fxml"));
-        // }else if(this.controller instanceof Controller_HomeModerador){
-        //     loader = new FXMLLoader(getClass().getResource("/view/FXML_HomeModerador.fxml"));
-        // }else if(this.controller instanceof Controller_PerfilUsuario){
-        //     loader = new FXMLLoader(getClass().getResource("/view/FXML_PerfilUsuario.fxml"));
-        //     ((Controller_PerfilUsuario)this.controller).setNombreUsuario(nombreUsuario);
-        // }
-
         Parent parent = loader.load();
 
         IApp controller = loader.getController();
