@@ -220,6 +220,12 @@ public class Lector_InicioSesion extends Thread{
         } catch (IOException e) {
             System.out.println("Error al intentar reconectar");
         }
+
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 
     private void enviarMensaje(Mensaje msg){
