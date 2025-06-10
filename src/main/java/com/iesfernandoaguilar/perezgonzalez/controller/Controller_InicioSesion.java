@@ -59,7 +59,7 @@ public class Controller_InicioSesion implements ILogin, Initializable {
         try {
             if (!Session.isHiloLoginCreado()) {
                 Properties prop = new Properties();
-                prop.load(new FileInputStream("src/main/resources/conf.properties"));
+                prop.load(new FileInputStream("/usr/share/wheeltrader/conf.properties"));
 
                 // Se hace en un hilo secundario porque si intento crear el socket en el
                 // principal
@@ -113,7 +113,7 @@ public class Controller_InicioSesion implements ILogin, Initializable {
 
                                     try {
                                         // Sobreescribo el contenido del properties en el archivo correspondiente
-                                        prop.store(new FileOutputStream("src/main/resources/conf.properties"), null);
+                                        prop.store(new FileOutputStream("/usr/share/wheeltrader/conf.properties"), null);
                                     } catch (IOException e) {
                                         e.printStackTrace();
                                     }

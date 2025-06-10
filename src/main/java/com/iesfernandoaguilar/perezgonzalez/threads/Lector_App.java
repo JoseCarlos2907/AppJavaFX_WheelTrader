@@ -55,7 +55,7 @@ public class Lector_App extends Thread{
 
         this.confProperties = new Properties();
         try {
-            this.confProperties.load(new FileInputStream("src/main/resources/conf.properties"));
+            this.confProperties.load(new FileInputStream("/usr/share/wheeltrader/conf.properties"));
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {

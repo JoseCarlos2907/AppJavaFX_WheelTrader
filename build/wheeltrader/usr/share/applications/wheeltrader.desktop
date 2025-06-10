@@ -1,0 +1,9 @@
+[Desktop Entry]
+Version=1.0
+Name=WheelTrader
+Comment=Aplicación de compra y venta de vehículos de segunda mano
+Exec=/usr/bin/wheeltrader.sh
+Icon=/usr/share/wheeltrader/icon.png
+Terminal=false
+Type=Application
+Categories=Utility;

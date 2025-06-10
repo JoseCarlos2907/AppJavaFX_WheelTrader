@@ -6,7 +6,7 @@
 
   <groupId>com.iesfernandoaguilar.perezgonzalez</groupId>
   <artifactId>wheeltrader</artifactId>
-  <version>1.4</version>
+  <version>1.0</version>
 
   <name>wheeltrader</name>
   <!-- FIXME change it to the project's website -->
@@ -126,6 +126,20 @@
                 <mainClass>com.iesfernandoaguilar.perezgonzalez.app.LanzarVentanaCliente</mainClass> <!-- Asegúrate de que esta clase esté correcta -->
             </configuration>
         </plugin>
+
+        <plugin>
+          <artifactId>maven-assembly-plugin</artifactId>
+          <configuration>
+              <archive>
+                  <manifest>
+                      <mainClass>com.iesfernandoaguilar.perezgonzalez.app.LanzarVentanaCliente</mainClass>
+                  </manifest>
+              </archive>
+              <descriptorRefs>
+                <descriptorRef>jar-with-dependencies</descriptorRef>
+              </descriptorRefs>
+          </configuration>
+      </plugin>
 
       </plugins>
     </pluginManagement>
