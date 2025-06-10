@@ -1,8 +1,0 @@
-Package: wheeltrader
-Version: 1.0
-Section: utils
-Priority: optional
-Architecture: all
-Depends: default-jdk
-Maintainer: Jose Carlos Perez <josecarlosperezgonzalez200@dominio.com>
-Description: Descripción breve de la aplicación
