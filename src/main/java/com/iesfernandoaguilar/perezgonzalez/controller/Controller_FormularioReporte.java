@@ -52,11 +52,10 @@ public class Controller_FormularioReporte implements IApp {
 
     @FXML
     void handleBtnVolverAction(MouseEvent event) throws IOException {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_PerfilUsuario.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/FXML_Home.fxml"));
         Parent parent = loader.load();
 
-        Controller_PerfilUsuario controller = loader.getController();
-        controller.setUsuario(usuario);
+        Controller_Home controller = loader.getController();
         controller.setHiloLector(this.hiloLector);
         this.hiloLector.setController(controller);
 

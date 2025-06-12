@@ -107,6 +107,7 @@ public class Controller_Registro3 implements ILogin, Initializable{
         
         Controller_Registro4 controller = loader.getController();
         controller.setHiloLector(hiloLector);
+        this.hiloLector.setController(controller);
 
         Stage stage = (Stage) Btn_Anterior.getScene().getWindow();
 

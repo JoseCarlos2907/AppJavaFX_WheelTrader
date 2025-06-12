@@ -115,7 +115,7 @@ public class Controller_PerfilUsuario implements IListaAnuncios, Initializable{
         IApp controller = loader.getController();
         controller.setHiloLector(this.hiloLector);
         this.hiloLector.setController(controller);
-
+        
         Stage stage = (Stage) Btn_Menu.getScene().getWindow();
         Scene scene = new Scene(nuevaVista);
 

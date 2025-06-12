@@ -292,7 +292,9 @@ public class Lector_App extends Thread{
                         break;
 
                     case "CONTRASENIA_REINICIADA":
-                        ((Controller_ConfUsuario) this.controller).contraseniaReiniciada();
+                        Platform.runLater(()->{
+                            ((Controller_ConfUsuario) this.controller).contraseniaReiniciada();
+                        });
                         break;
 
                     case "ENVIA_VENTAS":
@@ -356,7 +358,8 @@ public class Lector_App extends Thread{
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            System.out.println("Hilo interrumpido: " + e.getMessage());
         }
     }
 

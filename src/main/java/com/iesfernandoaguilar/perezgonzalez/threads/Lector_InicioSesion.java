@@ -224,7 +224,8 @@ public class Lector_InicioSesion extends Thread{
         try {
             Thread.sleep(4000);
         } catch (InterruptedException e) {
-            e.printStackTrace();
+            Thread.currentThread().interrupt();
+            System.out.println("Hilo interrumpido: " + e.getMessage());
         }
     }
 

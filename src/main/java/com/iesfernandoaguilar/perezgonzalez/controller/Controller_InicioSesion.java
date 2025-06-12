@@ -146,6 +146,7 @@ public class Controller_InicioSesion implements ILogin, Initializable {
                             AlertManager.alertError("Error en la conexión", "Ahora mismo el servidor con la dirección y puerto configurados no está disponible", getClass().getResource("/styles/EstiloGeneral.css").toExternalForm());
                             // TODO: Cerrar bien la aplicación
                             System.exit(0);
+                            hiloLector.interrupt();
                         });
                     } catch (InterruptedException e) {
                         e.printStackTrace();

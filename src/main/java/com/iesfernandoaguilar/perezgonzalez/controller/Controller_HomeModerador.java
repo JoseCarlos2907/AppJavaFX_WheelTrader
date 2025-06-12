@@ -98,15 +98,15 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
                 Session.setHiloCreado();
                 System.out.println("entra en el if");
             }).start();
-        }
-        
-        try {
-            this.cargarUsuarios("", true);
-            this.cargarAnuncios(true);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
+
+            try {
+                this.cargarUsuarios("", true);
+                this.cargarAnuncios(true);
+            } catch (JsonProcessingException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
 
         this.ScrollPane_Anuncios.vvalueProperty().addListener((obs, oldVal, newVal) -> {
@@ -368,5 +368,14 @@ public class Controller_HomeModerador implements IListaAnuncios, IListaUsuarios,
     @Override
     public void setHiloLector(Lector_App hiloLector) {
         this.hiloLector = hiloLector;
+
+        try {
+            this.cargarUsuarios("", true);
+            this.cargarAnuncios(true);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

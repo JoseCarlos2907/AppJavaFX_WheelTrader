@@ -3,6 +3,7 @@ package com.iesfernandoaguilar.perezgonzalez.controller.registro;
 import java.io.IOException;
 
 import com.iesfernandoaguilar.perezgonzalez.controller.Controller_InicioSesion;
+import com.iesfernandoaguilar.perezgonzalez.interfaces.ILogin;
 import com.iesfernandoaguilar.perezgonzalez.threads.Lector_InicioSesion;
 
 import javafx.fxml.FXML;
@@ -13,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
 
-public class Controller_Registro4 {
+public class Controller_Registro4 implements ILogin{
     private Lector_InicioSesion hiloLector;
 
     @FXML
@@ -38,5 +39,10 @@ public class Controller_Registro4 {
 
     public void setHiloLector(Lector_InicioSesion hiloLector){
         this.hiloLector = hiloLector;
+    }
+
+    @Override
+    public void siguientePaso() throws IOException {
+        // Vacío
     }
 }

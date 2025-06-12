@@ -49,17 +49,6 @@ public class Controller_Reportes implements IApp, Initializable{
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.filtro = new FiltroReportes();
-        this.reportes = new ArrayList<>();
-        
-        try {
-            this.cargarReportes(true);
-        } catch (JsonProcessingException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         this.ScrollPane_Reportes.vvalueProperty().addListener((obs, oldVal, newVal) -> {
             if (newVal.doubleValue() >= 0.8 && !cargando) {
                 cargando = true;
@@ -137,5 +126,16 @@ public class Controller_Reportes implements IApp, Initializable{
     @Override
     public void setHiloLector(Lector_App hiloLector) {
         this.hiloLector = hiloLector;
+
+        this.filtro = new FiltroReportes();
+        this.reportes = new ArrayList<>();
+        
+        try {
+            this.cargarReportes(true);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
