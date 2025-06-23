@@ -71,16 +71,16 @@ public class Controller_Notificacion{
     public void setIconoPrincipal(String tipo){
         switch (tipo) {
             case "OFERTA_ANUNCIO":
-                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
+                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoOfertaRecibida.png")));
                 break;
             case "OFERTA_ACEPTADA":
                 this.Btn_VerOferta.setText("Pagar");
-                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
+                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoOfertaAceptada.png")));
                 break;
             case "OFERTA_RECHAZADA":
                 this.Btn_VerOferta.setDisable(true);
                 this.Btn_VerOferta.setVisible(false);
-                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
+                this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoOfertaRechazada.png")));
                 break;
             default:
                 this.ImgView_Icono.setImage(new Image(getClass().getResourceAsStream("/img/IconoInformacion.png")));
